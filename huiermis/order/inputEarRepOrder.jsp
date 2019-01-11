@@ -1,0 +1,313 @@
+<%@ page contentType="text/html; charset=GBK"%>
+<%@ page import="java.util.*"%>
+<%@ page import="org.radf.plat.taglib.Button"%>
+<%@ taglib uri="http://jakarta.apache.org/struts/tags-html"
+	prefix="html"%>
+<%@ taglib uri="/WEB-INF/plat.tld" prefix="lemis"%>
+<%@ page import="org.radf.login.dto.LoginDTO"%>
+<%@ page import="org.radf.manage.entity.Sc08" %>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%
+	Map<String,String> buttons=new LinkedHashMap<String,String>();
+    //buttons.put("保 存","saveData(document.forms[0])");
+    buttons.put("提 交","commit(document.forms[0])");
+    //buttons.put("重 置","document.forms[0].reset();");
+    //buttons.put("修改用户信息","history.back()");
+    buttons.put("关 闭","closeWindow(\"\")");
+    
+    Map<String, String> hidden = new LinkedHashMap<String, String>();
+	hidden.put("ictnm", "用户姓名");
+	
+	pageContext.setAttribute("hidden", hidden);
+    pageContext.setAttribute("button", buttons);
+    
+    LoginDTO dto = (LoginDTO)session.getAttribute("LoginDTO");
+%>
+<html>
+<link rel="stylesheet" type="text/css"
+	href="/huiermis/css/jquery.autocomplete.css" />
+<script src="/huiermis/js/jquery-1.3.2.min.js"></script>
+<script src="/huiermis/js/jquery.bgiframe.min.js"></script>
+<script src='/huiermis/js/jquery.autocomplete.js'></script>
+<script language="javascript">
+	function saveData(obj) {
+		if (!checkValue(obj)) {
+			return false;
+		}
+		if (document.all("fdtmat").value == '2') {
+			alert("维修机的耳模类型不能是双耳!");
+			return false;
+		}
+		obj.action = "/" + lemis.WEB_APP_NAME + "/order/OrderAction.do?method=saveEarRep&tp=b";
+		if (confirm("确实要录入订单吗？")) {
+			obj.submit();
+		}
+	}
+	
+	function commit(obj) {
+		if (!checkValue(obj)) {
+			return false;
+		}
+		
+		if (document.all("fdtmat").value == '2') {
+			alert("维修机的耳模类型不能是双耳!");
+			return false;
+		}
+		obj.action = "/" + lemis.WEB_APP_NAME + "/order/OrderAction.do?method=saveEarRep&tp=c";
+		if (confirm("确实要录入订单并提交吗？")) 
+		{
+			obj.submit();
+		}
+	}
+</script>
+
+<script language="javascript">
+	$(document).ready(function() {
+		$("input[name=fdtqnt]").val("1");
+		$("input[name=fdtcls]").val("维修");
+		$("input[name=tmeprc]").attr("readonly", true);
+		$("input[name=fdtqnt]").attr("readonly", true);
+		$("input[name=fdtcls]").attr("readonly", true);
+		
+		$('#tmepid').change(function(e) {
+			if ($('#tmefree').val() == 'Y') {
+				$("input[name=tmeprc]").val(0);
+			} else {
+				startRequest(e);
+			}
+		});
+		$('#tmefree').change(function() {
+			if ($(this).val() == 'Y') {
+				$("input[name=tmeprc]").val(0);
+			} else {
+				//触发 tmepid 的change事件
+				$('#tmepid').trigger("change");
+			}
+		});
+
+
+		function createQueryString(e) {
+			var eID = $(e.target).val();
+			var queryString = {
+				EarId : eID
+			};
+			return queryString;
+		};
+		function startRequest(e) {
+			$.getJSON("/huiermis/order/OrderAction.do?method=queryEMPro",
+					createQueryString(e), function(data) {
+						$("input[name=tmeprc]").val(data[0].price);
+					});
+		};
+		
+      
+		  var grCli="";
+		    grCli=<%=dto.getBsc001()%>;
+		    if(grCli=="1501000000")
+		    {
+		    	var shops = "<%=session.getServletContext().getAttribute("shopList")%>".replace("{","").replace("}","").split(", ");
+			    $("input[name=folctnm]").autocomplete(shops,{
+				max:10,
+				matchContains:true,
+				formatItem:function(data,i,max){
+					return data[0];
+					}
+				});
+			
+				$("input[name=folctnm]").result(function(event,data,formatted){
+				if(data){
+					var gid = data[0].substring(0,data[0].indexOf("="));
+					var gnm=data[0].substring(data[0].indexOf("=")+1,data[0].length);
+					$("input[name=folctnm]").val(gnm);
+					$(this).parent().next().find("input").val(gid);
+					}
+				});
+		    }
+		    else
+		    {
+		    	
+		    	$("input[name=folctnm]").val("<%=dto.getBsc012()%>");
+				$("input[name=folctnm]").attr("readonly","true");
+		    }
+		
+		
+	});
+</script>
+<lemis:body>
+	<lemis:base />
+	<lemis:errors />
+	<lemis:title title="耳模信息新增" />
+	<html:form action="/CustomOrderAction.do" method="POST">
+	<lemis:tabletitle title="用户信息" />
+	<table class="tableinput">
+		<lemis:editorlayout />
+		
+		<tr>
+				<html:hidden property="ictid" />
+				<html:hidden property="ictgctid" />
+				<lemis:texteditor property="ictnm" label="用户姓名" disable="true" />
+				<lemis:texteditor property="ictgender" label="性别" disable="true" />
+				<lemis:formateditor required="false" property="ictbdt" mask="date" label="出生日期" format="true"/>
+			</tr>
+			<tr>
+			  <lemis:texteditor property="icttel" label="联系电话" disable="true" />
+			  <lemis:texteditor property="ictaddr" label="联系地址" disable="true" />
+			 <lemis:texteditor property="ictphis" label="使用过何种助听器" disable="true" />  
+			</tr>
+			<tr>
+			  <lemis:texteditor property="ictsrc" label="来源" disable="true" />
+			  <lemis:texteditor property="ictnt" label="备注" disable="true" />
+			  <lemis:codelisteditor type="ictfrom" label="来源" required="true" />
+			</tr>
+	</table>
+	<lemis:tabletitle title="左耳骨导" />
+			<table class="tableinput">
+				<tr>
+					<lemis:texteditor property="lg250" label="250" required="false"
+					/>
+					<lemis:texteditor property="lg500" label="500" required="false"
+					 />
+					 <lemis:texteditor property="lg750" label="750" required="false"
+					 />
+					<lemis:texteditor property="lg1000" label="1000" required="false"
+					 />
+					 <lemis:texteditor property="lg1500" label="1500" required="false"
+					 />
+					<lemis:texteditor property="lg2000" label="2000" required="false"
+					/>
+					<lemis:texteditor property="lg3000" label="3000" required="false"
+					 />
+					<lemis:texteditor property="lg4000" label="4000" required="false"
+					 onblur="lgvag()" />
+					 <lemis:texteditor property="lg6000" label="6000" required="false"
+					 onblur="lgvag()" />
+					<lemis:texteditor property="lgavg" label="平均" required="false"
+					 />
+				</tr>
+			</table>
+
+			<lemis:tabletitle title="左耳气导" />
+			<table class="tableinput">
+				<tr>
+					<lemis:texteditor property="lq250" label="250" required="false"
+						style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="lq500" label="500" required="false"
+						 style="border-width:1px;border-color=black" />
+						<lemis:texteditor property="lq750" label="750" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="lq1000" label="1000" required="false"
+						 style="border-width:1px;border-color=black" />
+						 <lemis:texteditor property="lq1500" label="1500" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="lq2000" label="2000" required="false"
+						style="border-width:1px;border-color=black" />
+						<lemis:texteditor property="lq3000" label="3000" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="lq4000" label="4000" required="false"
+						 style="border-width:1px;border-color=black" onblur="lqvag()" />
+						 <lemis:texteditor property="lq6000" label="6000" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="lqavg" label="平均" required="false"
+						 style="border-width:1px;border-color=black" />
+				</tr>
+			</table>
+
+			<lemis:tabletitle title="右耳骨导" />
+			<table class="tableinput">
+				<tr>
+					<lemis:texteditor property="rg250" label="250" required="false"
+						/>
+					<lemis:texteditor property="rg500" label="500" required="false"
+						 />
+				 <lemis:texteditor property="rg750" label="750" required="false"
+						 />
+					<lemis:texteditor property="rg1000" label="1000" required="false"
+						/>
+				<lemis:texteditor property="rg1500" label="1500" required="false"
+						 />
+					<lemis:texteditor property="rg2000" label="2000" required="false"
+						 />
+				<lemis:texteditor property="rg3000" label="3000" required="false"
+						 />
+					<lemis:texteditor property="rg4000" label="4000" required="false"
+						 onblur="rgvag()" />
+				<lemis:texteditor property="rg6000" label="6000" required="false"
+						 />
+					<lemis:texteditor property="rgavg" label="平均" required="false"
+						/>
+				</tr>
+			</table>
+
+			<lemis:tabletitle title="右耳气导" />
+			<table class="tableinput">
+				<tr>
+					<lemis:texteditor property="rq250" label="250" required="false"
+						style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq500" label="500" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq750" label="750" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq1000" label="1000" required="false"
+						style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq1500" label="1500" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq2000" label="2000" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq3000" label="3000" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rq4000" label="4000" required="false"
+						 style="border-width:1px;border-color=black" onblur="rqvag()"/>
+						 <lemis:texteditor property="rq6000" label="6000" required="false"
+						 style="border-width:1px;border-color=black" />
+					<lemis:texteditor property="rqavg" label="平均" required="false"
+						style="border-width:1px;border-color=black" />
+				</tr>
+			</table>
+			
+			<lemis:tabletitle title="订单基本信息" />
+			<table class="tableinput">
+           <lemis:editorlayout />
+
+           <tr>
+				<!-- <td>送制单位</td> -->
+				<%-- <td><lemis:operorg /></td> --%>
+				<lemis:texteditor property="folctnm" label="送制单位" disable="false" required="true"></lemis:texteditor>
+				<html:hidden property="folctid"/>
+				<td>经办日期</td>
+				<td><lemis:operdate /></td>
+			</table>
+
+			<lemis:tabletitle title="耳模详情" />
+			<table class="tableinput">
+				<lemis:editorlayout />
+				<tr>
+					<lemis:codelisteditor type="tmepid" isSelect="true" label="耳模型号"
+						redisplay="true" required="true" />
+					<%-- <lemis:texteditor property="tmeprc" label="零售价" required="true"
+						disable="false" /> --%>
+					<lemis:codelisteditor type="fdtmat" isSelect="true" label="耳模类型"
+						redisplay="true" required="true" />
+				</tr>
+				<tr>
+					<%-- <lemis:codelisteditor type="tmefree" isSelect="true" label="是否赠送"
+						redisplay="true" required="true" /> --%>
+					<lemis:texteditor property="fdtcls" label="制作类别"
+						 required="true"  disable="false" />
+					<lemis:texteditor property="fdtqnt" label="数量" required="true"
+						disable="false" />
+				</tr>
+				<tr>
+					<%-- <lemis:formateditor mask="date" property="tmepdt" required="true"
+						label="计划完工日期" disable="false" format="true" /> --%>
+					<lemis:texteditor property='fdtsid' label='耳模编号' disable='false' />
+					<lemis:texteditor property="fdtinnt" label="备注" required="false"
+						disable="false" />
+				</tr>
+			</table>
+		
+	
+	</html:form>  
+	<lemis:buttons buttonMeta="button" />
+	<lemis:bottom />
+</lemis:body>
+</html>

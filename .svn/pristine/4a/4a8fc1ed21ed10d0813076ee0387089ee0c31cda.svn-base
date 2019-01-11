@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="deptForm" type="org.radf.manage.department.form.DeptForm" />
+		<form-bean name="sc02Form" type="org.radf.manage.department.form.Sc02Form" />
+		<form-bean name="sc06Form" type="org.radf.manage.role.form.Sc06Form" />
+		<form-bean name="menuForm" type="org.radf.manage.menu.form.MenuForm" />
+		<form-bean name="userForm" type="org.radf.manage.user.form.UserForm" />
+		<form-bean name="aa01Form" type="org.radf.manage.param.form.AA01Form" />
+		<form-bean name="aa10Form" type="org.radf.manage.param.form.AA10Form" />
+		<form-bean name="sc11Form" type="org.radf.manage.log.form.Sc11Form" />
+		<form-bean name="sc10Form" type="org.radf.manage.log.form.Sc10Form" />
+		<form-bean name="sc12Form" type="org.radf.manage.log.form.Sc12Form" />
+		<form-bean name="sc13Form" type="org.radf.manage.log.form.Sc13Form" />
+
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement" path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action type="org.radf.plat.util.action.Actionback"  scope="request" parameter="method" path="/backAction"/>
+		<action name="menuForm" parameter="method" path="/menuAction" scope="session" type="org.radf.manage.menu.action.MenuAction">
+			<forward name="menuQuery" path="/menuAction.do?method=menuQuery" />
+			<forward name="save" path="/menu/SaveMenu.jsp" />
+		</action>
+		<action name="userForm" parameter="method" path="/userAction" scope="session" type="org.radf.manage.user.action.UserAction">
+			<forward name="userQuery" path="/userAction.do?method=userQuery" />
+		</action>
+		<action name="deptForm" parameter="method" path="/deptAction" scope="session" type="org.radf.manage.department.action.DepartmentAction">
+			<forward name="addsucc" path="/deptAction.do?method=findByKey" />
+			<forward name="edit" path="/dept/deptaddmod.jsp" />
+			<forward name="editks" path="/dept/ksaddmod.jsp" />
+			<forward name="sc01Tree" path="/dept/GroupTree.jsp" />
+		</action>
+		<action name="sc02Form" parameter="method" path="/sc02Action" scope="session" type="org.radf.manage.department.action.DepartmentAction">
+			<forward name="Sc02Add" path="/dept/sc02add.jsp" />
+		</action>
+		<action name="sc06Form" parameter="method" path="/roleAction" scope="session" type="org.radf.manage.role.action.RoleXAction">
+			<forward name="roleList" path="/role/RoleList.jsp" />
+			<forward name="modulelist" path="/role/ModuleList.jsp" />
+			<forward name="rightTree" path="/role/RightTree.jsp" />
+			<forward name="add" path="/role/AddRole.jsp" />
+			<forward name="mod" path="/role/EditRole.jsp" />
+			<forward name="userrole" path="/role/userrole.jsp" />
+			<forward name="RefreshModuleList" path="/role/RefreshModuleList.jsp" />
+		</action>
+		<action forward="/role/ModuleList.jsp" path="/moduleList" />
+		<action forward="/role/RightTree.jsp" path="/rightTree" />
+
+		<action name="aa01Form" parameter="method" path="/ParameterAction" type="org.radf.manage.param.action.ParamAction">
+			<forward name="parameterlist" path="/param/ParameterList.jsp" />
+			<forward name="addparameter" path="/param/AddParameter.jsp" />
+			<forward name="editparameter" path="/param/EditParameter.jsp" />
+		</action>
+		<action name="aa10Form" parameter="method" path="/codeListAction" type="org.radf.manage.param.action.ParamAction">
+			<forward name="codelist" path="/param/CodeList.jsp" />
+			<forward name="addcodelist" path="/param/AddCodeList.jsp" />
+			<forward name="editcodelist" path="/param/EditCodeList.jsp" />
+		</action>
+
+		<action name="sc10Form" parameter="method" path="/logsc10Action" type="org.radf.manage.log.action.LogAction" />
+		<action name="sc11Form" parameter="method" path="/logsc11Action" type="org.radf.manage.log.action.LogAction" />
+		<action name="sc12Form" parameter="method" path="/logsc12Action" type="org.radf.manage.log.action.LogAction" />
+		<action name="sc13Form" parameter="method" path="/logsc13Action" type="org.radf.manage.log.action.LogAction" />
+	</action-mappings>
+	<controller>
+		<set-property property="nocache" value="false" />
+	</controller>
+	<message-resources null="false"
+		parameter="ApplicationResources_SysManager" />
+</struts-config>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repair_bonus_earmodel" language="groovy" pageWidth="126" pageHeight="20" columnWidth="126" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.853116706110009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sdata" class="java.util.Date"/>
+	<parameter name="edata" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+nvl(sum(case when tb.folurgent='1' then 2 else 1 end),0) as worknum,
+nvl(sum(d.fdtqnt),0) as num
+FROM sc05 s
+left outer join tblearmaking e
+on s.bsc011=e.tmemaker
+left outer join tblfoldetail d
+on d.fdtfno = e.tmeno
+left outer join tblfolio tb
+on tb.folno = d.fdtfno
+WHERE s.bsc008 ='430'
+and (e.tmesta = '2' or e.tmesta = '3')
+and s.bsc010 = $P{id}
+and e.tmefmdt>=$P{sdata}
+and e.tmefmdt<=$P{edata}]]>
+	</queryString>
+	<field name="WORKNUM" class="java.math.BigDecimal"/>
+	<field name="NUM" class="java.math.BigDecimal"/>
+	<variable name="sum_ear" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{NUM}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="###0.00">
+				<reportElement x="0" y="0" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NUM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement x="63" y="0" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{WORKNUM}-$F{NUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

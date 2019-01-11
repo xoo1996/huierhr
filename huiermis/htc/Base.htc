@@ -1,0 +1,19 @@
+/**
+ * 基类校验组件
+ * htc组件：Base.htc
+ * 属性：isNullable：是否为空。 当为false时不可以为空，需要非空校验；当为no时可以为空，不需要非空校验。
+ * 说明：1、非空校验。
+ *       2、将Enter 键转换为 Tab 键。
+ * @author	lixiangyu,2003.04
+ * 增加一些公用方法(hugh@neusoft.com)
+ */
+
+<PUBLIC:COMPONENT>
+<PUBLIC:ATTACH EVENT="onkeydown" ONEVENT="enterToTab()" />
+<SCRIPT LANGUAGE="JScript">
+function enterToTab(){
+        eapObjsMgr.getEAPObj(element).getBaseObj().enterToTab();
+}
+
+</SCRIPT>
+</PUBLIC:COMPONENT>

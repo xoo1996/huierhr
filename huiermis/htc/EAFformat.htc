@@ -1,0 +1,2157 @@
+<PUBLIC:EVENT NAME="afterblur" ID="oabID" />
+<PUBLIC:EVENT NAME="onerror" ID="oicID" />
+<PUBLIC:PROPERTY NAME="mask" ID="MaskID" PUT="PutMask" GET="GetMask" />
+<PUBLIC:PROPERTY NAME="minYear" ID="MinYearID" PUT="SaveMinYear" GET="GetMinYear" />
+<PUBLIC:PROPERTY NAME="maxYear" ID="MaxYearID" PUT="SaveMaxYear" GET="GetMaxYear" />
+<PUBLIC:PROPERTY NAME="commasOnFocus" ID="CommasOnFocusID" PUT="SaveCommasOnFocus" GET="GetCommasOnFocusID" />
+<PUBLIC:PROPERTY NAME="flexMask" ID="FlexMaskID" PUT="SaveFlexMask" GET="GetFlexMask" />
+<PUBLIC:PROPERTY NAME="maskText" />
+<PUBLIC:PROPERTY NAME="isEmpty" />
+<PUBLIC:PROPERTY NAME="maskChars" ID="MaskCharsID" PUT="PutMaskChars" GET="GetMaskChars" />
+<PUBLIC:PROPERTY NAME="isEAF"  value="true" />
+<PUBLIC:METHOD NAME="clear" />
+<PUBLIC:METHOD NAME="isComplete" />
+<PUBLIC:METHOD NAME="resetAll" />
+<PUBLIC:METHOD NAME="validate" />
+<PUBLIC:ATTACH EVENT="onfocus" ONEVENT="EpFocus()" />
+<PUBLIC:ATTACH EVENT="onpropertychange" ONEVENT="EAFChange()" />
+<PUBLIC:ATTACH EVENT="onpaste" ONEVENT="EpPaste()" />
+<PUBLIC:ATTACH EVENT="oncut" ONEVENT="EpCut()" />
+<PUBLIC:ATTACH EVENT="oncopy" ONEVENT="EpCopy()" />
+<PUBLIC:ATTACH EVENT="onselect" ONEVENT="EpSelect()" />
+<PUBLIC:ATTACH EVENT="onclick" ONEVENT="EpClick()" />
+<PUBLIC:ATTACH EVENT="onkeyup" ONEVENT="EpKeyUp()" />
+<PUBLIC:ATTACH EVENT="onkeydown" ONEVENT="EpKeyDown()" />
+<PUBLIC:ATTACH EVENT="onkeypress" ONEVENT="EpKeyPress()" />
+<PUBLIC:ATTACH EVENT="onblur" ONEVENT="EpBlur()" />
+<PUBLIC:ATTACH EVENT="ondocumentready" FOR="element" ONEVENT="EpOnDocumentReady()" />
+
+<SCRIPT language="JScript">
+function checkstr(str)
+{
+	if(str==null||element.value=="")return true;
+	for(var i=0;i<str.length;i++)
+	{
+		var k=str.substring(i,i+1);
+		if(k>="a"&&k<="z"&&k!="'")
+		{
+			return false;
+		}
+	}
+	return true;
+}
+function checkEmpty(){
+
+	if (element.value==null || element.value == "") {
+		if(element.label==undefined)
+			alert("不能为空!");
+		else
+			alert(element.label+"不能为空!");
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+function bitLength(str){
+	if(str==null || str == "") return 0;
+	var len = 0;
+	for(var i=0; i < str.length; i++){
+		var t=str.substring(i,i+1);
+		if(t.charCodeAt(0) < 0x4e00&&t.charCodeAt(0)!=0x3002&&t.charCodeAt(0)!=0x2018&&t.charCodeAt(0)!=0x2019){
+			len ++;
+		 	continue;
+		}
+
+		len += 2;
+	}
+	return len;
+}
+function period_validate(inputStr)
+{
+	if(inputStr.substr(4,2)>12||inputStr.substr(4,2)<1)
+	alert("年月中的月份不合法");
+	if(inputStr.substr(0,4)<1900)
+	alert("年月中的年份不能小于1900");
+}
+function IDCard_validate(inputStr,inputid){
+      // alert("inputid=="+inputid);
+       //alert("inputStr=="+inputStr);
+     	 var inputPro = "公民身份号码";
+       if(inputStr == null) inputStr = "";
+       var format=inputStr.length;
+
+	   if(!is0AndPosInteger(inputStr)){
+          alert(inputPro + "输入不合法！");
+          return false;	}
+
+
+       if(inputStr == "") return true;
+       if((format==18)&&(!checkCheckStr(inputStr))) return false;
+
+       if(format==15 || format==18){
+       if(format==15){
+       //罗文东添加为了返回18位
+         if(!checkID(changeCheckStr(inputStr),inputPro,"18",inputid))
+            return false;
+            }
+         if(format==18){
+         if(!checkID(inputStr,inputPro,"18",inputid))
+            return false;
+          }
+       }else{
+          alert("公民身份号码的位数输入不正确！");
+          return false;
+       }
+
+       return true;
+
+	}
+
+    function checkCheckStr(inputstr){
+
+				   var i=(inputstr.substr(0,1)*7+inputstr.substr(1,1)*9+inputstr.substr(2,1)*10+inputstr.substr(3,1)*5+inputstr.substr(4,1)*8+inputstr.substr(5,1)*4+inputstr.substr(6,1)*2+inputstr.substr(7,1)*1+inputstr.substr(8,1)*6+inputstr.substr(9,1)*3+inputstr.substr(10,1)*7+inputstr.substr(11,1)*9+inputstr.substr(12,1)*10+inputstr.substr(13,1)*5+inputstr.substr(14,1)*8+inputstr.substr(15,1)*4+inputstr.substr(16,1)*2 )% 11 ;
+				   if(i>2)
+				      i=12-i;
+				   else if (i==2)
+				       i="X";
+				   else
+				      if(i<2)i=1-i;
+				 
+				   if(inputstr.substr(17,1)==i) {return true;}
+				   else
+				   {
+				   alert("公民身份号码输入不合法！校验位错误");
+				   return false;}
+    }
+    //罗文东添加为了返回18位
+     function changeCheckStr(inputstr){
+                   var outputstr=inputstr;
+                   outputstr=outputstr.substr(0,6)+"19"+outputstr.substr(6,9);
+				   var i=(outputstr.substr(0,1)*7+outputstr.substr(1,1)*9+outputstr.substr(2,1)*10+outputstr.substr(3,1)*5+outputstr.substr(4,1)*8+outputstr.substr(5,1)*4+outputstr.substr(6,1)*2+outputstr.substr(7,1)*1+outputstr.substr(8,1)*6+outputstr.substr(9,1)*3+outputstr.substr(10,1)*7+outputstr.substr(11,1)*9+outputstr.substr(12,1)*10+outputstr.substr(13,1)*5+outputstr.substr(14,1)*8+outputstr.substr(15,1)*4+outputstr.substr(16,1)*2 )% 11 ;
+				 
+				   if(i>2)
+				      i=12-i;
+				   else if (i==2)
+				       i="X";
+				   else
+				      if(i<2)i=1-i;
+				
+				   return outputstr+i;
+    }
+
+    function checkID(inputStr,objName,format,inputid){
+                //alert("123=="+inputid);
+                var temp;
+                var year,month,day;
+                if(inputStr.length != format){
+                      alert(objName+"格式不对,应为“"+format+"”位。");
+                      return false;
+                }
+                else {
+
+
+                    if(format==18){
+
+                      temp=inputStr.substring(6,10);
+                      year=parseInt(temp,10);
+                      if(year<1900 || year>2200){
+                         alert(objName+"年份应介于1900与2200之间，请重新输入！");
+                         return false;
+                      }
+
+                    }
+                    else if(format==15){
+                      temp=inputStr.substring(6,8);
+                      year=parseInt(temp,10);
+                      if(year<00 || year>99){
+                         alert(objName+"年份应介于00与99之间，请重新输入！");
+                         return false;
+                      }
+                    }
+
+
+
+                    if(format==18)
+                      temp=inputStr.substring(10,12);
+                    else if(format==15)
+                      temp=inputStr.substring(8,10);
+
+                    month=parseInt(temp,10);
+                    if(month<1 ||month>12){
+                        alert(objName+"月份必须介于1与12之间！");
+                        return false;
+                    }
+
+
+                     if(format==18)
+                       temp=inputStr.substring(12,14);
+                    else if(format==15)
+                      temp=inputStr.substring(10,12);
+
+                    day=parseInt(temp,10);
+                    if((day==0)||(day>31)){
+                            alert(objName+"日必须介于0与31之间！");
+                            return false;
+                    }else if(day>28 && day<31){
+                            if(month==2){
+                                    if(day!=29){
+                                            alert(objName+year+"年"+month+"月无"+day+"日。");
+                                            return false;
+                                    }
+                                    else {
+                                            if((year%4)!=0){
+                                                    alert(objName+year+"年"+month+"月无"+day+"日。");
+                                                    return false;
+                                             }
+                                             else {
+                                                    if((year%100==0)&&(year%400!=0)){
+                                                           alert(objName+year+"年"+month+"月无"+day+"日。");
+                                                           return false;
+                                                    }
+                                             }
+                                    }
+                            }
+                    }
+
+                    else if(day==31){
+                            if((month==2)||(month==4)||(month==6)||(month==9)||(month==11)){
+                                    alert(objName+month+"月无"+day+"日");
+                                    return false;
+                            }
+                    }
+               }
+               
+			   //add by Tony Yu, Aug., 23rd, 2005
+			   //loop for all the subnodes of the containing form, replace the corresponding values according to the ID card number.
+			   var formObject = element.parentElement.parentElement.parentElement;
+			   var trObject;
+			   var tdObject
+			   var childNodesLengthForm = formObject.childNodes.length;
+			   var childNodesLengthTr;
+			   var childNodesLengthTd;
+			   var i,j,k;
+			   var sexIndex;
+//			   alert("childNodesLengthForm:" + childNodesLengthForm);
+			   for (i = 0; i < childNodesLengthForm; i++) {
+			   		trObject = formObject.childNodes[i];
+			   		childNodesLengthTr = trObject.childNodes.length;
+//			   		alert("childNodesLengthTr:" + childNodesLengthTr);
+			   		for (j = 0; j < childNodesLengthTr; j++) {
+			   			tdObject = trObject.childNodes[j];
+			   			childNodesLengthTd = tdObject.childNodes.length;
+//			   			alert("childNodesLengthTd:" + childNodesLengthTd);
+			   			for (k = 0; k < childNodesLengthTd; k++) {
+//			   				alert("tdObject.childNodes[" + k + "]:"+ tdObject.childNodes[k].name);
+							//setting the birthdate			   			
+							
+							//罗文东添加为了返回18位
+							//alert("tdObject.childNodes[k].id==="+tdObject.childNodes[k].id);
+							//alert("inputid1==="+inputid);
+							//根据ID返回身份证号，为区分分页主键列表name 20070227
+							if(inputid=="")
+							{
+								if(tdObject.childNodes[k].name =="aac002") {									
+										tdObject.childNodes[k].value = inputStr;
+									}
+							}else
+							{
+								if(tdObject.childNodes[k].id == inputid) {									
+									tdObject.childNodes[k].value = inputStr;
+								}
+							}
+							if(tdObject.childNodes[k].name == "aac006") {	
+								if(year	<= 99) year = 1900 + year;			 
+								var month1;
+								var day1;	
+								month1=month;					
+								if(month<10)
+								{
+								  month1="0" + month1;
+								}		
+								day1=day;					
+								if(day<10)
+								{
+								  day1="0" + day1;
+								}			 
+								tdObject.childNodes[k].value = year + "-" + month1 + "-" + day1;
+							}
+							//setting the gender
+							if(tdObject.childNodes[k].name == "aac004") {	
+								if(format == 15) {
+									sexIndex = 14;
+								}
+								else {
+									sexIndex = 16;
+								}
+								if (inputStr.substr(sexIndex,1) % 2 == 1) {			 
+										tdObject.childNodes[k].value = "1";
+								}
+								else {
+										tdObject.childNodes[k].value = "2";
+								}
+							}
+							//setting the region.
+//							if(tdObject.childNodes[k].name == "aac010") {			 
+//								tdObject.childNodes[k].value = inputStr.substr(0,6) + "000000";
+//							}	
+						}
+					}
+        	   }
+     	   
+               return true;
+    }
+
+
+    function is0AndPosInteger(inputVal) {
+
+         var format=inputVal.length;
+         if(format==18){
+             var lastChar = inputVal.charAt(inputVal.length-1)
+             if(lastChar=="X")
+                inputVal=inputVal.substring(0, inputVal.length-1);
+         }
+       	 for (var i = 0; i < inputVal.length; i++) {
+               var oneChar = inputVal.charAt(i)
+	   if (oneChar < "0" || oneChar > "9") {
+	       return false;
+           }
+
+        }
+        return true;
+   }
+
+	// Fire onIncomplete in parent
+	function BlurNotOKEvent(FieldValue)
+	{
+		objEvent = createEventObject();
+		objEvent.result = FieldValue;
+		oicID.fire(objEvent);
+	}
+
+	function AfterBlurEvent()
+	{
+		objEvent = createEventObject();
+		oabID.fire(objEvent);
+	}
+	function enterToTab(){
+        if(event.srcElement.type != 'button' && event.srcElement.type == 'textarea' && event.keyCode == 13){
+                event.keyCode = 9;
+        }
+
+
+}
+	//-->
+</SCRIPT>
+
+<SCRIPT language="VBScript">
+<!--
+    Option Explicit
+    Dim x1
+    dim valueTemp
+    Set x1 = New clsMask
+    x1.MaskChars = "_#mdyHMn~&{}[]"
+    x1.Mask = Mask
+    Set x1.Field = element
+    x1.MinYear = 1800
+    x1.MaxYear = 2199
+    x1.CommasOnFocus = True
+    x1.FlexMask = False
+    dim temp
+    temp=0
+'##################################################################
+'## 函数名称：PutMask
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function PutMask(Val)
+    x1.datatype=Val
+    if Val="shortdate" then Val="yyyy"
+    if Val="mediumdate" then Val="yyyy/mm"
+    if Val="date" then Val="yyyy-mm-dd"
+    if Val="money" then Val="nnnnnn.nn"
+    if Val="bigmoney" then Val="nnnnnnnnnn.nn"
+    if Val="card" then Val="nnnnnnnnnnnnnnnnn_"
+    if Val="period" then Val="######"
+    if Val="shortdate" then Val=""
+    if Val="shortdate" then Val=""
+    if Val="shortdate" then Val=""
+    if Val="shortdate" then Val=""
+    if Val="shortdate" then Val=""
+    x1.NegParens = False
+    x1.AllowNeg = False
+    If (InStr(Val, "n") > 0 And InStr(Val, "-") > 0) Then
+        x1.AllowNeg = True
+        Val = Replace(Val, "-", "")
+        If InStr(Val, "(") > 0 Then
+            x1.NegParens = True
+            Val = Replace(Val, "(", "")
+        End If
+    End If
+
+    x1.Mask = Val
+    MaskID.firechange
+End Function
+'##################################################################
+'## 函数名称：GetMask
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetMask()
+    GetMask = x1.Mask
+End Function
+'##################################################################
+'## 函数名称：SaveMinYear
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function SaveMinYear(Val)
+    x1.MinYear = CLng(Val)
+    MinYearID.firechange
+End Function
+'##################################################################
+'## 函数名称：GetMinYear
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetMinYear()
+    GetMinYear = x1.MinYear
+End Function
+'##################################################################
+'## 函数名称：SaveMaxYear
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function SaveMaxYear(Val)
+    x1.MaxYear = CLng(Val)
+    MaxYearID.firechange
+End Function
+'##################################################################
+'## 函数名称：GetMaxYear
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetMaxYear()
+    GetMaxYear = x1.MaxYear
+End Function
+'##################################################################
+'## 函数名称：SaveCommasOnFocus
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function SaveCommasOnFocus(Val)
+    x1.CommasOnFocus = CBool(Val)
+    CommasOnFocusID.firechange
+End Function
+'##################################################################
+'## 函数名称：GetCommasOnFocus
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetCommasOnFocus()
+    GetCommasOnFocus = x1.CommasOnFocus
+End Function
+'##################################################################
+'## 函数名称：SaveFlexMask
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function SaveFlexMask(Val)
+    x1.FlexMask = CBool(Val)
+    FlexMaskID.firechange
+End Function
+'##################################################################
+'## 函数名称：GetFlexMask
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetFlexMask()
+    GetFlexMask = x1.FlexMask
+End Function
+'##################################################################
+'## 函数名称：MaskText
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function MaskText()
+    MaskText = Replace(x1.Field.Value, "_", " ")
+End Function
+'##################################################################
+'## 函数名称：IsEmpty
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function IsEmpty()
+    IsEmpty = x1.IsEmpty()
+End Function
+'##################################################################
+'## 函数名称：Clear
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function Clear()
+    x1.Clear
+End Function
+'##################################################################
+'## 函数名称：IsComplete
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function IsComplete()
+
+    IsComplete = x1.OnBlurOK()
+
+End Function
+function validate()
+
+    if(cbool(element.required))then
+    validate=checkEmpty()
+    else
+    validate=true
+    end if
+end function
+'##################################################################
+'## 函数名称：ResetAll
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function ResetAll()
+    Dim x
+    Dim x4
+    If Parent.document.frames.length > 0 Then
+        For x4 = 0 To (Parent.document.frames.length - 1)
+            For x = 0 To (Parent.document.frames(x4).document.All.length - 1)
+                If LCase(Parent.document.frames(x4).document.All(x).classname) = "mask" Then
+                    Parent.document.frames(x4).document.All(x).Value = ""
+                End If
+            Next
+        Next
+    End If
+    With Parent.document
+    For x = 0 To (.All.length - 1)
+        If LCase(.All(x).classname) = "mask" Then .All(x).Value = ""
+    Next
+    End With
+End Function
+'##################################################################
+'## 过程名称：EpFocus
+'## 参数： 无
+'##################################################################
+Sub EpFocus()
+    x1.OnFocus
+    If x1.IsEmpty Then x1.Clear
+    element.Select
+End Sub
+
+'##################################################################
+'## 过程名称：EAFChange
+'## 参数： 无
+'##################################################################
+Sub EAFChange()
+
+    if window.event.propertyName="value" and(len(x1.Field.Value)<bitLength(x1.Field.Value) or not checkstr(x1.Field.Value)) then
+    x1.Field.Value=valueTemp
+    element.Select
+    else
+    valueTemp=x1.Field.Value
+    'x1.onclick
+    end if
+End Sub
+'##################################################################
+'## 过程名称：EpPaste
+'## 参数： 无
+'##################################################################
+Sub EpPaste()
+End Sub
+'##################################################################
+'## 过程名称：EpCut
+'## 参数： 无
+'##################################################################
+Sub EpCut()
+    EpCopy
+    x1.Clear
+End Sub
+'##################################################################
+'## 过程名称：EpCopy
+'## 参数： 无
+'##################################################################
+Sub EpCopy()
+    Dim x7
+    window.event.keycode = 0
+    window.event.returnValue = False
+    x7 = element.Value
+    x1.OnBlurOK
+    window.clipboardData.SetData "Text", element.Value
+    element.Value = x7
+End Sub
+'##################################################################
+'## 过程名称：EpSelect
+'## 参数： 无
+'##################################################################
+Sub EpSelect()
+    x1.Selected = True
+    x1.OnSelect
+End Sub
+'##################################################################
+'## 过程名称：EpClick
+'## 参数： 无
+'##################################################################
+Sub EpClick()
+    x1.OnClick
+End Sub
+'##################################################################
+'## 过程名称：EpKeyUp
+
+'## 参数： 无
+'##################################################################
+Sub EpKeyUp()
+
+    x1.OnKeyUp
+End Sub
+'##################################################################
+'## 过程名称：EpKeyDown
+'## 参数： 无
+'##################################################################
+Sub EpKeyDown()
+
+    x1.OnKeyDown
+End Sub
+'##################################################################
+'## 过程名称：EpKeyPress
+'## 参数： 无
+'##################################################################
+Sub EpKeyPress()
+
+    x1.OnKeyPress
+End Sub
+'##################################################################
+'## 过程名称：EpBlur
+'## 参数： 无
+'##################################################################
+Sub EpBlur()
+    If x1.OnBlurOK() = False Then
+        x1.Field.Value = Replace(x1.Field.Value, "_", " ")
+        if x1.datatype="date" then
+            x1.Field.Value=""			
+		end if
+        if x1.datatype="period" then
+			msgbox "请输入正确格式的年月"
+		end if
+        BlurNotOKEvent x1.Field.Value
+    Else
+        x1.Field.Value = Replace(x1.Field.Value, "_", " ")
+
+        If x1.IsEmpty Then
+        	x1.Field.Value = ""
+            if x1.datatype = "money" and x1.Field.id <> "" then
+            	computeForBatchInput(x1.Field.id)
+			end if
+        else
+            if x1.datatype="card" then
+				if (IDCard_validate(x1.Field.Value,x1.Field.id)) and x1.Field.id <> "" then
+				    '-----begin----用于批量录入回调，add by chenkl 2004-07-10
+ 						getInfoByCard(x1.Field.id)
+                	'-----end-------
+                end if
+			end if
+			if x1.datatype="period" then
+				period_validate(x1.Field.Value)
+                if x1.field.id <> "" then
+                	computeYearMonth(x1.Field.id)
+                end if
+			end if
+            '-----begin----用于批量录入回调，add by chenkl 2004-07-10
+			if x1.datatype = "money" and x1.Field.id <> ""then
+            	computeForBatchInput(x1.Field.id)
+			end if
+           '-------end------
+            '-----begin----用于批量录入回调，add by chenkl 2008-01-15
+          if  x1.datatype="date" then				
+                if x1.field.id <> "" then
+                	computeYearMonth(x1.Field.id)
+                end if
+			end if
+		  '-------end------
+		end if
+    End If
+    AfterBlurEvent
+End Sub
+'##################################################################
+'## 过程名称：EpOnDocumentReady
+'## 参数： 无
+'##################################################################
+Sub EpOnDocumentReady()
+    'EpFocus
+End Sub
+'##################################################################
+'## 函数名称：PutMaskChars
+'## 参数：Val  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Function PutMaskChars(Val)
+    x1.MaskChars = Val
+End Function
+'##################################################################
+'## 函数名称：GetMaskChars
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Function GetMaskChars()
+    GetMaskChars = x1.MaskChars
+End Function
+
+    Class clsMask
+    Private x220
+    public datatype
+    Private x222
+    Private x225
+    Private negable
+    Private negParen
+    Private minY
+    Private maxY
+    Private x244
+    Private commasFlag
+    Private x257
+    Private x268
+    Private x272
+    Private x274
+    Private x281
+    Private flexM
+    Private x293
+    Private x297
+    Private x307
+    Private x312
+    Private x317
+    Private x324
+    Private x329
+    Public Property Let MaxYear(Val)
+    maxY = Val
+    End Property
+    Public Property Get MaxYear()
+    MaxYear = maxY
+    End Property
+    Public Property Let MinYear(Val)
+    minY = Val
+    End Property
+    Public Property Get MinYear()
+    MinYear = minY
+    End Property
+    Public Property Let CommasOnFocus(Val)
+    If flexM Then commasFlag = False
+    commasFlag = Val
+    End Property
+    Public Property Get CommasOnFocus()
+    CommasOnFocus = commasFlag
+    End Property
+    Public Property Let FlexMask(Val)
+    flexM = Val
+    If Len(x220) > 0 Then x399
+    End Property
+    Public Property Get FlexMask()
+    FlexMask = flexM
+    End Property
+    Public Property Let AllowNeg(Val)
+    negable = Val
+    End Property
+    Public Property Get AllowNeg()
+    AllowNeg = negable
+    End Property
+    Public Property Let NegParens(Val)
+    negParen = Val
+    End Property
+    Public Property Get NegParens()
+    NegParens = negParen
+    End Property
+    Public Property Let Selected(Val)
+    x225 = Val
+    End Property
+    Public Property Get Selected()
+    Selected = x225
+    End Property
+    Public Property Let Mask(Val)
+    x220 = Val
+    x268 = Val
+    If flexM Then x399
+    If Len(Val) = 2 Then
+        If Val = "yy" Then
+            x274 = False
+        Else
+            x274 = True
+        End If
+    ElseIf Len(Val) > 2 Then
+        If ((Right(Val, 3) = "-yy") Or (Right(Val, 3) = "/yy")) Then
+            x274 = False
+        Else
+            x274 = True
+        End If
+    Else
+        x274 = True
+    End If
+    End Property
+    Public Property Get Mask()
+    Mask = x268
+    End Property
+    Public Property Set Field(Ref)
+    Set x222 = Ref
+    End Property
+    Public Property Get Field()
+    Set Field = x222
+    End Property
+    Public Property Let MaskChars(Val)
+    x329 = Val
+    End Property
+    Public Property Get MaskChars()
+    MaskChars = x329
+    End Property
+'##################################################################
+'## 过程名称：OnKeyUp
+'## 参数： 无
+'##################################################################
+Public Sub OnKeyUp()
+    mainevent
+End Sub
+'##################################################################
+'## 过程名称：OnClick
+'## 参数： 无
+'##################################################################
+Public Sub OnClick()
+    mainevent
+End Sub
+'##################################################################
+'## 过程名称：OnSelect
+'## 参数： 无
+'##################################################################
+Public Sub OnSelect()
+    mainevent
+End Sub
+'##################################################################
+'## 过程名称：OnFocus
+'## 参数： 无
+'##################################################################
+Public Sub OnFocus()
+    Dim x9
+    Dim x11
+    Dim x14
+    Dim x18
+    Dim x23
+    Dim x25
+    Dim x32
+    Dim x40
+    Dim dd
+    x244 = False
+ '##罗文东添加处理小数点
+	    If InStr(x220, ".") > 0 Then
+	           If InStr(x222.Value, ".") > 0 Then
+	              For dd = len(x222.Value)-InStr(x222.Value, ".")+1 To len(x220)-InStr(x220, ".")
+				        x222.Value=x222.Value & "0"
+				  Next
+	           
+	           else
+	              if len(x222.Value)>0 then
+	                x222.Value=x222.Value & "."
+	              
+	              
+	              For dd = len(x222.Value)-InStr(x222.Value, ".")+1 To len(x220)-InStr(x220, ".")
+				        x222.Value=x222.Value & "0"
+				  Next
+	             end if
+	           end if
+	           
+	           
+	        end if
+         '##罗文东添加处理小数点
+    If InStr(x220, "n") > 0 Then
+       
+        If Not commasFlag Then
+            If Len(x281) = 0 Then
+                x281 = x220
+            End If
+            x220 = Replace(x220, ",", "")
+        End If
+        x9 = Trim(x343(x222.Value, 1, Len(x222.Value)))
+        If Len(x9) > 0 Then
+            x222.Value = Replace(x222.Value, "$", "")
+            x222.Value = Replace(x222.Value, ",", "")
+            x222.Value = Replace(x222.Value, ".", "")
+            If NegParens Then
+                If InStr(x222.Value, "(") > 0 Then
+                    x222.Value = Replace(x222.Value, "(", "")
+                    x222.Value = Replace(x222.Value, ")", "")
+                    x222.Value = "-" & x222.Value
+                End If
+            End If
+            x222.Value = x341(x222.Value)
+        End If
+    ElseIf InStr(x220, "@") > 0 Then
+        x9 = Trim(x222.Value)
+        If InStr(x9, "@") > 0 Then
+            x335 x9, x25, x32
+            x9 = x220
+            x335 x9, x14, x18
+            x14 = String(Len(x14) - Len(x25), " ")
+            x18 = String(Len(x18) - Len(x32), " ")
+            x222.Value = x25 & x14 & "@" & x32 & x18
+        End If
+    End If
+    x222.Value = x391(x222.Value, " ", "_")
+    If Len(x222.Value) = 0 Then x222.Value = String(Len(x220), "_")
+End Sub
+'##################################################################
+'## 函数名称：x335
+'## 参数：ByVal 为2型
+'## 参数：ByRef 为4型
+'## 参数：ByRef 为6型
+''## 返回类型： 不确定
+'##################################################################
+Private Function x335(ByVal x402, ByRef x404, ByRef x406)
+    Dim x11
+    x11 = InStr(x402, "@")
+    If x11 > 0 Then
+        x404 = Trim(Left(x402, x11 - 1))
+        x406 = Trim(Mid(x402, x11 + 1))
+    End If
+End Function
+'##################################################################
+'## 函数名称：OnBlurOK
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Public Function OnBlurOK()
+    Dim x44
+    Dim x47
+    Dim x50
+    Dim x55
+    Dim x60
+    Dim x64
+    Dim x71
+    Dim x76
+    Dim x81
+    Dim x86
+    Dim x91
+    Dim x95
+    Dim x99
+    Dim x25
+    Dim x32
+    Dim x40
+    OnBlurOK = True
+
+    If (x222.Value <> x339(String(Len(x220), "_")) And (Len(x222.Value) <> 0)) Then
+        If InStr(x220, "yyyy") > 0 Then
+
+            If InStr(x220, "dd") = 0 Then
+                If InStr(x220, "mm") = 0 Then
+                    x50 = x355(Mid(x222.Value, 1, 4))
+                    If (InStr(Mid(x222.Value, 1, 4), "0") = 0) And x50 = 0 Then OnBlurOK = False
+                Else
+                    x44 = x355(Mid(x222.Value, 6, 2))
+                    x50 = x355(Mid(x222.Value, 1, 4))
+                    If (x44 = 0) Or ((InStr(Mid(x222.Value, 4, 4), "0") = 0) And x50 = 0) Then OnBlurOK = False
+                End If
+            Else
+                '*M*
+                If mid(x220 & "  ", 6,2) = "mm" Then
+
+                    x44 = x355(Mid(x222.Value, 6, 2))
+                    x47 = x355(Mid(x222.Value, 9, 2))
+
+                Else
+                    x47 = x355(Mid(x222.Value, 1, 2))
+                    x44 = x355(Mid(x222.Value, 4, 2))
+                End If
+
+                x50 = x355(Mid(x222.Value, 1, 4))
+                If (x44 = 0) Or (x47 = 0) Or ((InStr(Mid(x222.Value, 7, 4), "0") = 0) And x50 = 0) Then
+
+                	OnBlurOK = False
+
+                	end if
+            End If
+
+            If OnBlurOK = False Then
+
+                Exit Function
+            Else
+
+                If x50 > 999 Then
+                    OnBlurOK = x393(x50)
+                ElseIf x50 > 99 Then
+                    OnBlurOK = False
+                Else
+                    If (x50 >= 30) And (x50 <= 99) Then
+                        x50 = 1900 + x50
+                    Else
+                        x50 = 2000 + x50
+                    End If
+                End If
+
+                If x220 = "yyyy" Then
+                    x222.Value = x50
+                    OnBlurOK = x393(x50)
+                    Exit Function
+                End If
+                If Not OnBlurOK Then Exit Function
+
+                If mid(x220 & "  ", 6,2) = "mm" Then
+                    If x44 < 10 Then
+                    	x222.Value = Mid(x222.Value, 1,5)&"0" & x44 & Mid(x222.Value, 8)
+                    Else
+                    	x222.Value = Mid(x222.Value, 1,5)& x44 & Mid(x222.Value, 8)
+                    end if
+                End If
+
+                If x47 > 0 Then
+
+                        If x47 < 10 Then
+                            x222.Value = Mid(x222.Value, 1,8) & "0" & x47
+                        Else
+                            x222.Value = Mid(x222.Value, 1,8) & x47
+
+                    	End If
+
+                End If
+
+                OnBlurOK = x393(x50)
+
+            End If
+
+        ElseIf InStr(x220, "yy") > 0 Then
+            If InStr(x220, "dd") = 0 Then
+                If InStr(x220, "mm") = 0 Then
+                    x50 = x355(Mid(x222.Value, 1, 2))
+                    If (InStr(Mid(x222.Value, 1, 2), "0") = 0) And x50 = 0 Then OnBlurOK = False
+                Else
+                    x44 = x355(Mid(x222.Value, 1, 2))
+                    x50 = x355(Mid(x222.Value, 4, 2))
+                    If (x44 = 0) Or ((InStr(Mid(x222.Value, 4, 2), "0") = 0) And x50 = 0) Then OnBlurOK = False
+                End If
+            Else
+                '*M*
+                If Left(x220 & "  ", 2) = "mm" Then
+
+                    x44 = x355(Mid(x222.Value, 1, 2))
+                    x47 = x355(Mid(x222.Value, 4, 2))
+
+                Else
+                    x47 = x355(Mid(x222.Value, 1, 2))
+                    x44 = x355(Mid(x222.Value, 4, 2))
+                End If
+
+                x50 = x355(Mid(x222.Value, 7, 2))
+                If (x44 = 0) Or (x47 = 0) Or ((InStr(Mid(x222.Value, 7, 2), "0") = 0) And x50 = 0) Then OnBlurOK = False
+            End If
+            If OnBlurOK = False Then
+                Exit Function
+            Else
+
+                If (x50 >= 30) And (x50 <= 99) Then
+                    x50 = 1900 + x50
+                Else
+                    x50 = 2000 + x50
+                End If
+                If x220 = "yy" Then
+                    x222.Value = x50
+                    OnBlurOK = x393(x50)
+                    If OnBlurOK Then x222.Value = Right(x222.Value, 2)
+                    Exit Function
+                End If
+                If Not OnBlurOK Then Exit Function
+
+                If Left(x220 & "  ", 2) = "mm" Then
+
+
+                    If x44 < 10 Then x222.Value = "0" & x44 & Mid(x222.Value, 3)
+
+                Else
+                    If x47 < 10 Then x222.Value = "0" & x47 & Mid(x222.Value, 3)
+                End If
+
+                If x47 > 0 Then
+
+                    If Left(x220 & "  ", 2) = "mm" Then
+
+                        If x47 < 10 Then x222.Value = Left(x222.Value, 3) & "0" & x47 & Right(x222.Value, 3)
+
+                    Else
+                        If x44 < 10 Then x222.Value = Left(x222.Value, 3) & "0" & x44 & Right(x222.Value, 3)
+                    End If
+
+
+                    x222.Value = Left(x222.Value, 6) & x50
+                    If (x44 = 2) And (x47 = 29) And (x50 Mod 4 <> 0) Then
+                        x222.Value = Left(x222.Value, Len(x222.Value) - 4) & Right(x50, 2)
+                        OnBlurOK = False
+                        Exit Function
+                    End If
+                Else
+                    x222.Value = Left(x222.Value, 3) & x50
+                End If
+                x222.Value = Left(x222.Value, Len(x222.Value) - 4) & Right(x50, 2)
+                OnBlurOK = x393(x50)
+            End If
+        ElseIf InStr(x220, "HH") > 0 Then
+            x55 = x355(Mid(x222.Value, 1, 2))
+            x60 = x355(Mid(x222.Value, 4, 2))
+            If (x55 = 0) Then
+                OnBlurOK = False
+                Exit Function
+            Else
+                If x55 < 10 Then x222.Value = "0" & x55 & Mid(x222.Value, 3)
+                If x60 < 10 Then x222.Value = Left(x222.Value, 3) & "0" & x60
+            End If
+        ElseIf InStr(x220, "n") > 0 Then
+            x222.Value = Replace(x222.Value, "_", " ")
+            x64 = InStr(x222.Value, ".")
+            x71 = Len(x222.Value) - x64
+            If x64 > 0 Then
+                x76 = Trim(Left(x222.Value, x64 - 1))
+            Else
+                x76 = x222.Value
+            End If
+            If x64 > 0 Then
+                x81 = Trim(Mid(x222.Value, x64 + 1))
+                x81 = x81 & String(x71 - Len(x81), "0")
+                x76 = x76 & "." & x81
+            End If
+            x222.Value = x76
+            x222.Value = Replace(x222.Value, " ", "")
+            x222.Value = Replace(x222.Value, "_", "")
+            x222.Value = Replace(x222.Value, ".", "")
+            x222.Value = Replace(x222.Value, ",", "")
+            If Not commasFlag Then
+                x220 = x281
+            End If
+            x222.Value = x341(x222.Value)
+            x86 = False
+            x91 = Left(x222.Value & " ", 1) = "$"
+            If AllowNeg Then
+                If InStr(x222.Value, "-") > 0 Then
+                    x222.Value = Replace(x222.Value, "-", "")
+                    x86 = True
+                End If
+            End If
+            Do
+                x95 = Mid(x222.Value, 1, 1)
+                If (x95 = "_") Or (x95 = ",") Or (x95 = "$") Or (x95 = "0") Then
+                    x222.Value = Mid(x222.Value, 2)
+                Else
+                    Exit Do
+                End If
+            Loop
+            x95 = Mid(x222.Value, 1, 1)
+            If (x95 = ".") Then
+                    x222.Value = "0"&x222.Value
+            end if
+            If x86 Then
+                If Not NegParens Then
+                    x222.Value = "-" & x222.Value
+                End If
+            End If
+            If x91 Then x222.Value = "$" & x222.Value
+            If x86 Then
+                If NegParens Then
+                    x222.Value = "(" & x222.Value & ")"
+                End If
+            End If
+        ElseIf (InStr(x220, "@") > 0) Then
+            x222.Value = Replace(x222.Value, "_", " ")
+            x335 x222.Value, x25, x32
+            If ((Len(x25) = 0) Or (Len(x32) = 0)) Then
+                OnBlurOK = False
+                Exit Function
+            End If
+            x222.Value = Replace(x222.Value, " ", "")
+        Else
+            For x99 = 1 To Len(x220)
+                If checkMaskChar(Mid(x220, x99, 1)) Then
+                    If Mid(x222.Value, x99, 1) = "_" Then
+                        OnBlurOK = False
+                        Exit Function
+                    End If
+                End If
+            Next
+        End If
+    Else
+        If InStr(x220, "n") > 0 Then
+            If Not commasFlag Then
+                x220 = x281
+                x222.Value = ""
+                If flexM Then
+                    x324 = False
+                    x399
+                End If
+            End If
+        End If
+    End If
+End Function
+'##################################################################
+'## 函数名称：IsEmpty
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Public Function IsEmpty()
+    Dim x99
+    IsEmpty = True
+    If Len(x222.Value) > 0 Then
+        For x99 = 1 To Len(x220)
+            If checkMaskChar(Mid(x220, x99, 1)) Then
+                If Len(x222.Value) >= x99 Then
+                    If (Mid(x222.Value, x99, 1) <> "_") And (Mid(x222.Value, x99, 1) <> " ") Then
+                        IsEmpty = False
+                        Exit For
+                    End If
+                End If
+            End If
+        Next
+    End If
+End Function
+'##################################################################
+'## 过程名称：Clear
+'## 参数： 无
+'##################################################################
+Public Sub Clear()
+
+    x222.Value = x339(String(Len(x220), "_"))
+    x397 x222, 1, "", False
+End Sub
+'##################################################################
+'## 过程名称：OnKeyDown
+'## 参数： 无
+'##################################################################
+Public Sub OnKeyDown()
+    Dim x101
+    Dim curKeyCode
+    Dim x106
+    Dim x110
+    Dim x115
+    Dim x121
+    enterToTab
+
+    If window.event.keycode = 13 Then
+        window.event.returnValue = False
+        Exit Sub
+    End If
+    x101 = x385(x222)
+
+    With window.event
+    If .keycode = 9 Then Exit Sub
+    ' Pasting (paste only if matches mask)
+    If (((.keycode = 86) And (.ctrlKey)) Or ((.keycode = 45) And (.shiftKey))) Then
+        Paste
+        Exit Sub
+    End If
+    If .altKey Or .ctrlKey Then Exit Sub
+    curKeyCode = .keycode
+    .keycode = 0
+
+    If curKeyCode = 45 Then x244 = Not x244
+    If curKeyCode = 113 Then
+        element.Select
+        Selected = True
+        Exit Sub
+    End If
+    If x225 Then
+
+        x225 = False
+        Select Case curKeyCode
+            Case 16, 27, 8,33, 34, 35, 36, 37, 38, 39, 40, 112, 113, 114, 115, 116, 117, 118, 119, 120, 121, 122, 123, 144
+            Case Else
+                Clear
+        End Select
+
+    End If
+    If curKeyCode = 8 Then
+
+        .returnValue = False
+        If x385(x222) > 1 Then
+            x101 = x385(x222)
+            x389 x222, x101 - 1
+            If x385(x222) = x101 Then Exit Sub
+            x101 = x385(x222)
+            x106 = x343(x222.Value, 1, x101 - 1)
+            If InStr(x220, "mm") > 0 Then
+                x110 = ""
+            ElseIf InStr(x220, "HH") > 0 Then
+                x110 = ""
+            Else
+                x110 = x343(x222.Value, x387(x222, x101) + 1, Len(x222.Value))
+            End If
+            x101 = x385(x222)
+
+            x222.Value = x378(x339(x106 & x110), Len(x220))
+            x397 x222, x101, "", False
+        End If
+    ElseIf curKeyCode = 39 Then
+        .returnValue = False
+        If checkMaskChar(x257) Then x397 x222, x101, Mid(x222.Value, x101, 1), True
+        x101 = x385(x222)
+        x387 x222, x101
+    ElseIf curKeyCode = 37 Then
+        .returnValue = False
+        x106 = x343(x222.Value, 1, x101)
+        x110 = x343(x222.Value, x101 + 1, Len(x222.Value))
+        x222.Value = x378(x339(x106 & x110), Len(x220))
+        x389 x222, x101 - 1
+    ElseIf curKeyCode = 46 Then
+        .returnValue = False
+        x106 = x343(x222.Value, 1, x101 - 1)
+        If InStr(x220, "mm") > 0 Then
+            x110 = ""
+        ElseIf InStr(x220, "HH") > 0 Then
+            x110 = ""
+        Else
+            x110 = x343(x222.Value, x387(x222, x101) + 1, Len(x222.Value))
+        End If
+        x222.Value = x378(x339(x106 & x110), Len(x220))
+        x389 x222, x101
+    ElseIf curKeyCode = 36 Then
+        .returnValue = False
+        x397 x222, x374(x222), "", False
+    ElseIf curKeyCode = 35 Then
+        .returnValue = False
+        x397 x222, x376(x222) + 1, "", False
+    End If
+    End With
+End Sub
+'##################################################################
+'## 过程名称：OnKeyPress
+'## 参数： 无
+'##################################################################
+Public Sub OnKeyPress()
+    Dim curKeyCode
+    Dim x101
+    Dim x126
+    Dim x128
+    Dim x9
+    Dim x131
+    x131 = False
+    If window.event.keycode = 13 Then
+        window.event.returnValue = False
+        Exit Sub
+    End If
+    mainevent
+
+    If InStr("mdyHM", x257) > 0 Then x244 = False
+    x101 = x385(x222)
+    With window.event
+    curKeyCode = .keycode
+    .keycode = 0
+    End With
+    If ((Chr(curKeyCode) = "/") Or (Chr(curKeyCode) = "-")) Then
+        If (x257 = "m") Or (x257 = "d") Then
+
+            x397 x222, x101 + 4 - x367(x101, x257), "", False
+            x101 = x385(x222)
+        End If
+    End If
+    If Chr(curKeyCode) = ":" Then
+        If (x257 = "H") Then
+            x397 x222, x101 + 4 - x367(x101, x257), "", False
+            x101 = x385(x222)
+        End If
+    End If
+    If Chr(curKeyCode) = "." Then
+        If ((InStr(x220, ".") > 0) And (InStr(x220, "@") = 0)) Then
+            x397 x222, InStr(x220, ".") + 1, "", False
+            x101 = x385(x222)
+        End If
+    End If
+    If Chr(curKeyCode) = "@" Then
+        If InStr(x220, "@") > 0 Then
+            x397 x222, InStr(x220, "@") + 1, "", False
+            Exit Sub
+        End If
+    End If
+    If Chr(curKeyCode) = "-" Then
+        If AllowNeg Then
+            If InStr(x222.Value, "-") > 0 Then
+                Exit Sub
+            Else
+                If (x374(x222) <> x101) And (x101 <> 1) Then
+                    Exit Sub
+                Else
+                    x131 = True
+                End If
+            End If
+        Else
+            If flexM Then
+                x387 x222, x101
+                Exit Sub
+            End If
+        End If
+    End If
+    If x101 = 1 Then x387 x222, x101
+    If x101 > x376(x222) Then
+        x397 x222, x376(x222) + 1, "", False
+        Exit Sub
+    End If
+    If Not checkMaskChar(x257) Then x387 x222, x101
+
+    If checkInputChar(curKeyCode, x101, x257) Then
+        If x244 Then
+            x126 = x343(x222.Value, 1, x101 - 1)
+            x128 = x343(x222.Value, x101, Len(x220))
+            x222.Value = x339(x126 & " " & x128)
+        End If
+        x397 x222, x101, Chr(curKeyCode), True
+    Else
+        Exit Sub
+    End If
+    x101 = x385(x222)
+    If flexM Then
+        If ((x337(curKeyCode)) Or (x131)) Then
+            If Len(x297) > 0 Then
+                x220 = x312 & Right(x297, 1) & x317 & x307
+                x317 = Right(x297, 1) & x317
+                x297 = Left(x297, Len(x297) - 1)
+            End If
+        End If
+        If ((x337(curKeyCode)) Or (x131)) Then
+            If Len(x222.Value) < x293 Then
+                x9 = x395(-1)
+                x222.Value = x341(x9)
+                x397 x222, x101, "", False
+            End If
+        End If
+    End If
+    x387 x222, x101
+End Sub
+'##################################################################
+'## 函数名称：x337
+'## 参数：x407  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x337(x407)
+    Dim x101
+    Dim x135
+    x337 = True
+    If Chr(x407) = "." Then
+        x337 = False
+    End If
+    ' Or not if last pos in FLEX part of field
+    x101 = x385(x222)
+    If InStr(x222.Value, ".") Then
+        x135 = InStr(x101, x222.Value, ".")
+        If x135 = 0 Then
+            x337 = False
+        Else
+            If x101 <> x135 Then x337 = False
+        End If
+    Else
+        If x101 <> Len(x222.Value) Then x337 = False
+    End If
+End Function
+'##################################################################
+'## 过程名称：Paste
+'## 参数： 无
+'##################################################################
+Public Sub Paste()
+    Dim x115
+    Dim x121
+    window.event.returnValue = False
+    If InStr(x220, "n") > 0 Then
+        x115 = window.clipboardData.GetData("Text")
+        If AllowNeg Then
+            If ((Left(x115, 1) = "(") And (Right(x115, 1) = ")")) Then
+                x115 = Mid(x115, 2, Len(x115) - 2)
+                x115 = "-" & x115
+            End If
+        End If
+        x115 = x379(x115)
+        x115 = Replace(x115, "$", "")
+        x115 = Replace(x115, ",", "")
+        x115 = Replace(x115, ".", "")
+    Else
+        x115 = x343(window.clipboardData.GetData("Text"), 1, Len(window.clipboardData.GetData("Text")))
+    End If
+    x121 = x222.Value
+    If InStr(x220, "n") > 0 Then
+        x222.Value = x341(x115)
+    Else
+        x222.Value = x339(x115)
+    End If
+    If x1.OnBlurOK() Then
+        If InStr(x220, "n") > 0 Then
+            x222.Value = x341(x115)
+        Else
+            x222.Value = x339(x115)
+        End If
+        If Not x345() Then x222.Value = x121
+    Else
+        x222.Value = x121
+        element.Select
+        Selected = True
+    End If
+End Sub
+'##################################################################
+'## 函数名称：x339
+'## 参数：x408  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x339(x408)
+    Dim x99
+    Dim x11
+    Dim x142
+    Dim x146
+    For x99 = 1 To Len(x220)
+        If Not checkMaskChar(Mid(x220, x99, 1)) Then
+            x339 = x339 & Mid(x220, x99, 1)
+        Else
+            x11 = x11 + 1
+            If x11 <= Len(x408) Then
+                x142 = Mid(x408, x11, 1)
+                If InStr("}]", Mid(x220, x99, 1)) > 0 Then
+                    x146 = Asc(x142)
+                    If ((x146 >= 97) And (x146 <= 122)) Then
+                        x146 = (x146 - 32)
+                        x142 = Chr(x146)
+                    End If
+                ElseIf InStr("{[", Mid(x220, x99, 1)) > 0 Then
+                    x146 = Asc(x142)
+                    If ((x146 >= 65) And (x146 <= 90)) Then
+                        x146 = (x146 + 32)
+                        x142 = Chr(x146)
+                    End If
+                End If
+                x339 = x339 & x142
+            Else
+                x339 = x339 & "_"
+            End If
+        End If
+    Next
+End Function
+'##################################################################
+'## 函数名称：x341
+'## 参数：x409  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x341(x409)
+    Dim x11
+    Dim x99
+    x11 = Len(x409) + 1
+    For x99 = Len(x220) To 1 Step -1
+        If Not checkMaskChar(Mid(x220, x99, 1)) Then
+            x341 = Mid(x220, x99, 1) & x341
+        Else
+            x11 = x11 - 1
+            If x11 >= 1 Then
+                x341 = Mid(x409, x11, 1) & x341
+            Else
+                x341 = "_" & x341
+            End If
+        End If
+    Next
+End Function
+'##################################################################
+'## 函数名称：x343
+'## 参数：x410  类型不确定
+'## 参数：x411  类型不确定
+'## 参数：x412  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x343(x410, x411, x412)
+    Dim x99
+    For x99 = x411 To x412
+        If checkMaskChar(Mid(x220, x99, 1)) Then x343 = x343 & Mid(x410, x99, 1)
+    Next
+End Function
+'##################################################################
+'## 函数名称：x345
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Private Function x345()
+    Dim x99
+    x345 = True
+    For x99 = 1 To (Len(x220) - 1)
+        If checkMaskChar(Mid(x220, x99, 1)) Then
+            If Not checkInputChar(Asc(Mid(x222.Value, x99, 1)), x99, Mid(x220, x99, 1)) Then
+                If Not Mid(x222.Value, x99, 1) = "_" Then
+                    x345 = False
+                    Exit For
+                End If
+            End If
+        End If
+    Next
+End Function
+'##################################################################
+'## 函数名称：x347 check input char
+'## 参数：x414 ByRef 为4型 current input char
+'## 参数：x415  类型不确定
+'## 参数：x416  类型不确定 mask char
+''## 返回类型： 不确定
+'##################################################################
+Private Function checkInputChar(ByRef inputChar, x415, maskChar)
+    Dim x44
+    Dim x47
+    Dim x50
+    Dim x55
+    Dim x60
+    Dim x11
+    Dim x161
+    checkInputChar = False
+
+    If checkMaskChar(maskChar) Then
+        Select Case maskChar
+            Case "#", "n"
+                If ((inputChar = 45) And AllowNeg) Then
+                    checkInputChar = True
+            ElseIf (inputChar >= 48) And (inputChar <= 57) Then
+                    checkInputChar = True
+                End If
+            Case "~"
+            If (((inputChar >= 48) And (inputChar <= 57)) Or _
+                ((inputChar >= 65) And (inputChar <= 90)) Or ((inputChar >= 97) And (inputChar <= 122))) Then
+                checkInputChar = True
+            End If
+        Case "&"
+            If (((inputChar >= 65) And (inputChar <= 90)) Or ((inputChar >= 97) And (inputChar <= 122))) Then
+                checkInputChar = True
+            End If
+        Case "}"
+            If ((inputChar >= 97) And (inputChar <= 122)) Then inputChar = (inputChar - 32)
+            If (((inputChar >= 48) And (inputChar <= 57)) Or ((inputChar >= 65) And (inputChar <= 90))) Then
+                checkInputChar = True
+            End If
+        Case "{"
+            If ((inputChar >= 65) And (inputChar <= 90)) Then inputChar = (inputChar + 32)
+            If (((inputChar >= 48) And (inputChar <= 57)) Or ((inputChar >= 97) And (inputChar <= 122))) Then
+                checkInputChar = True
+            End If
+        Case "]"
+            If ((inputChar >= 97) And (inputChar <= 122)) Then inputChar = (inputChar - 32)
+            If ((inputChar >= 65) And (inputChar <= 90)) Then checkInputChar = True
+        Case "["
+            If ((inputChar >= 65) And (inputChar <= 90)) Then inputChar = (inputChar + 32)
+            If ((inputChar >= 97) And (inputChar <= 122)) Then checkInputChar = True
+        Case "m"
+
+            If Left(x220 & "  ", 2) = "mm" Then
+
+                If (inputChar >= 48) And (inputChar <= 57) Then
+                    If x367(x415, maskChar) = 1 Then
+                        x44 = x355(Chr(inputChar) & Mid(x222.Value, 2, 1))
+                ElseIf x367(x415, maskChar) = 2 Then
+                        x44 = x355(Mid(x222.Value, 1, 1) & Chr(inputChar))
+                    End If
+                    x50 = x355(Mid(x222.Value, 7, 4))
+                    If x44 <= 12 Then
+                        If InStr(";" & x353(Mid(x222.Value, 4, 2), x50) & ";", ";" & CStr(x44) & ";") > 0 Then
+                            If Not (x367(x415, maskChar) = 2 And x44 = 0) Then checkInputChar = True
+                        End If
+                    End If
+                End If
+
+
+           Else
+
+                If (inputChar >= 48) And (inputChar <= 57) Then
+
+                    If x367(x415, maskChar) = 1 Then
+                        x44 = x355(Chr(inputChar))
+                    ElseIf x367(x415, maskChar) = 2 Then
+
+                        x44 = x355(Mid(x222.Value, 6, 1) & Chr(inputChar))
+                        'if temp=1 then x44=12
+                    End If
+                    x50 = x355(Mid(x222.Value, 7, 4))
+                    If x44 <= 12 Then
+                        If InStr(";" & x353(Mid(x222.Value, 1, 2), x50) & ";", ";" & CStr(x44) & ";") > 0 Then
+                            If Not (x367(x415, maskChar) = 2 And x44 = 0) Then checkInputChar = True
+                        End If
+                    End If
+                End If
+
+            End If
+
+        Case "d"
+
+            If Left(x220 & "  ", 2) = "mm" Then
+
+                If (inputChar >= 48) And (inputChar <= 57) Then
+                    If x367(x415, maskChar) = 1 Then
+                        x47 = x355(Chr(inputChar) & Mid(x222.Value, 5, 1))
+                    ElseIf x367(x415, maskChar) = 2 Then
+                        x47 = x355(Mid(x222.Value, 4, 1) & Chr(inputChar))
+                    End If
+                    x44 = x355(Mid(x222.Value, 1, 2))
+                    x50 = x355(Mid(x222.Value, 7, 4))
+                    If x47 <= x351(x44, x50) Then
+                        If Not (x367(x415, maskChar) = 2 And x47 = 0) Then checkInputChar = True
+                    End If
+                End If
+
+        Else
+                If (inputChar >= 48) And (inputChar <= 57) Then
+                    If x367(x415, maskChar) = 1 Then
+
+                        x47 = x355(Chr(inputChar) & Mid(x222.Value, 10, 1))
+                ElseIf x367(x415, maskChar) = 2 Then
+
+                        x47 = x355(Mid(x222.Value, 9, 1) & Chr(inputChar))
+                    End If
+                    x44 = x355(Mid(x222.Value, 6, 2))
+                    x50 = x355(Mid(x222.Value, 1, 4))
+
+                    If x47 <= x351(x44, x50) Then
+                        If Not (x367(x415, maskChar) = 2 And x47 = 0) Then checkInputChar = True
+                    End If
+                End If
+            End If
+            temp=temp+1
+            ' Year
+        Case "y"
+            If (inputChar >= 48) And (inputChar <= 57) Then
+                x11 = x385(x222)
+                If x11 = 7 Then
+                    x50 = x355(Chr(inputChar) & Mid(x222.Value, 8, 3))
+            ElseIf x11 = 8 Then
+                    x50 = Mid(x222.Value, 7, 1) & x355(Chr(inputChar) & Mid(x222.Value, 9, 2))
+            ElseIf x11 = 9 Then
+                    x50 = Mid(x222.Value, 7, 2) & x355(Chr(inputChar) & Mid(x222.Value, 10, 1))
+            ElseIf x11 = 10 Then
+                    x50 = Mid(x222.Value, 7, 3) & x355(Chr(inputChar))
+                End If
+
+                If Left(x220 & "  ", 2) = "mm" Then
+
+                    x47 = x355(Mid(x222.Value, 4, 2))
+                    x44 = x355(Mid(x222.Value, 1, 2))
+
+            Else
+                    x44 = x355(Mid(x222.Value, 4, 2))
+                    x47 = x355(Mid(x222.Value, 1, 2))
+                End If
+
+                x161 = False
+                If x274 Then
+                    If Len(CStr(x50)) = 4 Then x161 = True
+            Else
+                    If Len(CStr(x50)) = 2 Then x161 = True
+                End If
+                If x161 Then
+                    If Not ((x44 = 2) And (x47 = 29) And (x355(x50) Mod 4 <> 0)) Then checkInputChar = True
+            Else
+                    checkInputChar = True
+                End If
+            End If
+        Case "H"
+            If (inputChar >= 48) And (inputChar <= 57) Then
+                If x367(x415, maskChar) = 1 Then
+                    x55 = x355(Chr(inputChar) & Mid(x222.Value, 2, 1))
+            ElseIf x367(x415, maskChar) = 2 Then
+                    x55 = x355(Mid(x222.Value, 1, 1) & Chr(inputChar))
+                End If
+                If x55 <= 12 Then
+                    If x367(x415, maskChar) = 2 Then
+                        If Not (x55 = 0) Then checkInputChar = True
+                Else
+                        checkInputChar = True
+                    End If
+                End If
+            End If
+        Case "M"
+            If (inputChar >= 48) And (inputChar <= 57) Then
+                If x367(x415, maskChar) = 1 Then
+                    x60 = x355(Chr(inputChar) & Mid(x222.Value, 5, 1))
+            ElseIf x367(x415, maskChar) = 2 Then
+                    x60 = x355(Mid(x222.Value, 4, 1) & Chr(inputChar))
+                End If
+                If x60 < 60 Then checkInputChar = True
+            End If
+        Case "_"
+            checkInputChar = True
+    End Select
+End If
+End Function
+
+'##################################################################
+'## 函数名称：x351
+'## 参数：x417  类型不确定
+'## 参数：x418  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x351(x417, x418)
+    x417 = x355(x417)
+    x418 = x355(x418)
+    Select Case CLng(x417)
+        Case 0, 1, 3, 5, 7, 8, 10, 12
+            x351 = 31
+        Case 4, 6, 9, 11
+            x351 = 30
+        Case 2
+            If x418 Mod 4 = 0 Then
+                x351 = 29
+        Else
+                x351 = 28
+            End If
+    End Select
+End Function
+'##################################################################
+'## 函数名称：x353
+'## 参数：x419  类型不确定
+'## 参数：x420  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x353(x419, x420)
+    x420 = x355(x420)
+    x419 = x355(x419)
+    Select Case CLng(x419)
+        Case 31
+            x353 = ";0;1;3;5;7;8;10;12;"
+        Case 30
+            x353 = ";0;1;3;4;5;6;7;8;9;10;11;12;"
+        Case 29
+            If (x420 Mod 4 = 0) Then
+                x353 = ";0;1;2;3;4;5;6;7;8;9;10;11;12;"
+        Else
+                x353 = ";0;1;3;4;5;6;7;8;9;10;11;12;"
+            End If
+        Case Else
+            x353 = ";0;1;2;3;4;5;6;7;8;9;10;11;12;"
+    End Select
+End Function
+'##################################################################
+'## 函数名称：x355
+'## 参数：x421  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x355(x421)
+    On Error Resume Next
+    x421 = Replace(x421, "_", " ")
+    x355 = CLng("0" & Trim(x421))
+End Function
+'##################################################################
+'## 函数名称：x357
+'## 参数：x422  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x357(x422)
+    Dim x167
+    Dim x169
+    Dim x170
+    Dim x174
+    Dim x176
+    x357 = 0
+    x170 = 1
+    For x169 = Len(x422) To 1 Step -1
+        x174 = Mid(x422, x169, 1)
+        If InStr("ABCDEF", x174) Then
+            x176 = Asc(x174) - 64 + 9
+        Else
+            x176 = x174
+        End If
+        x167 = x167 + (x176 * x170)
+        If x169 > 1 Then x170 = x170 * 16
+    Next
+    x357 = x167
+End Function
+
+'##################################################################
+'## 函数名称：x367
+'## 参数：x425  类型不确定
+'## 参数：x426  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x367(x425, x426)
+    If x425 > 1 Then
+        If Mid(x220, x425 - 1, 1) = x426 Then x367 = 2
+    End If
+    If x425 < Len(x220) Then
+        If Mid(x220, x425 + 1, 1) = x426 Then x367 = 1
+    End If
+End Function
+'##################################################################
+'## 函数名称：x369
+'## 参数： 无
+''## 返回类型： 不确定
+'##################################################################
+Private Function mainevent()
+    x257 = Mid(x220, x385(x222), 1)
+End Function
+'##################################################################
+'## 函数名称：x371
+'## 参数：x427  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function checkMaskChar(x427)
+    If Len(x427) > 0 Then checkMaskChar = (InStr(x329, x427) > 0)
+End Function
+'##################################################################
+'## 函数名称：x374
+'## 参数：x428  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x374(x428)
+    Dim x99
+    For x99 = Len(x220) To 1 Step -1
+        If checkMaskChar(Mid(x220, x99, 1)) Then
+            x374 = x99
+        End If
+    Next
+End Function
+'##################################################################
+'## 函数名称：x376
+'## 参数：x429  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x376(x429)
+    Dim x99
+    For x99 = 1 To Len(x220)
+        If checkMaskChar(Mid(x220, x99, 1)) Then
+            x376 = x99
+        End If
+    Next
+End Function
+'##################################################################
+'## 函数名称：x378
+'## 参数：x430  类型不确定
+'## 参数：x431  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x378(x430, x431)
+    Dim x186
+    If Len(x430) > x431 Then x430 = Left(x430, x431)
+    x378 = x430
+    x186 = x431 - Len(x430)
+    If x186 > 0 Then x378 = x430 & Space(x186)
+End Function
+'##################################################################
+'## 函数名称：x379
+'## 参数：x432  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x379(x432)
+    Dim x188
+    Dim x190
+    On Error Resume Next
+    If InStr(x220, ".") > 0 Then
+        If InStr(x432, ".") = 0 Then x432 = x432 & "."
+        x188 = Len(x220) - InStr(x220, ".")
+        x190 = Len(x432) - InStr(x432, ".")
+        x432 = x432 & String(x188 - x190, "0")
+    End If
+    x379 = x432
+End Function
+'##################################################################
+'## 函数名称：x381
+'## 参数：x433  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x381(x433)
+    Dim x99
+    Dim x11
+    x11 = x433
+    For x99 = 1 To x433
+        If Not checkMaskChar(Mid(x220, x99, 1)) Then x11 = x11 - 1
+    Next
+    RelativeCurPos = x11
+End Function
+'##################################################################
+'## 函数名称：x383
+'## 参数：x434  类型不确定
+'## 参数：x435  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x383(x434, x435)
+    Dim x195
+    Dim x99
+    Set x195 = Me.Field.parentelement.document.body.createTextRange
+    x195.moveToElementText x434
+    x195.collapse
+    For x99 = 1 To (x435 - 1)
+        x195.moveStart "Character", 1
+    Next
+    x195.moveEnd "Character", 1
+    x383 = x195.Text
+End Function
+
+'##################################################################
+'## 函数名称：x385
+'## 参数：x436  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x385(x436)
+    Dim x195
+    Dim x199
+    Dim x11
+
+    Set x195 = Me.Field.parentelement.document.body.createTextRange
+    x195.moveToElementText x436
+    Set x199 = Me.Field.parentelement.document.selection.createRange
+    Do While (x195.compareEndPoints("StartToStart", x199) < 0)
+        x195.moveStart "Character", 1
+        x11 = x11 + 1
+    Loop
+    x385 = x11 + 1
+End Function
+'##################################################################
+'## 过程名称：x397
+'## 参数：TextRef  类型不确定
+'## 参数：Position  类型不确定
+'## 参数：char  类型不确定
+'## 参数：overwrite  类型不确定
+'##################################################################
+Private Sub x397(TextRef, Position, char, overwrite)
+    Dim x195
+    Dim x99
+    Set x195 = Me.Field.parentelement.document.body.createTextRange
+    x195.moveToElementText TextRef
+    x195.collapse
+    For x99 = 1 To (Position - 1)
+        x195.moveStart "Character", 1
+    Next
+    If overwrite Then x195.moveEnd "Character", 1
+    x195.Text = char
+    x195.Select
+End Sub
+'##################################################################
+'## 函数名称：x387
+'## 参数：x437  类型不确定
+'## 参数：x438  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x387(x437, x438)
+    x387 = x438
+    If x376(x437) < x438 Then
+        x397 x222, x376(x437) + 1, "", False
+    Else
+        x257 = Mid(x220, x438, 1)
+        Do While (Not checkMaskChar(x257)) And (x438) < Len(x437.Value)
+            x397 x437, x438 + 1, "", False
+            x438 = x438 + 1
+            x257 = Mid(x220, x438, 1)
+            x387 = x438
+        Loop
+    End If
+End Function
+'##################################################################
+'## 函数名称：x389
+'## 参数：x439  类型不确定
+'## 参数：x440  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x389(x439, x440)
+    x440 = x440 - 1
+    If x374(x439) > x440 Then
+        x397 x222, x374(x439), "", False
+    Else
+        x397 x439, x440 + 1, "", False
+        x257 = Mid(x220, x440 + 1, 1)
+        Do While (Not checkMaskChar(x257)) And (x440 > 1)
+            x440 = x440 - 1
+            x397 x439, x440 + 1, "", False
+            x257 = Mid(x220, x440 + 1, 1)
+            x389 = x440
+        Loop
+    End If
+    If x440 > 0 Then
+        If (x440 = 1) And (Not checkMaskChar(Mid(x220, x440 + 1, 1))) Then
+            x397 x439, x440, "", False
+        End If
+    End If
+End Function
+'##################################################################
+'## 函数名称：x391
+'## 参数：x441  类型不确定
+'## 参数：x442  类型不确定
+'## 参数：x443  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x391(x441, x442, x443)
+    Dim x205
+    Dim x207
+    Dim x99
+    For x99 = 1 To Len(x441)
+        If checkMaskChar(Mid(x220, x99, 1)) Then
+            If Mid(x441, x99, 1) = x442 Then
+                x205 = Left(x441, x99 - 1)
+                x207 = Mid(x441, x99 + 1)
+                x441 = x205 & x443 & x207
+            End If
+        End If
+    Next
+    x391 = x441
+End Function
+'##################################################################
+'## 函数名称：x393
+'## 参数：x444  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x393(x444)
+    x393 = ((x444 <= maxY) And (x444 >= minY))
+End Function
+'##################################################################
+'## 过程名称：x399
+'## 参数： 无
+'##################################################################
+Private Sub x399()
+    Dim x11
+    Dim x212
+    If flexM Then
+        If Not x324 Then
+            x324 = True
+            commasFlag = False
+            x281 = x220
+            x220 = Replace(x220, ",", "")
+            x212 = x220
+            x220 = ""
+            x293 = Len(x212)
+            x11 = InStr(x212, ".")
+            If x11 > 0 Then
+                x307 = Mid(x212, x11)
+                x212 = Left(x212, x11 - 1)
+            Else
+                x307 = ""
+            End If
+            x11 = InStr(x212, "n")
+            If x11 > 0 Then
+                x312 = Left(x212, x11 - 1)
+                x212 = Mid(x212, x11)
+            End If
+            If Len(x212) > 0 Then
+                If Right(x212, 1) = "n" Then
+                    x317 = Right(x212, 1)
+                    x212 = Left(x212, Len(x212) - 1)
+                End If
+            End If
+            x297 = x212
+            x220 = x312 & x317 & x307
+        End If
+    End If
+End Sub
+'##################################################################
+'## 函数名称：x395
+'## 参数：x445  类型不确定
+''## 返回类型： 不确定
+'##################################################################
+Private Function x395(x445)
+    Dim x9
+    Dim x64
+    Dim x71
+    Dim x81
+    Dim x76
+    x395 = x222.Value
+    x395 = Replace(x395, " ", "")
+    x395 = Replace(x395, "_", " ")
+    x64 = InStr(x220, ".")
+    x71 = Len(x220) - x64
+    If x64 > 0 Then
+        x76 = Trim(Left(x395, x64 - 1 + x445))
+    Else
+        x76 = x395
+    End If
+    If x64 > 0 Then
+        x81 = Trim(Mid(x395, x64 + 1 + x445))
+        x81 = x81 & String(x71 - Len(x81), "0")
+        x76 = x76 & " ." & x81
+    End If
+    x395 = x76
+    x395 = Replace(x395, ".", "")
+    x395 = Replace(x395, ",", "")
+    x395 = Replace(x395, "$", "")
+    x395 = Replace(x395, " ", "_")
+End Function
+End Class
+-->
+</SCRIPT>
+

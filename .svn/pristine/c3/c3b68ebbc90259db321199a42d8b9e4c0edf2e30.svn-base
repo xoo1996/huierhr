@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="huiermis">
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/plat"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/websrc"/>
+        <wb-resource deploy-path="/" source-path="/huiermis"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/oraf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/radf"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/桌面"/>
+        <property name="java-output-path"/>
+        <property name="context-root" value="huiermis"/>
+    </wb-module>
+</project-modules>

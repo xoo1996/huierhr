@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="UserInfoForm" type="org.radf.apps.userinfo.form.UserInfoForm" />
+		<form-bean name="ProcessResForm" type="org.radf.apps.userinfo.form.ProcessResForm" />
+		<form-bean name="AccUserForm" type="org.radf.apps.userinfo.form.AccUserForm" />
+		<form-bean name="TblSupJunForm" type="org.radf.apps.userinfo.form.TblSupJunForm" />
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement" path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+	    <action type="org.radf.plat.util.action.Actionback"  scope="request" parameter="method" path="/backAction"/>
+		
+		
+		<action path="/UserInfoAction" parameter="method" type="org.radf.apps.userinfo.action.UserInfoAction" name="UserInfoForm" scope="request">
+	
+		     <forward name="addUser" path="/addUser.jsp" />
+		     <forward name="showDetail" path="/UserInfoAction.do?method=showDetail&amp;mtd=show"/>
+		      <forward name="show" path="/showuser.jsp"/>
+		     <forward name="showModifyUserInfo" path="/modifyUserInfo.jsp"/>
+		     <forward name="showModifyMore" path="/modifyMore.jsp"/>
+		     <forward name="addMore" path="/UserInfoAction.do?method=toAddMore"/>
+		     <forward name="modifyMore" path="/UserInfoAction.do?method=showDetail&amp;mtd=modifyMore"/>
+		     <forward name="toAddSalary" path="/upload.jsp"/>
+		     <forward name="toAddUserByExcel" path="/addUserByExcel.jsp"/>
+		     <forward name="toAddExtra" path="/addExtra.jsp"  />
+		     <forward name="toQuerySingle" path="/yuangong/querySingle.jsp"  />
+		     <forward name="showSingle" path="/yuangong/showSingle.jsp"  />
+		     <forward name="toQueryJunior" path="/yuangong/queryJunior.jsp"  />
+		     <forward name="queryAccSup" path="/accsup/queryAcc.jsp"  />
+		     <forward name="bindAccSup" path="/accsup/bindAccSup.jsp"  />
+		   
+		</action>
+
+		<action path="/ResAction" parameter="method" type="org.radf.apps.userinfo.action.UserInfoAction" name="ProcessResForm" scope="request">
+
+		     <forward name="getProResList" path="/ResAction.do?method=getProResList" />
+		     <forward name="download" path="/uploadRes.jsp"/>
+		     
+		</action>
+		
+		<action path="/BindAction" parameter="method" type="org.radf.apps.userinfo.action.BindSXJAction" name="TblLoginForm" scope="request">
+		   <forward name="toQuerySXJ" path="/querySXJ.jsp"/>
+		   <forward name="toBindJsp" path="/bindSXJ.jsp"/>
+		</action>
+		
+		<action path="/BindAccAction" parameter="method" type="org.radf.apps.userinfo.action.BindAccUserAction" name="AccUserForm" scope="request">
+		   <forward name="toQueryAccount" path="/queryAccount.jsp"/>
+		   <forward name="toBindAccount" path="/bindAccount.jsp"/>
+		</action>
+		
+		<action path="/BindSXJAction" parameter="method" type="org.radf.apps.userinfo.action.BindSXJAction" name="TblSupJunForm" scope="request">
+		   <forward name="toQuerySXJ" path="/querySXJ.jsp"/>
+		   <forward name="toBindSXJ" path="/bindSXJ.jsp"/>
+		</action>
+		
+	</action-mappings>
+</struts-config>

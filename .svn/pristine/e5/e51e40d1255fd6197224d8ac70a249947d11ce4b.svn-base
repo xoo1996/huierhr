@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repair_bonus" language="groovy" pageWidth="1200" pageHeight="1000" orientation="Landscape" columnWidth="1160" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.9487171000000238"/>
+	<property name="ireport.x" value="505"/>
+	<property name="ireport.y" value="18"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sdata" class="java.util.Date"/>
+	<parameter name="edata" class="java.util.Date"/>
+	<parameter name="earmodel" class="java.math.BigDecimal"/>
+	<parameter name="shell" class="java.math.BigDecimal"/>
+	<parameter name="shellsetupite" class="java.math.BigDecimal"/>
+	<parameter name="shellsetupcic" class="java.math.BigDecimal"/>
+	<parameter name="repairmaster" class="java.math.BigDecimal"/>
+	<parameter name="repairshell" class="java.math.BigDecimal"/>
+	<parameter name="shellsetup" class="java.math.BigDecimal"/>
+	<parameter name="board" class="java.math.BigDecimal"/>
+	<parameter name="ite" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[select bsc012 as name,bsc010 as id from sc05 where bsc008 ='430' order by id]]>
+	</queryString>
+	<field name="NAME" class="java.lang.String"/>
+	<field name="ID" class="java.lang.String"/>
+	<variable name="sum_ear" class="java.math.BigDecimal" incrementType="Report"/>
+	<variable name="sum_custom" class="java.math.BigDecimal" incrementType="Report"/>
+	<variable name="sum_repair_point" class="java.math.BigDecimal" incrementType="Report"/>
+	<variable name="sum_board_point" class="java.math.BigDecimal" incrementType="Report"/>
+	<variable name="num" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{COLUMN_COUNT}+3]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="65" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="1160" height="65"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24"/>
+				</textElement>
+				<text><![CDATA[生产部员工奖金报表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="76" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="66" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[姓名]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="0" width="126" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[耳模型]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="0" width="150" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[新机外壳]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="0" width="55" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[维修机外壳]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="165" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[新机安装]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="0" width="120" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[维修]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="0" width="70" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[面板数量]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="752" y="0" width="70" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[面板点数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="822" y="0" width="163" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[耳背机]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="985" y="0" width="80" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[新机外壳]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1065" y="0" width="42" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[奖金系数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1107" y="0" width="53" height="39"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[个人奖金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="66" y="39" width="63" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[实际]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="39" width="63" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[加急]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="192" y="39" width="75" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[实际]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="267" y="39" width="75" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[加急]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="342" y="39" width="55" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="39" width="66" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="39" width="55" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[实际]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="452" y="39" width="55" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[加急]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="507" y="39" width="55" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[ITE+**]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="39" width="60" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[记录]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="622" y="39" width="60" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[点数]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="682" y="39" width="70" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="752" y="39" width="70" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="822" y="39" width="39" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[标准机]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="861" y="39" width="39" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[RIC启敏]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="39" width="60" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[赛阁/聆雅]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="960" y="39" width="25" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[维修]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="985" y="39" width="40" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[13元/点]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1025" y="39" width="40" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[10元/点]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1065" y="39" width="42" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1107" y="39" width="53" height="37"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="66" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NAME}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="66" y="0" width="126" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sum_ear" toVariable="sum_ear" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_earmodel.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="192" y="0" width="150" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_waike_make.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="342" y="0" width="55" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_repair_assisst.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="397" y="0" width="165" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sum_custom" toVariable="sum_custom" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_waike_setup.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="562" y="0" width="120" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sum_repair_point" toVariable="sum_repair_point" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_repair_master.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="682" y="0" width="140" height="20"/>
+				<subreportParameter name="id">
+					<subreportParameterExpression><![CDATA[$F{ID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="sdata">
+					<subreportParameterExpression><![CDATA[$P{sdata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="edata">
+					<subreportParameterExpression><![CDATA[$P{edata}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sum_board_point" toVariable="sum_board_point" calculation="Sum"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "repair_bonus_repair_board.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="822" y="0" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="861" y="0" width="39" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="900" y="0" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="960" y="0" width="25" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="985" y="0" width="40" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1025" y="0" width="40" height="20"/>
+				<textElement/>
+				<text><![CDATA[0]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1107" y="0" width="53" height="20">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUM((C"+$V{num}+"+D"+$V{num}+")*"+$P{earmodel}+",(E"+$V{num}+"+F"+$V{num}+")*"+$P{shell}+",G"+$V{num}+"*"+$P{repairshell}+",(H"+$V{num}+"+I"+$V{num}+")*"+$P{shellsetup}+",J"+$V{num}+"*"+$P{shellsetupite}+",L"+$V{num}+"*"+$P{repairshell}+",N"+$V{num}+"*"+$P{board}+",(O"+$V{num}+"+P"+$V{num}+"+Q"+$V{num}+"+R"+$V{num}+")*"+$P{ite}+",S"+$V{num}+"*13,T"+$V{num}+"*10)*U"+$V{num}]]></propertyExpression>
+				</reportElement>
+				<textElement/>
+			</textField>
+			<staticText>
+				<reportElement x="1065" y="0" width="42" height="20"/>
+				<textElement/>
+				<text><![CDATA[1]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<textField pattern="###0.00">
+				<reportElement x="66" y="11" width="63" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{sum_ear}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="11" width="66" height="20"/>
+				<textElement/>
+				<text><![CDATA[耳模总数：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="129" y="11" width="63" height="20"/>
+				<textElement/>
+				<text><![CDATA[定制机总数：]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="192" y="11" width="75" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{sum_custom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="11" width="75" height="20"/>
+				<textElement/>
+				<text><![CDATA[维修机总点数：]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="342" y="11" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{sum_repair_point}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="397" y="11" width="110" height="20"/>
+				<textElement/>
+				<text><![CDATA[面板总点数：]]></text>
+			</staticText>
+			<textField pattern="###0.00">
+				<reportElement x="507" y="11" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$V{sum_board_point}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="562" y="11" width="60" height="20"/>
+				<textElement/>
+				<text><![CDATA[标准机：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="622" y="11" width="60" height="20">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUM(O4:O39)"]]></propertyExpression>
+				</reportElement>
+				<textElement/>
+			</textField>
+			<staticText>
+				<reportElement x="682" y="11" width="70" height="20"/>
+				<textElement/>
+				<text><![CDATA[耳背机总数：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="752" y="11" width="70" height="20">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUM(Q4:Q39)"]]></propertyExpression>
+				</reportElement>
+				<textElement/>
+			</textField>
+			<staticText>
+				<reportElement x="822" y="11" width="78" height="20"/>
+				<textElement/>
+				<text><![CDATA[维修点数：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="900" y="11" width="60" height="20">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUM(R4:R39)"]]></propertyExpression>
+				</reportElement>
+				<textElement/>
+			</textField>
+			<staticText>
+				<reportElement x="960" y="11" width="65" height="20"/>
+				<textElement/>
+				<text><![CDATA[总工作量：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1025" y="11" width="135" height="20"/>
+				<textElement/>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

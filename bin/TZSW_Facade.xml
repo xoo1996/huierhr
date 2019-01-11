@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="gb2312"?>
+<xml>
+	<sieaf-config name="huiermis">
+		<configlist name="FACADE_LIST">
+			<!-- platframe -->
+			<index name="Filter" value="org.radf.plat.webcontroller.safe.LoginFilter" />
+			<index name="LogFacade" value="org.radf.manage.logMessage.imp.LogMessageIMP" />
+			<index name="VersionFacade" value="org.radf.manage.version.imp.VersionIMP" />
+		    
+		    <!--参数管理 -->
+			<index name="ParamFacade"	value="org.radf.manage.param.imp.ParamIMP"/>
+			
+			<!--登陆管理 -->
+			<index name="LoginFacade" value="org.radf.login.imp.LoginImp" />
+			
+			<!--机构管理 -->
+			<index name="DepartmentFacade" value="org.radf.manage.department.imp.DepartmentImp" />
+			
+			<!--角色管理 -->
+			<index name="RoleXFacade" value="org.radf.manage.role.imp.RoleXImp" />
+			
+			<!--菜单管理 -->
+			<index name="MenuFacade" value="org.radf.manage.menu.imp.MenuImp" />
+		    
+		    <!--人员管理 -->
+		    <index name="UserFacade" value="org.radf.manage.user.imp.UserImp" />
+			
+			<!--基础信息人员信息管理 -->
+			<index name="PersonFacade" value="org.radf.apps.basicinfo.imp.PersonIMP" />
+			<index name="SocietyFacade" value="org.radf.apps.basicinfo.imp.SocietyIMP" />
+			<index name="SkillFacade"  value="org.radf.apps.basicinfo.imp.SkillIMP" />
+			<index name="ResumesFacade" value="org.radf.apps.basicinfo.imp.ResumesIMP" />
+			
+			<!--基础信息单位信息管理 -->
+			<index name="EmployerFacade" value="org.radf.apps.basicinfo.imp.EmployerIMP" />
+			
+		    <!-- 职业介绍-->
+		    <index name="Rec02Facade" value="org.radf.apps.recommendation.personapply.imp.Rec02IMP" />		
+		    <index name="Rec0401Facade" value="org.radf.apps.recommendation.employinvite.imp.Rec0401IMP" />		
+		    <index name="Rec0402Facade" value="org.radf.apps.recommendation.employinvite.imp.Rec0402IMP" />		
+			<index name="Rec0103Facade" value="org.radf.apps.recommendation.consigninvite.imp.Rec0103IMP" />		
+		    <index name="Rec0105Facade" value="org.radf.apps.recommendation.consigninvite.imp.Rec0105IMP" />		
+		    <index name="Rec03Facade" value="org.radf.apps.recommendation.query.imp.Rec03IMP" />		
+			<index name="Rec05Facade" value="org.radf.apps.recommendation.personguidance.imp.Rec05IMP" />
+			<index name="Rec06Facade" value="org.radf.apps.recommendation.statistic.imp.Rec06IMP" />	
+			<index name="Rec0701Facade" value="org.radf.apps.recommendation.employassembly.imp.Rec0701IMP" />		
+		    <index name="Rec0702Facade" value="org.radf.apps.recommendation.employassembly.imp.Rec0702IMP" />
+		    <index name="Rec0604Facade" value="org.radf.apps.recommendation.report.imp.Rec0604IMP" />	
+		    
+		    <!--大会招聘期数管理模块 -->	
+			<index name="Rec0703Facade" value="org.radf.apps.recommendation.employassembly.imp.Rec0703IMP" />
+			
+			<!-- 民办职业介绍机构-->
+			<index name="Rec08Facade" value="org.radf.apps.recommendation.ownpintorgan.imp.Rec08IMP" />
+			<index name="Rec0801Facade" value="org.radf.apps.recommendation.ownpintorgan.imp.Rec0801IMP" />
+			<index name="Rec0803Facade" value="org.radf.apps.recommendation.ownpintorgan.imp.Rec0803IMP" />
+			
+			<!--配置信息管理 -->
+			<index name="CIFacade" value="org.radf.apps.cfgmgmt.imp.CIImp" />
+			<!--申请流程审批-->
+			<index name="ApaFacade" value="org.radf.apps.process.imp.ApaImp" />		
+			<!--个人客户信息管理 -->
+			<index name="SingleClientFacade" value="org.radf.apps.client.single.imp.SingleClientImp" />
+
+			<!--团体客户信息管理 -->
+			<index name="GroupClientFacade" value="org.radf.apps.client.group.imp.GroupClientImp" />
+
+			<!--定制机管理 -->
+			<index name="CustomizationFacade" value="org.radf.apps.customization.imp.CustomizationImp" />
+			
+			<!--面板制作-->
+			<index name="TaskFacade" value="org.radf.apps.task.imp.TaskImp"/>
+			
+			<!--维修管理 -->
+			<index name="RepairFacade" value="org.radf.apps.repair.imp.RepairImp" />
+			
+			<!--质量管理 -->
+			<index name="QAFacade" value="org.radf.apps.qa.imp.QAImp" />	
+			
+			<!--订单管理 -->
+			<index name="OrderFacade" value="org.radf.apps.order.imp.OrderImp" />	
+			
+			<!--商品管理 -->
+			<index name="ProductFacade" value="org.radf.apps.product.imp.ProductImp" />		
+			
+			<!--商务管理 -->
+			<index name="BusinessFacade" value="org.radf.apps.business.imp.BusinessImp" />	
+			<!--耳模管理 -->
+			<index name="EarmouldFacade" value="org.radf.apps.earmould.imp.EarmouldImp" />	
+			
+			<!--收费管理 -->
+			<index name="ChargeFacade" value="org.radf.apps.charge.imp.ChargeImp" />	
+			
+			<!-- 库存管理 -->
+			<index name="StoreFacade" value="org.radf.apps.store.imp.StoreImp" />	
+			<!-- 预约管理 -->
+			<index name="ReservationFacade" value="org.radf.apps.client.single.imp.ReservationImp" />
+			<!-- 人员档案管理 -->
+			<index name="UserInfoFacade" value="org.radf.apps.userinfo.imp.UserInfoImp" />
+			<!-- 薪资管理 -->
+			<index name="UserSalaryFacade" value="org.radf.apps.userinfo.imp.UserSalaryImp" />
+			<!--合同管理 -->
+			<index name="ContractFacade" value="org.radf.apps.contract.imp.ContractImp" />
+			<!--人事统计管理 -->
+			<index name="StatisticsFacade" value="org.radf.apps.statistics.imp.StatisticsImp" />
+		</configlist>
+	</sieaf-config>
+</xml>

@@ -1,0 +1,86 @@
+body {
+	background-color: #000000;
+}
+
+.td1 {
+	width: 65px;
+    text-align:center;
+	border-color: #ff0000;
+	}
+
+.td2 {
+	width: 170px;
+	text-align:left;
+	
+}
+
+.td3 {
+	width: 50px;
+	 text-align:center;
+}
+
+
+.td4 {
+	width: 20px;
+	 text-align:center;
+}
+.td5 {
+	width: 20px;
+	 text-align:center;
+}
+
+.td6 {
+	width: 35px;
+	 text-align:center;
+}
+
+.td7 {
+	width: 35px;
+	 text-align:center;
+	
+}
+
+.td8 {
+	width: 35px;	
+	 text-align:center;
+}
+.td9 {
+	width: 50px;
+	 text-align:center;
+	
+}
+
+.tdalign 
+{
+	text-align: center;	
+}
+.labtext_bigscreen {
+	color: #FF0000;
+	font-size: 23px;
+	text-align: center;
+	line-height: 38px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align:bottom;
+	
+}
+.welcome_bigscreen {
+	color: #FF0000;
+	font-size: 35px;
+	text-align: center;
+	line-height: 60px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align:bottom;
+	
+}
+.welcome_bottom {
+	color: #FF0000;
+	font-size: 16px;
+	text-align: top;
+	line-height: 38px;
+	margin: 0px;
+	padding: 0px;
+	vertical-align:top;
+	
+}

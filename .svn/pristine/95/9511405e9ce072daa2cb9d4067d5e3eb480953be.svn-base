@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="ChartParamForm" type="org.radf.apps.commons.form.ChartParamForm" />
+		<!-- 以下填写业务需要的formbean -->
+	<form-bean name="Rec02Form" type="org.radf.apps.recommendation.personapply.form.Rec02Form" />
+	<form-bean name="Rec0201Form" type="org.radf.apps.recommendation.personapply.form.Rec0201Form" />
+    <form-bean name="Rec04Form" type="org.radf.apps.recommendation.employinvite.form.Rec04Form" />
+	<form-bean name="Rec0401Form" type="org.radf.apps.recommendation.employinvite.form.Rec0401Form" />
+	<form-bean name="Rec0402Form" type="org.radf.apps.recommendation.employinvite.form.Rec0402Form" />
+	<form-bean name="Rec0103Form" type="org.radf.apps.recommendation.consigninvite.form.Rec0103Form" />
+	<form-bean name="Rec0105Form" type="org.radf.apps.recommendation.consigninvite.form.Rec0105Form" />
+	<form-bean name="Rec03Form" type="org.radf.apps.recommendation.query.form.Rec03Form" />
+	<form-bean name="Rec05Form" type="org.radf.apps.recommendation.personguidance.form.Rec05Form" />
+    <form-bean name="Rec0305Form" type="org.radf.apps.recommendation.query.form.Rec0305Form" />
+    
+    <form-bean name="Rec07Form" type="org.radf.apps.recommendation.employassembly.form.Rec07Form" />
+	<form-bean name="Rec0701Form" type="org.radf.apps.recommendation.employassembly.form.Rec0701Form" />
+	<form-bean name="Rec0702Form" type="org.radf.apps.recommendation.employassembly.form.Rec0702Form" />
+    
+    <!-- 以下by yj-->
+    <form-bean name="Rec0703Form" type="org.radf.apps.recommendation.employassembly.form.Rec0703Form" />
+    <form-bean name="Rec08Form" type="org.radf.apps.recommendation.ownpintorgan.form.Rec08Form" />
+    <form-bean name="Rec0801Form" type="org.radf.apps.recommendation.ownpintorgan.form.Rec0801Form" />
+    <form-bean name="Rec0802Form" type="org.radf.apps.recommendation.ownpintorgan.form.Rec0802Form" />
+    <form-bean name="Rec0803Form" type="org.radf.apps.recommendation.ownpintorgan.form.Rec0803Form" />
+    <form-bean name="Rec0804Form" type="org.radf.apps.recommendation.ownpintorgan.form.Rec0804Form" />
+    
+    <!-- 以下by yulei -->
+     <form-bean name="Rec06Form" type="org.radf.apps.recommendation.statistic.form.Rec06Form" />
+    
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+		
+	</global-forwards>
+	<action-mappings>
+	    <action type="org.radf.plat.util.action.Actionback"  scope="request" parameter="method" path="/backAction"/>
+		<action type="org.radf.apps.commons.action.ChartAction" name="ChartParamForm" scope="session" parameter="method" path="/ChartAction">
+	      <forward contextRelative="true" path="/common/showchart.jsp" name="showchart"/>
+	    </action>
+		<!-- 以下填写业务需要的action（注：上面那个action每个文件都必须需要）-->
+		<!-- 个人求职bylwd-->
+		<action name="Rec02Form" parameter="method" path="/Rec02Action" type="org.radf.apps.recommendation.personapply.action.Rec02Action">
+			<forward name="queryPersonApply" path="/personapply/QueryPersonApply.jsp" />
+			
+		</action>
+		<action name="Rec0201Form" parameter="method" path="/Rec0201Action" type="org.radf.apps.recommendation.personapply.action.Rec0201Action">
+			<forward name="queryPersonApply" path="/personapply/QueryPersonApply.jsp" />
+			<forward name="queryEmployee" path="/personapply/QueryEmployee.jsp" />
+			<forward name="modiperson" path="/personapply/modiperson.jsp" />
+			<forward name="modiperson2" path="/personapply/modiperson2.jsp" />
+			<forward name="modipersonhy" path="/personapply/modipersonhy.jsp" />
+			<forward name="modipersonhy2" path="/personapply/modipersonhy2.jsp" />
+			<forward name="viewPersonApply" path="/personapply/ViewPersonApply.jsp" />
+			<forward name="modPersonApply" path="/personapply/ModPersonApply.jsp" />
+			<forward name="forward" path="/personapply/formword.jsp" />
+		</action>
+		<action name="Rec04Form" parameter="method" path="/Rec04Action" type="org.radf.apps.recommendation.employinvite.action.Rec04Action">
+			<forward name="queryEmployer" path="/employinvite/QueryEmployer.jsp" />
+			<forward name="check" path="/employinvite/check.jsp" />
+
+		</action>
+		<action name="Rec0401Form" parameter="method" path="/Rec0401Action" type="org.radf.apps.recommendation.employinvite.action.Rec0401Action">
+			<forward name="addEmployInvite" path="/employinvite/AddEmployInvite.jsp" />
+		</action>
+		<action name="Rec0402Form" parameter="method" path="/Rec0402Action" type="org.radf.apps.recommendation.employinvite.action.Rec0402Action">
+			<forward name="toNext" path="/employinvite/ManageInvitePosition.jsp" />
+			<forward name="viewEmptyPost" path="/employinvite/ViewEmptyPost.jsp" />
+			<forward name="addEmptyPost" path="/employinvite/AddEmptyPost.jsp" />
+			<forward name="modEmptyPost" path="/employinvite/ModEmptyPost.jsp" />
+			<forward name="delEmptyPost" path="/employinvite/ManageInvitePosition.jsp" />
+			<forward name="queryEmployInvite" path="/employinvite/QueryEmployInvite.jsp" />
+			<forward name="viewEmployInvite" path="/employinvite/ViewEmployInvite.jsp" />
+			<forward name="modEmployInvite" path="/employinvite/ModEmployInvite.jsp" />
+		</action>
+		<action name="Rec0103Form" parameter="method" path="/Rec0103Action" type="org.radf.apps.recommendation.consigninvite.action.Rec0103Action">
+			<forward name="personrecommend" path="/consigninvite/PersonRecommend.jsp" />
+			<forward name="personrecommendresult" path="/consigninvite/PersonRecommendResult.jsp" />
+			<forward name="recommend" path="/consigninvite/Recommendation.jsp" />
+			<forward name="print" path="/consigninvite/print.jsp" />
+			<forward name="personRecommendView" path="/consigninvite/PersonRecommendView.jsp" />
+			<forward name="postrecommend" path="/consigninvite/PostRecommend.jsp" />
+			<forward name="ppostRecommendResult" path="/consigninvite/PostRecommendResult.jsp" />
+			<forward name="viewppqk" path="/consigninvite/viewppqk.jsp" />
+		</action>
+		<action name="Rec0105Form" parameter="method" path="/Rec0105Action" type="org.radf.apps.recommendation.consigninvite.action.Rec0105Action" scope="session">
+			<forward name="recommendfeedback" path="/consigninvite/RecommendFeedback.jsp" />
+		    <forward name="queryrecommendhistory" path="/consigninvite/queryRecommendHistory.jsp" />
+		    <forward name="viewrecommendhistory" path="/consigninvite/viewRecommendHistory.jsp" />
+		    <forward name="recommendback" path="/consigninvite/Recommendation.jsp" />
+		</action>
+		<action name="Rec03Form" parameter="method" path="/Rec03Action" type="org.radf.apps.recommendation.query.action.Rec03Action" scope="session">
+			<forward name="queryPrint" path="/query/queryPrint.jsp" />
+			<forward name="queryEmployerRecommend" path="/query/queryEmployerRecommend.jsp" />
+			<forward name="queryPersonApply" path="/query/queryPersonApply.jsp" />
+			<forward name="queryRecommend" path="/query/queryRecommend.jsp" />
+			<forward name="queryPerson" path="/query/queryPerson.jsp" />
+			<forward name="ztprintA4s" path="/query/printA4s.jsp" />
+			<forward name="ztprintA4h" path="/query/printA4h.jsp" />
+			<forward name="ztprintA3h" path="/query/printA3h.jsp" />
+			<forward name="ztprintA3s" path="/query/printA3s.jsp" />
+			
+		</action>
+		<action name="Rec0305Form" parameter="method" path="/Rec0305Action" type="org.radf.apps.recommendation.query.action.Rec0305Action" scope="session">
+		
+			<forward name="querychart" path="/query/querychart.jsp" />
+			<forward name="querychart2" path="/query/querychart2.jsp" />
+			<forward name="queryczy" path="/query/queryczy.jsp" />
+			<forward name="statzp" path="/query/statzp.jsp" />		
+		</action>
+		<action name="Rec05Form" parameter="method" path="/Rec05Action" type="org.radf.apps.recommendation.personguidance.action.Rec05Action" scope="session">
+			<forward name="queryPerson" path="/personguidance/QueryPerson.jsp" />
+			<forward name="addpersonguidance" path="/personguidance/add.jsp" />
+			<forward name="editpersonguidance" path="/personguidance/edit.jsp" />
+			<forward name="viewguidance" path="/personguidance/Viewguidance.jsp" />
+		</action>
+		<action name="Rec07Form" parameter="method" path="/Rec07Action" type="org.radf.apps.recommendation.employassembly.action.Rec07Action">
+			<forward name="queryEmployer" path="/employassembly/QueryEmployer.jsp" />
+			<forward name="check" path="/employassembly/check.jsp" />
+
+		</action>
+		<action name="Rec0701Form" parameter="method" path="/Rec0701Action" type="org.radf.apps.recommendation.employassembly.action.Rec0701Action">
+			<forward name="addEmployInvite" path="/employassembly/AddEmployInvite.jsp" />
+		</action>
+		<action name="Rec0702Form" parameter="method" path="/Rec0702Action" type="org.radf.apps.recommendation.employassembly.action.Rec0702Action">
+			<forward name="toNext" path="/employassembly/ManageInvitePosition.jsp" />
+			<forward name="viewEmptyPost" path="/employassembly/ViewEmptyPost.jsp" />
+			<forward name="addEmptyPost" path="/employassembly/AddEmptyPost.jsp" />
+			<forward name="modEmptyPost" path="/employassembly/ModEmptyPost.jsp" />
+			<forward name="delEmptyPost" path="/employassembly/ManageInvitePosition.jsp" />
+			<forward name="queryEmployInvite" path="/employassembly/QueryEmployInvite.jsp" />
+			<forward name="viewEmployInvite" path="/employassembly/ViewEmployInvite.jsp" />
+			<forward name="modEmployInvite" path="/employassembly/ModEmployInvite.jsp" />
+			<forward name="queryDhzp" path="/employassembly/enterqueryDhzp.jsp"/>
+		</action>
+		
+		
+		<!-- 以下by yj（大会招聘期数管理）-->
+		<action name="Rec0703Form" parameter="method" path="/Rec0703Action" type="org.radf.apps.recommendation.employassembly.action.Rec0703Action">	
+		    <forward name="queryQs" path="/employassembly/enterqueryqs.jsp"/>
+		    <forward name="addqs" path="/employassembly/addqs.jsp"/>
+		    <forward name="initmodifyqs" path="/employassembly/modifyqs.jsp"/>
+		    <forward name="viewqs" path="/employassembly/viewqs.jsp"/>
+		</action>
+		<!-- 民办职业介绍机构-->
+		<action name="Rec08Form" parameter="method" path="/Rec08Action" type="org.radf.apps.recommendation.ownpintorgan.action.Rec08Action">	 
+		    <forward name="queryOrgan" path="/ownpintorgan/enterqueryorgan.jsp"/>
+		    <forward name="addorgan" path="/ownpintorgan/addorgan.jsp"/>
+		    <forward name="initmodifyorgan" path="/ownpintorgan/modifyorgan.jsp"/>
+		    <forward name="vieworgan" path="/ownpintorgan/vieworgan.jsp"/>
+		</action>
+		<!--机构年检 -->
+		<action name="Rec0801Form" parameter="method" path="/Rec0801Action" type="org.radf.apps.recommendation.ownpintorgan.action.Rec0801Action">	 
+		    <forward name="queryOrgan" path="/ownpintorgan/organlist.jsp"/>
+		    <forward name="organManager" path="/ownpintorgan/organyearchecklist.jsp"/>
+		</action>
+		<action name="Rec0802Form" parameter="method" path="/Rec0802Action" type="org.radf.apps.recommendation.ownpintorgan.action.Rec0802Action">	 
+		    <forward name="addorganyearcheck" path="/ownpintorgan/addorganyearcheck.jsp"/>
+		    <forward name="initmodifyorganyc" path="/ownpintorgan/modifyorganyc.jsp"/>
+		    <forward name="vieworganyc" path="/ownpintorgan/vieworganyc.jsp"/>
+		</action>
+		<!-- 机构日常检查投诉-->
+		<action name="Rec0803Form" parameter="method" path="/Rec0803Action" type="org.radf.apps.recommendation.ownpintorgan.action.Rec0803Action">	 
+		    <forward name="queryOrgan" path="/ownpintorgan/organlist2.jsp"/>
+		    <forward name="complaintManager" path="/ownpintorgan/organcomplaintlist.jsp"/>
+		</action>
+		<action name="Rec0804Form" parameter="method" path="/Rec0804Action" type="org.radf.apps.recommendation.ownpintorgan.action.Rec0804Action">	 
+		    <forward name="addorgancom" path="/ownpintorgan/addorgancom.jsp"/>
+		    <forward name="initmodifyorgancom" path="/ownpintorgan/modifyorgancom.jsp"/>
+		    <forward name="vieworgancom" path="/ownpintorgan/vieworgancom.jsp"/>
+		</action>
+		
+		<!-- 以下by yulei (职业介绍工作年报)-->
+		<action name="Rec06Form" parameter="method" path="/Rec06Action" type="org.radf.apps.recommendation.statistic.action.Rec06Action">	 
+			<forward name="viewreport" path="/statistic/condition.jsp"/>
+			<forward name="modifyreport" path="/statistic/modify.jsp"/>
+			<forward name="printreport" path="/statistic/printreport.jsp"/>
+		</action>
+		
+		<!-- 以下by sk(职业介绍生成报表) -->
+		<action  parameter="method" path="/Rec0604Action" type="org.radf.apps.recommendation.report.action.Rec0604Action">
+			<forward name="back" path="/reports/reportCreate.jsp"/>
+		</action>
+	</action-mappings>
+	
+</struts-config>

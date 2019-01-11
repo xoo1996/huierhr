@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repair_3" pageWidth="800" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="770" leftMargin="0" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="sdata" class="java.util.Date"/>
+	<parameter name="edata" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT r.repfdate,
+  r.repcltnm,
+  s.bsc012,
+  r.repid,
+  g.gctnm AS gctnm,
+  r.repcls,
+  p.pdtnm,
+  r.repdeclare，r.repnote,
+  r.repfolid,
+ r.REPCONFIRMED as REPCONFIRMED,
+  decode(zhs.repoprcd,null,zhs.repoprcd,
+  (select s.bsc012 from sc05 s where s.bsc011=zhs.repoprcd
+  )) as prerepoprname,
+  DECODE(zhs.repregnames,NULL,zhs.repregnames,
+  (select s.bsc012 from sc05 s where s.bsc011=zhs.repregnames
+  )) AS prerepregname,
+  DECODE(r.repoprcd,NULL,r.repoprcd,
+  (SELECT s.bsc012 FROM sc05 s WHERE s.bsc011=r.repoprcd
+  )) AS repoprname,
+  DECODE(r.repregnames,NULL,r.repregnames,
+  (SELECT s.bsc012 FROM sc05 s WHERE s.bsc011=r.repregnames
+  )) AS repregname,
+  DECODE(m.tmkshmk,NULL,m.tmkshmk,
+  (SELECT s.bsc012
+  FROM sc05 s
+  LEFT OUTER JOIN tblmaking m
+  ON m.tmkshmk  =s.bsc011
+  WHERE m.tmksid=r.repid
+  )) AS tmkshmk,
+  DECODE(m.tmkshinst,NULL,m.tmkshinst,
+  (SELECT s.bsc012
+  FROM sc05 s
+  LEFT OUTER JOIN tblmaking m
+  ON m.tmkshinst=s.bsc011
+  WHERE m.tmksid=r.repid
+  )) AS tmkshinst,
+  DECODE(r.repaction1,NULL,r.repaction1,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION1'
+  AND a.aaa004  =r.repaction1
+  )) AS tem1,
+  DECODE(r.repaction2,NULL,r.repaction2,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION2'
+  AND a.aaa004  =r.repaction2
+  )) AS tem2,
+  DECODE(r.repaction3,NULL,r.repaction3,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION3'
+  AND a.aaa004  =r.repaction3
+  )) AS tem3,
+  DECODE(r.repaction4,NULL,r.repaction4,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION4'
+  AND a.aaa004  =r.repaction4
+  )) AS tem4,
+  DECODE(r.repaction5,NULL,r.repaction5,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION5'
+  AND a.aaa004  =r.repaction5
+  )) AS tem5,
+  DECODE(r.repaction6,NULL,r.repaction6,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION6'
+  AND a.aaa004  =r.repaction6
+  )) as tem6,
+   DECODE(zhs.repaction1,NULL,zhs.repaction1,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION1'
+  and a.aaa004  =zhs.repaction1
+  )) AS zhstem1,
+  DECODE(zhs.repaction2,NULL,zhs.repaction2,
+  (SELECT a.aaa004
+  FROM aa01 a
+  where a.aaa001='REPACTION2'
+  and a.aaa004  =zhs.repaction2
+  )) as zhstem2,
+  DECODE(zhs.repaction3,NULL,zhs.repaction3,
+  (SELECT a.aaa004
+  FROM aa01 a
+  where a.aaa001='REPACTION3'
+  and a.aaa004  =zhs.repaction3
+  )) as zhstem3,
+  DECODE(zhs.repaction4,NULL,zhs.repaction4,
+  (SELECT a.aaa004
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION4'
+  and a.aaa004  =zhs.repaction4
+  )) AS zhstem4,
+  DECODE(zhs.repaction5,NULL,zhs.repaction5,
+  (SELECT a.aaa004
+  FROM aa01 a
+  where a.aaa001='REPACTION5'
+  and a.aaa004  =zhs.repaction5
+  )) AS zhstem5,
+  DECODE(zhs.repaction6,NULL,zhs.repaction6,
+  (SELECT a.aaa004
+  FROM aa01 a
+  where a.aaa001='REPACTION6'
+  and a.aaa004  =zhs.repaction6
+  )) AS zhstem6,
+  to_number(DECODE(r.repaction1,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION1'
+  AND a.aaa004  =r.repaction1
+  ))) AS temp1,
+  to_number(DECODE(r.repaction2,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION2'
+  AND a.aaa004  =r.repaction2
+  ))) AS temp2,
+  to_number(DECODE(r.repaction3,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION3'
+  AND a.aaa004  =r.repaction3
+  ))) AS temp3,
+  to_number(DECODE(r.repaction4,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION4'
+  AND a.aaa004  =r.repaction4
+  ))) AS temp4,
+  to_number(DECODE(r.repaction5,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION5'
+  AND a.aaa004  =r.repaction5
+  ))) AS temp5,
+  to_number(DECODE(r.repaction6,NULL,'0',
+  (SELECT a.aaa005
+  FROM aa01 a
+  WHERE a.aaa001='REPACTION6'
+  AND a.aaa004  =r.repaction6
+  ))) AS temp6
+FROM tblrep r
+LEFT OUTER JOIN tblproduct p
+ON p.pdtid= r.reppid
+LEFT OUTER JOIN sc05 s
+ON (s.bsc011       =r.repregnames
+OR (r.repregnames IS NULL
+AND s.bsc011       =r.repoprcd))
+LEFT OUTER JOIN tblgrpclient g
+ON g.gctid=r.repgctid
+LEFT OUTER JOIN tblmaking m
+on m.tmksid    =r.repid
+left outer join (
+SELECT *
+FROM
+  (select z.*,
+    row_number() over(partition by z.repid,z.temfolno order by z.repid,z.repdate desc) cn
+    from
+     (select r.*,p.repfolid as temfolno
+       FROM tblrep r,
+      (SELECT t.repdate,t.repid,repfolid FROM tblrep t WHERE reptype='3'
+      ) p
+       where r.repid =p.repid
+       and r.repdate <p.repdate
+       and r.repid  <>'0000'
+       and r.repid  <>'000000'
+       and r.repsta='finish'
+      ) z
+  )
+where cn = 1) zhs
+on r.REPFOLID=zhs.temfolno
+WHERE r.repcpy ='惠耳'
+and r.repcls   ='3'
+AND r.repfdate>=$P{sdata} and r.repfdate<=$P{edata} order by s.bsc012,r.repfdate]]>
+	</queryString>
+	<field name="REPFDATE" class="java.sql.Timestamp"/>
+	<field name="REPCLTNM" class="java.lang.String"/>
+	<field name="BSC012" class="java.lang.String"/>
+	<field name="REPID" class="java.lang.String"/>
+	<field name="PDTNM" class="java.lang.String"/>
+	<field name="REPDECLARE" class="java.lang.String"/>
+	<field name="REPNOTE" class="java.lang.String"/>
+	<field name="TEM1" class="java.lang.String"/>
+	<field name="TEM2" class="java.lang.String"/>
+	<field name="TEM3" class="java.lang.String"/>
+	<field name="TEM4" class="java.lang.String"/>
+	<field name="TEM5" class="java.lang.String"/>
+	<field name="TEM6" class="java.lang.String"/>
+	<field name="TEMP1" class="java.math.BigDecimal"/>
+	<field name="TEMP2" class="java.math.BigDecimal"/>
+	<field name="TEMP3" class="java.math.BigDecimal"/>
+	<field name="TEMP4" class="java.math.BigDecimal"/>
+	<field name="TEMP5" class="java.math.BigDecimal"/>
+	<field name="TEMP6" class="java.math.BigDecimal"/>
+	<field name="REPCLS" class="java.lang.String"/>
+	<field name="GCTNM" class="java.lang.String"/>
+	<field name="TMKSHMK" class="java.lang.String"/>
+	<field name="TMKSHINST" class="java.lang.String"/>
+	<field name="REPFOLID" class="java.lang.String"/>
+	<field name="REPOPRNAME" class="java.lang.String"/>
+	<field name="REPREGNAME" class="java.lang.String"/>
+	<field name="ZHSTEM1" class="java.lang.String"/>
+	<field name="ZHSTEM2" class="java.lang.String"/>
+	<field name="ZHSTEM3" class="java.lang.String"/>
+	<field name="ZHSTEM4" class="java.lang.String"/>
+	<field name="ZHSTEM5" class="java.lang.String"/>
+	<field name="ZHSTEM6" class="java.lang.String"/>
+	<field name="PREREPOPRNAME" class="java.lang.String"/>
+	<field name="PREREPREGNAME" class="java.lang.String"/>
+	<field name="REPCONFIRMED" class="java.lang.String"/>
+	<variable name="worknum" class="java.math.BigDecimal" resetType="None">
+		<variableExpression><![CDATA[(((($F{TEMP1}.max($F{TEMP2})).max($F{TEMP3})).max($F{TEMP4})).max($F{TEMP5})).max($F{TEMP6})]]></variableExpression>
+	</variable>
+	<variable name="sumwork" class="java.math.BigDecimal" resetType="Group" resetGroup="work" calculation="Sum">
+		<variableExpression><![CDATA[$V{worknum}]]></variableExpression>
+	</variable>
+	<variable name="totle_num" class="java.lang.Integer" incrementType="Group" incrementGroup="work" calculation="Sum">
+		<variableExpression><![CDATA[$V{work_COUNT}]]></variableExpression>
+	</variable>
+	<group name="work">
+		<groupExpression><![CDATA[$F{BSC012}]]></groupExpression>
+		<groupHeader>
+			<band height="65" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-3" stretchType="RelativeToBandHeight" x="85" y="30" width="50" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[用户姓名]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-4" stretchType="RelativeToBandHeight" x="135" y="30" width="50" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[机身编号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-5" stretchType="RelativeToBandHeight" x="185" y="30" width="64" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[助听器名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-7" stretchType="RelativeToBandHeight" x="354" y="30" width="110" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[本次维修措施]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-5" stretchType="RelativeToBandHeight" x="249" y="30" width="47" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[维修类别]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-3" stretchType="RelativeToBandHeight" x="35" y="30" width="50" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[客户名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-3" stretchType="RelativeToBandHeight" x="0" y="30" width="35" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[订单号]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-7" stretchType="RelativeToBandHeight" x="464" y="30" width="98" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[本次维修人员]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-7" stretchType="RelativeToBandHeight" x="672" y="30" width="98" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[上次维修人员]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-5" stretchType="RelativeToBandHeight" x="296" y="30" width="58" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[故障确认]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-7" stretchType="RelativeToBandHeight" x="562" y="30" width="110" height="35"/>
+					<box>
+						<pen lineWidth="0.25"/>
+						<topPen lineWidth="0.25"/>
+						<leftPen lineWidth="0.25"/>
+						<bottomPen lineWidth="0.25"/>
+						<rightPen lineWidth="0.25"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[上次维修措施]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50" splitType="Stretch"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" stretchType="RelativeToBandHeight" x="0" y="0" width="562" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[维修机三月重修维修措施和维修人员统计报表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-2" stretchType="RelativeToBandHeight" x="85" y="0" width="50" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{REPCLTNM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-3" stretchType="RelativeToBandHeight" x="135" y="0" width="50" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{REPID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-4" stretchType="RelativeToBandHeight" x="185" y="0" width="64" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{PDTNM}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" stretchType="RelativeToBandHeight" x="354" y="0" width="110" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{TEM1}==null?"":$F{TEM1})+($F{TEM2}==null?"":(" "+$F{TEM2}))+($F{TEM3}==null?"":(" "+$F{TEM3}))+($F{TEM4}==null?"":(" "+$F{TEM4}))+($F{TEM5}==null?"":(" "+$F{TEM5}))+($F{TEM6}==null?"":(" "+$F{TEM6}))]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-2" stretchType="RelativeToBandHeight" x="35" y="0" width="50" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{GCTNM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-2" stretchType="RelativeToBandHeight" x="0" y="0" width="35" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{REPFOLID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" stretchType="RelativeToBandHeight" x="464" y="0" width="98" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{REPOPRNAME}==null?"":$F{REPOPRNAME})+($F{REPREGNAME}==null?"":(" "+$F{REPREGNAME}))]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-5" stretchType="RelativeToBandHeight" x="249" y="0" width="47" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[三月重修]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-6" stretchType="RelativeToBandHeight" x="562" y="0" width="110" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{ZHSTEM1}==null?"":$F{ZHSTEM1})+($F{ZHSTEM2}==null?"":(" "+$F{ZHSTEM2}))+($F{ZHSTEM3}==null?"":(" "+$F{ZHSTEM3}))+($F{ZHSTEM4}==null?"":(" "+$F{ZHSTEM4}))+($F{ZHSTEM5}==null?"":(" "+$F{ZHSTEM5}))+($F{ZHSTEM6}==null?"":(" "+$F{ZHSTEM6}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-2" stretchType="RelativeToBandHeight" x="672" y="0" width="98" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{PREREPOPRNAME}==null?"":$F{PREREPOPRNAME})+($F{PREREPREGNAME}==null?"":(" "+$F{PREREPREGNAME}))]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement key="textField-4" stretchType="RelativeToBandHeight" x="296" y="0" width="58" height="80"/>
+				<box>
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{REPCONFIRMED}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="30" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="50" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50" splitType="Stretch"/>
+	</lastPageFooter>
+	<summary>
+		<band height="50" splitType="Stretch"/>
+	</summary>
+</jasperReport>

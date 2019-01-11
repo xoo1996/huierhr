@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="BigScreenForm" type="org.radf.apps.bigscreen.form.BigScreenForm" />
+		<!-- 人员基本信息   CB   -->
+		<form-bean name="PersonForm" type="org.radf.apps.basicinfo.form.PersonForm" />
+		<form-bean name="OperPersonForm" type="org.radf.apps.basicinfo.form.PersonForm" />
+		<form-bean name="QueryPersonForm" type="org.radf.apps.basicinfo.form.PersonForm" />
+		<form-bean name="SkillForm" type="org.radf.apps.basicinfo.form.SkillForm" />
+		<form-bean name="ResumesForm" type="org.radf.apps.basicinfo.form.ResumesForm" />
+		<form-bean name="SocietyForm" type="org.radf.apps.basicinfo.form.SocietyForm" />
+		<form-bean name="PersonFamilyForm" type="org.radf.apps.basicinfo.form.PersonFamilyForm" />
+		<!-- end -->
+		<!--单位基本信息BEAN llc-->
+		<form-bean name="QueryEmployerForm" type="org.radf.apps.basicinfo.form.QueryEmployerForm" />
+		<form-bean name="EmployerForm" 		type="org.radf.apps.basicinfo.form.EmployerForm" />
+		<form-bean name="EmployerGsForm" 	type="org.radf.apps.basicinfo.form.EmployerGsForm" />
+		<!--end-->
+		
+		<form-bean name="UnitePersonForm" type="org.radf.apps.basicinfo.form.UnitePersonForm" />
+		<form-bean name="UniteEmployForm" type="org.radf.apps.basicinfo.form.EmployerForm" />
+
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<!--20070918bylwd-->
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />		
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+	    <action type="org.radf.plat.util.action.Actionback"  scope="request" parameter="method" path="/backAction"/>
+		<!-- 单位基本信息 llc-->
+		<action path="/queryEmployerAction" name="QueryEmployerForm" parameter="method" type="org.radf.apps.basicinfo.action.QueryEmployerAction" >
+			<forward path="/enterpriseList.jsp" name="enterpriseList"/>
+			<forward path="/viewEmployer.jsp" name="viewEmployer"/>
+			<forward  path="/newEmployer.jsp" name="addEmployer"/>
+			<forward path="/initqueryemploy.jsp" name="initqueryemploy"/>
+		</action>
+		<action path="/employerAction" name="EmployerForm" parameter="method" type="org.radf.apps.basicinfo.action.EmployerAction"  scope="session">
+			<forward path="/viewEmployer.jsp" name="viewEmployer"/>
+			<forward path="/editEmployer.jsp" name="editEmployer"/>
+			<forward path="/queryEmployerAction.do?method=queryEnterprise" name="employerList"/>
+			<forward path="/addEmployer.jsp" name="addEmployer"/>
+			<forward path="/writeOffEmployer.jsp" name="writeOffEmployer"/>
+			<forward path="/editEmployer1.jsp" name="editEmployer1"/>
+			<forward path="/initqueryemploy.jsp" name="initqueryemploy"/>
+			<forward path="/enterpriseList.jsp" name="enterpriseList"/>
+		</action>
+		<action path="/employerGsAction" 		name="EmployerGsForm" parameter="method" type="org.radf.apps.basicinfo.action.EmployerGsAction"  scope="session">
+			<forward path="/viewEmployer1.jsp" name="viewEmployer1"/>
+			<forward path="/editEmployer1.jsp" name="editEmployer1"/>
+			<forward path="/queryEmployerAction.do?method=queryEnterprise" name="employerList"/>
+		</action>		
+		
+		<action path="/UniteEmployAction" name="UniteEmployForm" parameter="method" type="org.radf.apps.basicinfo.action.EmployerAction"  scope="session">
+			<forward path="/initqueryemploy.jsp" name="initqueryemploy"/>
+			<forward path="/enterpriseList.jsp" name="enterpriseList"/>
+			
+		</action>
+		
+		<!-- 人员基本信息   CB   -->
+		<action path="/queryPerson" parameter="method" type="org.radf.apps.basicinfo.action.QueryPersonAction" name="QueryPersonForm" scope="session">
+			<forward name="personList" path="/queryperson.jsp" />
+			<forward name="alterPerson" path="/alterperson.jsp" />
+			<forward name="newPerson" path="/personReg.jsp" />
+			<forward name="addPerson" path="/modiperson.jsp" />
+			<forward name="writeoffperson" path="/writeoffperson.jsp" />
+			<forward name="uniteperson" path="/uniteperson.jsp" />
+			<forward name="uniteotherperson" path="/uniteotherperson.jsp" />
+			<forward name="delPerson" path="/delPerson.jsp" />
+		</action>
+		<action path="/operatePerson" parameter="method" type="org.radf.apps.basicinfo.action.QueryPersonAction" name="OperPersonForm" scope="session">
+			<forward name="personList" path="/queryperson.jsp" />
+			<forward name="alterPerson" path="/alterperson.jsp" />
+			<forward name="newPerson" path="/personReg.jsp" />
+			<forward name="addPerson" path="/modiperson.jsp" />
+			<forward name="viewPerson" path="/viewperson.jsp" />
+		</action>
+		<action path="/queryskillAction" parameter="method" type="org.radf.apps.basicinfo.action.SkillAction" name="QueryPersonForm" scope="session">
+			<forward name="skill" path="/skill.jsp" />
+		</action>
+		<action path="/queryresumeAction" parameter="method" type="org.radf.apps.basicinfo.action.ResumesAction" name="QueryPersonForm" scope="session">
+			<forward name="resume" path="/basicinfo/resume.jsp" />
+		</action>
+		<action path="/querysocietyAction" parameter="method" type="org.radf.apps.basicinfo.action.SocietyAction" name="QueryPersonForm" scope="session">
+			<forward name="society" path="/basicinfo/society.jsp" />
+		</action>
+		<action path="/skillAction" parameter="method" type="org.radf.apps.basicinfo.action.SkillAction" name="SkillForm" scope="session"></action>
+		<action path="/resumesAction" parameter="method" type="org.radf.apps.basicinfo.action.ResumesAction" name="ResumesForm" scope="session"></action>
+		<action path="/societyAction" parameter="method" type="org.radf.apps.basicinfo.action.SocietyAction" name="SocietyForm" scope="session"></action>
+		<action path="/personOperAction" parameter="method" type="org.radf.apps.basicinfo.action.PersonOperAction" name="PersonForm" scope="session">
+		    <forward name="check" path="/check.jsp" />
+		    <forward name="check1" path="/check1.jsp" />
+		    <forward name="personall" path="/viewpersonall.jsp" />
+		   <forward name="printperson" path="/viewallperson.jsp" />
+		</action>
+		<action path="/queryFamily" parameter="method" type="org.radf.apps.basicinfo.action.QueryPersonAction" name="PersonFamilyForm" scope="session">
+			<forward name="alterfamily" path="/queryperson.jsp" />
+		</action>
+		
+		<action path="/queryUnitePerson" parameter="method" type="org.radf.apps.basicinfo.action.QueryPersonAction" name="UnitePersonForm" scope="session">
+			<forward name="uniteperson" path="/uniteperson.jsp" />
+			<forward name="uniteotherperson" path="/uniteotherperson.jsp" />
+		</action>
+		
+		<!-- end -->
+		<action path="/BigScreenAction" parameter="method" type="org.radf.apps.bigscreen.action.BigScreenAction" name="BigScreenForm" scope="session">
+			<forward name="welcome" path="/BigScreenXml/welcome.jsp" />
+		</action>		
+
+	</action-mappings>
+</struts-config>

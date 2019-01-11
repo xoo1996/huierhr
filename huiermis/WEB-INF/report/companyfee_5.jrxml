@@ -1,0 +1,838 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="companyfee_5" pageWidth="2380" pageHeight="1684" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="2380" leftMargin="0" rightMargin="0" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="2.4200000000000053"/>
+	<property name="ireport.x" value="2572"/>
+	<property name="ireport.y" value="97"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="ccyear" class="java.lang.Integer"/>
+	<parameter name="gctid" class="java.lang.String"/>
+	<parameter name="startMonth" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endYear" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="endMonth" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select f.*，g.gctnm,d.aaa103,g.gctarea from tblfee f left outer join tblgrpclient g on g.gctid=f.feegctid left outer join aa10 d on (d.aaa100='GCTPROVINCE' and d.aaa102=g.gctprovince) where to_date(to_char(f.feeyear,'9999')||to_char(f.feemonth,'99'),'yyyy-mm')>=to_date(to_char($P{ccyear},'9999')||to_char($P{startMonth},'99'),'yyyy-mm') and to_date(to_char(f.feeyear,'9999')||to_char(f.feemonth,'99'),'yyyy-mm')<=to_date(to_char($P{endYear},'9999')||to_char($P{endMonth},'99'),'yyyy-mm')  and f.feegctid=$P{gctid} order by f.feeyear,f.feemonth]]>
+	</queryString>
+	<field name="FEEYEAR" class="java.math.BigDecimal"/>
+	<field name="FEEMONTH" class="java.math.BigDecimal"/>
+	<field name="FEEGCTID" class="java.lang.String"/>
+	<field name="FEERENT" class="java.math.BigDecimal"/>
+	<field name="FEETAX" class="java.math.BigDecimal"/>
+	<field name="FEEPENSION" class="java.math.BigDecimal"/>
+	<field name="FEEASSETS" class="java.math.BigDecimal"/>
+	<field name="FEEPAY" class="java.math.BigDecimal"/>
+	<field name="FEEBUILT" class="java.math.BigDecimal"/>
+	<field name="FEEOPEN" class="java.math.BigDecimal"/>
+	<field name="FEOTHERSA" class="java.math.BigDecimal"/>
+	<field name="FEEAD" class="java.math.BigDecimal"/>
+	<field name="FEEPHONE" class="java.math.BigDecimal"/>
+	<field name="FEEWATER" class="java.math.BigDecimal"/>
+	<field name="FEETRIP" class="java.math.BigDecimal"/>
+	<field name="FEEPOSTAGE" class="java.math.BigDecimal"/>
+	<field name="FEEOFFICE" class="java.math.BigDecimal"/>
+	<field name="FEESOCIAL" class="java.math.BigDecimal"/>
+	<field name="FEEMEDICAL" class="java.math.BigDecimal"/>
+	<field name="FEEACCOUNT" class="java.math.BigDecimal"/>
+	<field name="FEEOP" class="java.lang.String"/>
+	<field name="FEEOPDATA" class="java.sql.Timestamp"/>
+	<field name="FEEOTHERSB" class="java.math.BigDecimal"/>
+	<field name="FEESALES" class="java.math.BigDecimal"/>
+	<field name="FEEDEVICE" class="java.math.BigDecimal"/>
+	<field name="FEEMANAGE" class="java.math.BigDecimal"/>
+	<field name="FEEINVOICE" class="java.math.BigDecimal"/>
+	<field name="FEETRANS" class="java.math.BigDecimal"/>
+	<field name="FEEPROCESS" class="java.math.BigDecimal"/>
+	<field name="FEENT" class="java.math.BigDecimal"/>
+	<field name="FEEPROMOTION" class="java.math.BigDecimal"/>
+	<field name="FEEBACK" class="java.math.BigDecimal"/>
+	<field name="GCTNM" class="java.lang.String"/>
+	<field name="AAA103" class="java.lang.String"/>
+	<field name="GCTAREA" class="java.lang.String"/>
+	<variable name="sumfee" class="java.lang.Double" resetType="None">
+		<variableExpression><![CDATA[new Double($F{FEEAD}.doubleValue()+$F{FEEPHONE}.doubleValue()+$F{FEEWATER}.doubleValue()+$F{FEETRIP}.doubleValue()+$F{FEEPOSTAGE}.doubleValue()+$F{FEEOFFICE}.doubleValue()+$F{FEESOCIAL}.doubleValue()+$F{FEEACCOUNT}.doubleValue()+$F{FEEOTHERSB}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumout" class="java.lang.Double">
+		<variableExpression><![CDATA[new Double($F{FEERENT}.doubleValue()+$F{FEETAX}.doubleValue()+$F{FEEPENSION}.doubleValue()+$F{FEEASSETS}.doubleValue()+$F{FEEPAY}.doubleValue()+$F{FEEBUILT}.doubleValue()+$F{FEEOPEN}.doubleValue()+$F{FEOTHERSA}.doubleValue()+$F{FEEAD}.doubleValue()+$F{FEEPHONE}.doubleValue()+$F{FEEWATER}.doubleValue()+$F{FEETRIP}.doubleValue()+$F{FEEPOSTAGE}.doubleValue()+$F{FEEOFFICE}.doubleValue()+$F{FEESOCIAL}.doubleValue()+$F{FEEMEDICAL}.doubleValue()+$F{FEEACCOUNT}.doubleValue()+$F{FEOTHERSA}.doubleValue()+$F{FEEINVOICE}.doubleValue()+$F{FEETRANS}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumfz" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEERENT}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumss" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEETAX}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumyl" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPENSION}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumgd" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEASSETS}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumgz" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPAY}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumzx" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEBUILT}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumkb" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEOPEN}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumqt" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEINVOICE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumgg" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEAD}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumsd" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEWATER}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumdh" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPHONE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumcl" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEETRIP}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumyf" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPOSTAGE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumbg" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEOFFICE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumgongg" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEESOCIAL}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumzz" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEMEDICAL}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumkj" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEACCOUNT}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumfy" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($V{sumfee}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sunzc" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($V{sumout}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumxs" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEESALES}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumwqt" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEOTHERSA}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumsb" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEDEVICE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumgl" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEMANAGE}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumzrf" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEETRANS}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sum_rent" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_built" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_open" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_trans" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_assetscom" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_assetscon" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_assetsmach" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sum_other" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="built" class="java.math.BigDecimal" resetType="Column" incrementType="Column" calculation="Count"/>
+	<variable name="seq" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{COLUMN_COUNT}+2]]></variableExpression>
+	</variable>
+	<variable name="column" class="java.lang.Integer" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[1]]></variableExpression>
+		<initialValueExpression><![CDATA[2]]></initialValueExpression>
+	</variable>
+	<variable name="sum_column" class="java.lang.Integer" resetType="None">
+		<variableExpression><![CDATA[$V{column}+2]]></variableExpression>
+	</variable>
+	<variable name="group_count" class="java.lang.Integer" incrementType="Group" incrementGroup="fee" calculation="Count">
+		<variableExpression><![CDATA[1]]></variableExpression>
+	</variable>
+	<variable name="group_count_2" class="java.lang.Integer">
+		<variableExpression><![CDATA[2*($V{group_count}-1)+$V{seq}]]></variableExpression>
+	</variable>
+	<variable name="group_count_3" class="java.lang.Integer">
+		<variableExpression><![CDATA[$V{group_count_2}+1]]></variableExpression>
+	</variable>
+	<variable name="sumcx" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPROMOTION}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumsx" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEPROCESS}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sumtj" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEBACK}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="sstj" class="java.lang.Double" incrementType="Group" incrementGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[$V{sumtj}]]></variableExpression>
+	</variable>
+	<variable name="sumyh" class="java.lang.Double" resetType="Group" resetGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[new Double($F{FEEMEDICAL}.doubleValue())]]></variableExpression>
+	</variable>
+	<variable name="ssyh" class="java.lang.Double" incrementType="Group" incrementGroup="fee" calculation="Sum">
+		<variableExpression><![CDATA[$V{sumyh}]]></variableExpression>
+	</variable>
+	<group name="fee">
+		<groupExpression><![CDATA[$F{FEEGCTID}]]></groupExpression>
+		<groupHeader>
+			<band height="50" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-6" x="293" y="20" width="30" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[月份]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-8" x="323" y="20" width="80" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[销售额]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-9" x="403" y="20" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[房租]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-12" x="1060" y="20" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[税收]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-15" x="1341" y="20" width="80" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[工资]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-19" x="1481" y="20" width="80" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[广告费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-20" x="1561" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[电话费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-21" x="1621" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[水电费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-22" x="1691" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[差旅费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-23" x="1751" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[邮费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-24" x="1811" y="20" width="71" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[办公费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-25" x="1882" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[公关费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-28" x="1942" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[会计工资]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-29" x="990" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[开票税]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-30" x="2002" y="20" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[费用小计]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-31" x="2102" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[费用比例]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-32" x="2162" y="20" width="100" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[支出合计]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-35" x="54" y="20" width="52" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[省份]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-39" x="1110" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[社保费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-42" x="1421" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" pdfFontName="Helvetica" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[其他]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-43" x="940" y="20" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[管理费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-44" x="106" y="20" width="56" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[客户代码]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-6" x="253" y="20" width="40" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[年份]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-6" x="162" y="20" width="91" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[客户名称]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-6" x="0" y="20" width="54" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="SansSerif" size="8" pdfEncoding="Cp1252"/>
+					</textElement>
+					<text><![CDATA[区域]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="453" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[装修费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-40" x="523" y="20" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[开办费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-45" x="583" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+					</textElement>
+					<text><![CDATA[转让费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="653" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[固定资产（电脑）]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="723" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[固定资产（空调）]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="793" y="20" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[设备]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-16" x="863" y="20" width="77" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[固定资产]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-39" x="1170" y="20" width="42" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[手续费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-39" x="1212" y="20" width="44" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[促销]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-39" x="1301" y="20" width="40" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[退机费]]></text>
+				</staticText>
+				<staticText>
+					<reportElement key="staticText-39" x="1256" y="20" width="45" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8"/>
+					</textElement>
+					<text><![CDATA[优惠]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50" splitType="Stretch">
+				<staticText>
+					<reportElement key="staticText-41" x="293" y="0" width="30" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[小计]]></text>
+				</staticText>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-35" x="1060" y="0" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumss}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-36" x="1110" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumyl}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-38" x="1341" y="0" width="80" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumgz}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-41" x="1481" y="0" width="80" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumgg}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-42" x="990" y="0" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[new BigDecimal($V{sumqt}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP)]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-43" x="1561" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumdh}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-44" x="1621" y="0" width="70" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumsd}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-45" x="1691" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumcl}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-46" x="1751" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumyf}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-47" x="1811" y="0" width="71" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumbg}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-48" x="1882" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumgongg}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-50" x="1942" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumkj}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-51" x="2002" y="0" width="100" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumfy}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-52" x="2162" y="0" width="100" height="20">
+						<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["sum(AJ3:"+"AJ"+$V{sum_column}+")"]]></propertyExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-53" x="2102" y="0" width="60" height="20">
+						<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["ROUND(IF(G"+$V{group_count_3}+"=0,0,100*AH"+$V{group_count_3}+"/G"+$V{group_count_3}+"),2)"]]></propertyExpression>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="10"/>
+					</textElement>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-54" x="323" y="0" width="80" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumxs}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-57" x="1421" y="0" width="60" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumwqt}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-61" x="940" y="0" width="50" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$F{FEEMANAGE}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="403" y="0" width="50" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_rent}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="453" y="0" width="70" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_built}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="523" y="0" width="60" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_open}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="583" y="0" width="70" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_trans}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="653" y="0" width="70" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_assetscom}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="723" y="0" width="70" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_assetscon}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="793" y="0" width="70" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_assetsmach}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00">
+					<reportElement x="863" y="0" width="77" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$V{sum_other}]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-36" x="1212" y="0" width="44" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumcx}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-36" x="1170" y="0" width="42" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumsx}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-36" x="1301" y="0" width="40" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumtj}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement key="textField-36" x="1256" y="0" width="45" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[(new BigDecimal($V{sumyh}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="0" y="0" width="2262" height="30"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[直属点费用统计表]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-11" x="293" y="0" width="30" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FEEMONTH}.toString()]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-13" x="323" y="0" width="80" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FEESALES}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-15" x="1060" y="0" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FEETAX}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-16" x="1110" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPENSION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-18" x="1341" y="0" width="80" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPAY}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-21" x="1481" y="0" width="80" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEAD}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-22" x="1561" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPHONE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-23" x="1621" y="0" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEWATER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-24" x="1691" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEETRIP}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-25" x="1751" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPOSTAGE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-26" x="1811" y="0" width="71" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEOFFICE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-27" x="1882" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEESOCIAL}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-29" x="1942" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEACCOUNT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-30" x="990" y="0" width="70" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEINVOICE}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-31" x="2002" y="0" width="100" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[(new BigDecimal($V{sumfee}.doubleValue()).setScale(2,BigDecimal.ROUND_HALF_UP))]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-32" x="2102" y="0" width="60" height="20" isPrintWhenDetailOverflows="true">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["ROUND(IF(G"+$V{group_count_2}+"=0,0,100*AH"+$V{group_count_2}+"/G"+$V{group_count_2}+"),2)"]]></propertyExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10"/>
+				</textElement>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-56" x="1421" y="0" width="60" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEOTHERSA}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-59" x="940" y="0" width="50" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEMANAGE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-11" x="253" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{FEEYEAR}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-11" x="162" y="0" width="91" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GCTNM}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-11" x="0" y="0" width="54" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="10" pdfEncoding="Cp1252"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GCTAREA}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="false">
+				<reportElement key="textField-62" x="106" y="0" width="56" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEGCTID}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-7" x="54" y="0" width="52" height="20"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{AAA103}]]></textFieldExpression>
+			</textField>
+			<subreport>
+				<reportElement x="403" y="0" width="537" height="20"/>
+				<subreportParameter name="feeyear">
+					<subreportParameterExpression><![CDATA[$F{FEEYEAR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="feegctid">
+					<subreportParameterExpression><![CDATA[$F{FEEGCTID}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="feemonth">
+					<subreportParameterExpression><![CDATA[$F{FEEMONTH}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="sum_rent" toVariable="sum_rent" calculation="Sum"/>
+				<returnValue subreportVariable="sum_built" toVariable="sum_built" calculation="Sum"/>
+				<returnValue subreportVariable="sum_open" toVariable="sum_open" calculation="Sum"/>
+				<returnValue subreportVariable="sum_trans" toVariable="sum_trans" calculation="Sum"/>
+				<returnValue subreportVariable="sum_assetscom" toVariable="sum_assetscom" calculation="Sum"/>
+				<returnValue subreportVariable="sum_assetscon" toVariable="sum_assetscon" calculation="Sum"/>
+				<returnValue subreportVariable="sum_assetsmach" toVariable="sum_assetsmach" calculation="Sum"/>
+				<returnValue subreportVariable="sum_other" toVariable="sum_other" calculation="Sum"/>
+				<returnValue subreportVariable="built" toVariable="built" calculation="Count"/>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "companyfee_5_amortize.jasper"]]></subreportExpression>
+			</subreport>
+			<textField pattern="###0.00">
+				<reportElement x="2162" y="0" width="100" height="20">
+					<propertyExpression name="net.sf.jasperreports.export.xls.formula"><![CDATA["SUM(H"+$V{seq}+":AG"+$V{seq}+",-P"+$V{seq}+")"]]></propertyExpression>
+				</reportElement>
+				<textElement/>
+				<textFieldExpression><![CDATA[]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-16" x="1170" y="0" width="42" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPROCESS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-16" x="1212" y="0" width="44" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEPROMOTION}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-16" x="1301" y="0" width="40" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEBACK}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="false">
+				<reportElement key="textField-16" x="1256" y="0" width="45" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{FEEMEDICAL}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="50" splitType="Stretch"/>
+	</lastPageFooter>
+	<summary>
+		<band height="58" splitType="Stretch"/>
+	</summary>
+</jasperReport>

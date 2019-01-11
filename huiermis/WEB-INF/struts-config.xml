@@ -1,0 +1,48 @@
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="logonForm" type="org.radf.login.form.LoginForm"/>
+	
+	</form-beans>
+	
+	<global-forwards>
+	<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<!--20070918bylwd-->
+	<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+	<forward contextRelative="true" name="css" path="/css/style.css" />
+	<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+	<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+	<forward contextRelative="true" name="md5" path="/js/md5.js" />
+	<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+	<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+	<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+	<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+	<forward contextRelative="true" name="top" path="/js/top.js" />
+	<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+	</global-forwards>
+	
+	 <action-mappings>
+	 <action path="/switchAction" type="org.apache.struts.actions.SwitchAction" />
+	 <action type="org.radf.plat.util.action.ActionCommon"  scope="request" parameter="method" path="/menuAction">
+	</action>
+	<action name="logonForm" type="org.radf.login.action.LogonAction" scope="request" parameter="method" path="/logonAction">
+		<forward name="success" path="/Index.jsp" />
+		<forward name="failure" path="/LogonDialog.jsp" />
+		<forward name="logout" path="/LogonDialog.jsp" />
+		<forward name="logoff" path="/Main.htm" />
+	</action>
+	<action path="/ProductAction" type="org.radf.apps.product.action.ProductAction" scope="request" parameter="method">    
+	 </action>
+	 <action path="/UserAction" type="org.radf.manage.user.action.UserAction" scope="request" parameter="method">    
+	 </action>
+	 <action path="/RepairAction" type="org.radf.apps.repair.action.RepairAction" scope="request" parameter="method">    
+	 </action>
+	 <action path="/ChargeAction" type="org.radf.apps.charge.action.ChargeAction" scope="request" parameter="method"> 
+	    <forward name="nomRecExa" path="/nomRecExa.jsp" />
+	 </action>
+	</action-mappings>
+     <plug-in className="org.radf.plat.cp.plugin.CodeListPlugIn" />
+     
+     
+  
+</struts-config>

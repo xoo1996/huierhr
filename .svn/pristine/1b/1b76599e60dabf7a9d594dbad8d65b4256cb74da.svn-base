@@ -1,0 +1,20 @@
+#####################################################################################################################
+#																													#
+#---------------------------------------sql语句定义规则---------------------------------------------------------------#
+# * 取菜单编号前三位+5位顺序号																		#
+# * 例如：基本信息 单位管理 bas01_000 bas--基础信息模块 01--单位管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# * 具体编写格式举例：																			#
+# * #单位管理#																					#
+# * bas01_000=select * from ab01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_002=select * from ab01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+# * #人员管理#																					#
+# * bas02_000=select * from ac01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_001=select * from ac01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+######################################################################################################################
+#维修管理#8
+sta_000001=select * from tblsalary where useremployid=:useremployid! and name like :name! and store=:store! and to_date(year||'-'||month,'yyyy-mm')>=to_date(:startyear!||'-'||:startmonth!,'yyyy-mm') and to_date(year||'-'||month,'yyyy-mm')<=to_date(:endyear!||'-'||:endmonth!,'yyyy-mm')
+sta_000002=select n.nemname as name,n.nemapplyid as useremployid,n.nemtype as resttype,n.nembirthdt as leavestart,n.nemworkdt as leaveend,n.nemtry as leavelong,c.bsc009 as part,s.account as bsc011 from tblnem n left join tbluser u on u.useremployid=n.nemapplyid left join tbl_acc_user s on s.userid=u.useremployid left join sc04 c on c.bsc008=u.userdepartmentid where apatype='rest' and nemname=:name! and nemapplyid=:useremployid! and nembirthdt>=:leavestart! and nemworkdt<=:leaveend! and nemtype=:resttype!

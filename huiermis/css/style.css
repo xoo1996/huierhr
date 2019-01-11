@@ -1,0 +1,432 @@
+
+body
+{
+	background: #F0F0F0;
+   font-family: "宋体", "Arial Narrow", "Times New Roman";
+	padding:5px 5px 0% 3px;/*shang，you,xia,zuo*/
+
+	SCROLLBAR-FACE-COLOR: #B5D2F7;
+	SCROLLBAR-HIGHLIGHT-COLOR: #B4DBFF;
+	SCROLLBAR-SHADOW-COLOR:#F0F0F0;
+	scrollbar-3dlight-color : threedhighlight;
+	SCROLLBAR-ARROW-COLOR: #0065BD;
+	SCROLLBAR-TRACK-COLOR: #F0F0F0;
+	SCROLLBAR-DARKSHADOW-COLOR: #B5D2F7;
+	SCROLLBAR-BASE-COLOR: #B5D2F7;
+
+}
+
+table
+{
+	font-size:9pt;
+	font-family: "宋体","Arial Narrow", "Times New Roman";
+	font-weight:normal;
+	background-color: #F0F0F0;
+	width:100%;
+}
+
+/*table*/
+.tableDisplay{}
+.tableHidden{display:none;}
+table.hiddenTable td.hiddenTableHead
+{
+    color: #000000;
+	text-align : center;
+	height:16px;
+    background-color: #DEE7CE;
+    overflow : visible;
+	text-overflow : ellipsis ;
+}
+/*在有表单元素的table中引用*/
+.tableTitle
+{
+	background-color: #F5F5F5;
+	border-width:1px 3px 0px 1px;
+	border-style:solid;
+	border-color:#BCBCBC #BCBCBC #BCBCBC #BCBCBC;
+	text-align : right;
+    word-wrap : break-word ;
+    word-break : keep-all ;
+	width:95px;
+}
+table.tableTitle td
+{
+	/*background-color: #E6EDFA;*/
+    background-color: #EEEEEE;
+	font-family: "Times New Roman","宋体","Arial Narrow";
+	font-size: 8pt;
+    font-weight:none ;
+    height:16px;
+	color:#0066BE;
+	text-align :center;
+	width:100%;
+}
+.tableInput
+{
+	background-color: #F5F5F5;
+	font-size:9pt;
+	border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#BCBCBC #FFFFFF #FFFFFF #BCBCBC;
+	font-family: "宋体";
+}
+table.tableInput td
+{
+	border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#FFFFFF  #BCBCBC  #BCBCBC  #FFFFFF;
+	font-family: "宋体";
+	font-size: 9pt;
+	text-align :right;
+    padding:0px 3px 0px 3px;
+    height:20px;
+}
+
+label
+{
+    border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#B7B7B7  #B7B7B7  #B7B7B7  #B7B7B7;
+	font-family: "宋体";
+	font-size: 9pt;
+   	color:#2D65DC;
+	text-align :left;
+    padding:2px 2px 3px 2px;
+    height:18px;
+    width:100%;
+    background-color:#F0F0F0;
+    word-wrap : break-word ;
+    word-break : keep-all ;
+}
+
+/*页面的顶部使用，例如：单位基本信息*/
+.titleLine {
+	background-color: #F5F5F5;
+	border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#BCBCBC #FFFFFF #BCBCBC #FFFFFF;
+	text-align : left;
+}
+table.titleLine td
+{
+  padding:0px 15px 0px 20px;
+  FILTER: glow(color=ffffff,strength=0) shadow(color=cccccc,direction:135);
+  POSITION: relative;
+  font-family: "Times New Roman","宋体","Arial Narrow";
+  font-size: 10pt;
+  font-weight:none ;
+  color:#0066BE;
+}
+/**/
+.tableList
+{
+	background-color: #F5F5F5;
+	border-width:1px 3px 4px 1px;
+	border-style:solid;
+	border-color:#BCBCBC #BCBCBC #BCBCBC #BCBCBC;
+	text-align : right;
+
+}
+table.tableList td.tableHead
+{
+	/*font-weight:bolder;*/
+    color: #000000;
+	text-align : center;
+    text-valign : middle;
+	height:24px;
+	/*background-color: #CBD5F3;*/
+	/*background-color: #ffffff;*/
+    background-color: #ECE9D8;
+	border-top-width: 0.1mm;
+	border-right-width: 0.1mm;
+	border-bottom-width: 0.1mm;
+	border-left-width: 0.1mm;
+
+    overflow : visible;
+	text-overflow : ellipsis ;
+
+	/*
+    white-space : pre;
+    overflow : hidden;
+	text-overflow : ellipsis ;
+    filter : progid:DXImageTransform.Microsoft.gradient(startColorStr=#550000FF,endColorStr=#00000000);
+   */
+}
+/**/
+table.tableList td
+{
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+	border-top-style: solid;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-top-color: #FFFFFF;
+	border-right-color: #999999;
+	border-bottom-color: #999999;
+	border-left-color: #FFFFFF;
+
+	text-align : left;
+	overflow : visible;
+	text-overflow : ellipsis ;
+	height:16px;
+	/*white-space : pre;*/
+}
+/**/
+.listColorA {
+	background-color: #FBFCFE;
+	font-family: "宋体";
+	font-size: 9pt;
+	font-color: #000000;
+	height:20px;
+
+	white-space : pre;
+
+}
+.listColorB {
+    /*background-color: #E6EDFA;*/
+	background-color: #EEEEEE;
+	font-family: "宋体";
+	font-size: 9pt;
+	font-color: #000000;
+	height:20px;
+
+	white-space : pre;
+}
+/**/
+table.tableList td.listCheckbox
+{
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 0px;
+	border-left-width: 0px;
+
+	text-align : center;
+	overflow : hidden;
+	text-overflow : ellipsis ;
+
+	/*white-space : pre;*/
+}
+/**/
+
+.tdLeft
+{
+    text-align : left;
+}
+
+.tdRight
+{
+    text-align : right;
+}
+
+/*Input*/
+table.tableInput input[type=text] { border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 12px; Helvetica, sans-serif;width: 100%;}
+table.tableInput   select  { border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 12px;background: #ffffff;width: 100%}
+table.tableInput  textarea { 
+	border: 1px #B7B7B7 solid;
+	font-family: "宋体",font-size: 12px;
+	Helvetica, sans-serif;
+	width: 100%;
+	overflow-y:auto;
+	}
+
+.text{ BEHAVIOR: url(/huiermis/htc/text.htc);OVERFLOW: hidden ;border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 12px; Helvetica, sans-serif;width: 100%;word-wrap:normal;word-wrap : break-word ;word-break : keep-all }
+
+.textReadonly{
+    border-width:1px 1px 1px 1px;
+	border-style:solid;
+	border-color:#B7B7B7  #B7B7B7  #B7B7B7  #B7B7B7;
+	font-family: "宋体";
+	font-size: 9pt;
+   	color:#2D65DC;
+	text-align :left;
+    padding:2px 2px 3px 2px;
+    height:18px;
+    width:100%;
+    background-color:#F0F0F0;
+    word-wrap : break-word ;
+    word-break : keep-all ;
+}
+.select  {BEHAVIOR: url(/huiermis/htc/select.htc); OVERFLOW: hidden ;border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 12px;background: #ffffff;width: 100%}
+.textarea { 
+	border: 1px #B7B7B7 solid;
+	font-family: "宋体",font-size: 12px; 
+	Helvetica, sans-serif;
+	width: 100%; 
+	overflow:hidden;
+	}
+.toPage  { border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 9px,font-color:#808080;background: #FBFCFE; border-color: #808080 #808080 #808080 #808080; width: 40px}
+
+.grid {BEHAVIOR: url(/huiermis/htc/grid.htc);}
+/*button
+.buttonGray { font-size: 12px;height:21px; color: #333333; background: #CCCCCC; padding-top: 3px; border: 1px solid; border-color: #FFFFFF #A2A2A2 #A2A2A2 #FFFFFF;cursor: hand}
+*/
+.buttonGray {
+BORDER-RIGHT: #B7B7B7 1px solid; PADDING-RIGHT: 2px; BORDER-TOP: #B7B7B7 1px solid; PADDING-LEFT: 2px; FONT-SIZE: 12px; FILTER: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#FFFFFF, EndColorStr=#9DBCEA); BORDER-LEFT: #B7B7B7 1px solid; CURSOR: hand; COLOR: black; PADDING-TOP: 3px; height:21px;BORDER-BOTTOM: #B7B7B7 1px solid
+}
+.buttonOnclick {font-size: 12px; width="100%"; text-align : center; height:20px;color: #000000; background:#F5F5F5;padding-top: 2px; padding-right: 0px;  padding-left: 0px;  border-width: 0px,1px,1px,0px border-style:solid; border-color: #ffffff #ffffff #ffffff #ffffff;  cursor: hand;}
+.buttonRed {font-size: 12px; width="100%"; text-align : center; height:20px;color: #000000; background:#F5F5F5;background-image : url(/huiermis/images/redText.gif) ;padding-top: 2px; padding-right: 0px;  padding-left: 0px;  border-width: 0px,1px,1px,0px border-style:solid; border-color: #ffffff #ffffff #ffffff #ffffff;  cursor: hand;}
+table.tableInput tr td input[type=submit] {font-size: 12px;height:21px; color: #333333; background: #CCCCCC; padding-top: 3px; border: 1px solid; border-color: #FFFFFF #A2A2A2 #A2A2A2 #FFFFFF;cursor: hand}
+
+/*link*/
+.ALink{  font-family: "宋体", "Arial Narrow", "Times New Roman"; font-size: 9pt;}
+.ALink:link	{ text-decoration:none; font-size: 9pt; color: #000000}
+.ALink:alink	{ text-decoration:none; font-size: 9pt; color: #000000}
+.ALink:visited	{ text-decoration:none; font-size: 9pt; color: #000000}
+.ALink:active	{ text-decoration:none; font-size: 9pt; color: #000000}
+.ALink:hover	{ text-decoration: none; font-size: 9pt; color: #ff0000}
+
+.BLink{  font-family: "宋体", "Arial Narrow", "Times New Roman"; font-size: 9pt;}
+.BLink:link	{ text-decoration:none; font-size: 9pt; color: #000000}
+.BLink:alink	{ text-decoration:none; font-size: 9pt; color: #000000}
+.BLink:visited	{ text-decoration:none; font-size: 9pt; color: #000000}
+.BLink:active	{ text-decoration:none; font-size: 9pt; color: #000000}
+.BLink:hover	{ text-decoration:none; font-size: 9pt; color: #000000}
+
+.Clicked{  font-family: "宋体", "Arial Narrow", "Times New Roman"; font-size: 9pt;color: #ff0000}
+
+/*turnPage*/
+.bottom
+{
+	background-color: #F0F0F0;
+	font-weight:bold ;
+	border-width:0px 0px 0px 0px;
+	border-style:solid;
+	border-color:#F0F0F0 #F0F0F0 #F0F0F0 #F0F0F0;
+	text-align : left;
+}
+.count
+{
+	font-family: "宋体";
+    font-size: 9pt;
+    font-color:#808080;
+	text-align : left;
+	width:120;
+}
+.trunPage
+{
+	text-align : center;
+	width:255;
+}
+.action
+{
+	text-align : right;
+}
+
+/* set the font color */
+.red
+{
+	font-family: "宋体";
+    font-size: 9pt;
+    font-color:#FF0000!important ;
+}
+.divClass{
+
+    border-width:1px 1px 1px 1px;
+    border-top-color: #E0E0E0;
+	border-right-color: #999999;
+	border-bottom-color: #999999;
+	border-left-color: #FFFFFF;
+
+    background-color: #A7D9E4;
+    font-size:9pt;
+    font-family: "宋体","Arial Narrow", "Times New Roman";
+}
+.divTable{
+    padding:3px 10px 0% 10px;
+    border-width:1px 1px 1px 1px;
+    background-color: #FF9900;
+    font-size:9pt;
+    font-family: "宋体","Arial Narrow", "Times New Roman";
+}
+
+.navigation{
+	font-family: "宋体";
+    font-size: 9pt;
+	font-weight:bold;
+}
+
+.ButtonA {
+	background-image: url(/huiermis/images/button/buttonA.gif);
+    text-align:center;
+
+}
+.ButtonA1 {
+	background-image: url(/huiermis/images/button/buttonA1.gif);
+	text-align:center;
+}
+.pageFooter{
+  border-color:#B7B7B7;color:#2D65DC;background-color: #FBFCFE;
+  }
+.mask {BEHAVIOR: url(/huiermis/htc/EAFformat.htc);OVERFLOW: hidden ;border: 1px #B7B7B7 solid;font-family: "宋体",font-size: 12px; Helvetica, sans-serif;width: 100%;word-wrap:normal;word-wrap : break-word ;word-break : keep-all ;}
+.check {BEHAVIOR: url(/huiermis/htc/checkbox.htc);}
+ TEXTAREA,input{ behavior:url(/huiermis/htc/disable.htc); }
+
+
+<!--------------------------group tree css----------------------------->
+.BaseTree {
+	padding:4px 5px;
+	FONT-SIZE: 9pt; SCROLLBAR-ARROW-COLOR: #ffffff;  SCROLLBAR-BASE-COLOR:#D6D3CE;
+}
+.BaseTree div.clsNode {
+	height:18px;
+}
+.BaseTree span {
+	cursor:default; padding:2px 2px; position:relative;	display:inline; height:17px; border: solid 1px white;
+	top:1px;
+}
+.BaseTree SPAN.clsLabel {
+
+}
+.BaseTree SPAN.clsCollapse {
+	border:1px solid #999999; margin:0px; margin-right:2px; position:relative;
+	height:11px; width:11px; font-family:verdana; FONT-SIZE: 9px; OVERFLOW: hidden;
+	padding:1px; padding-top:2px; LINE-HEIGHT: 4px; backgroundImage:url(minus.gif);
+}
+.BaseTree SPAN.clsExpand {
+	border:1px solid #999999; margin:0px; margin-right:2px; position:relative;
+	height:11px; width:11px; font-family:verdana; FONT-SIZE: 13px; OVERFLOW: hidden;
+	padding:1px; padding-top:1px;  LINE-HEIGHT: 6px; backgroundImage:url(plus.gif);
+}
+.BaseTree SPAN.clsLeaf {
+	height:11px; width:11px;
+	padding: 1px 0px 0px 3px; FONT-SIZE: 9px; OVERFLOW: visible; LINE-HEIGHT: 3px;
+}
+.BaseTree SPAN.clsMouseOver {
+	border-bottom:1px solid #999999;
+}
+.BaseTree SPAN.clsMouseDown {
+	background-color:#eeeeee;
+}
+.BaseTree SPAN.clsCurrentHasFocus {
+	background-color:#dedede;
+}
+.BaseTree SPAN.clsCurrentNoFocus {
+	background-color:#F1F1F1;
+}
+.BaseTree A {
+cursor:default; COLOR: black; TEXT-DECORATION: none;
+}
+.BaseTree SPAN.clsCurrentHasFocus A {
+
+}
+.BaseTree SPAN.clsUnavailable {
+	height:0px;	padding:0px; top:0px; border:medium none; color:#888888;
+}
+.BaseTree .hide {
+	DISPLAY: none;
+}
+.BaseTree .shown {
+	DISPLAY: block; MARGIN-LEFT: 14px;
+}
+.BaseTree IMG {
+	position:relative; top:0px; margin-left:2px; padding:0px; width:12px; height:12px;
+}
+.BaseTree .treelabel {
+	FONT-SIZE: 70.5%; COLOR: white; FONT-FAMILY: verdana
+}
+.BaseTree input.clsCheckbox {
+	height:14px; width:14px; margin-left:2px;
+}

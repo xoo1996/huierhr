@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serviceGroup>
+
+	<service name="HelloWorld">
+		<description>
+			HelloWorld Service Example
+		</description>
+		<parameter name="ServiceClass">
+			com.cm.service.HelloWorld
+		</parameter>
+		<operation name="sayHello">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<operation name="saySorry">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<operation name="getWorld">
+			<messageReceiver
+				class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		</operation>
+	</service>
+	
+	<service name="mobileVerify">
+		<description>
+			mobileVerify
+		</description>
+		<parameter name="ServiceClass">
+			com.cm.service.mobileVerify
+		</parameter>
+		<operation name="reWaitVerify">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<operation name="reInfo">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<operation name="verify">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<!-- <operation name="zzverify">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation> -->
+	</service>
+	
+	<service name="initCusService">
+		<description>
+			初始化用户列表
+		</description>
+		<parameter name="ServiceClass">
+			com.cm.service.initCusService
+		</parameter>
+		<operation name="initCustomer">
+			<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+		<operation name="queryUserById">
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+		</operation>
+	</service>
+</serviceGroup>

@@ -1,0 +1,52 @@
+#####################################################################################################################
+#																													#
+#---------------------------------------sql语句定义规则---------------------------------------------------------------#
+# * 取菜单编号前三位+5位顺序号																		#
+# * 例如：基本信息 单位管理 bas01_000 bas--基础信息模块 01--单位管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# * 具体编写格式举例：																			#
+# * #单位管理#																					#
+# * bas01_000=select * from ab01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_002=select * from ab01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+# * #人员管理#																					#
+# * bas02_000=select * from ac01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_001=select * from ac01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+######################################################################################################################
+#单位基本信息#
+bas01_000=select ab01.* from ab01 where ab01.aab003 =:aab003 and ab01.aab002=:aab002 and ab01.aab007=:aab007 and ab01.aab004 like :aab004 and ab01.aab043 like :aab043
+bas01_004= Select * from ab01 where aab003=:aab003 and aab001<>:aab001
+bas01_005= Select * from ab01 where aab004=:aab004 and aab001<>:aab001
+bas01_006= Select * from ab01 where aab004=:aab004
+bas01_007= Select * from ab01 where aab003=:aab003
+
+bas01_008 = select aab002,aab003,aab004,aab019 from ab01 where aab001=:aab001
+bas01_009 = select ab01.aab001 as tab001,ab01.aab013,ab01.aab015,ab01.aab045,ab01.aae015,ab01.aae014,ab01.aab028,ab01.aab029,ab01.aae007,ab01.aab002,ab01.aab003,ab01.aab019,ab01.aab004,ab01.aae004,ab01.aae005,ab01.aae006,ab01.aab007,ab01.aab046,ab01.aab020 from ab01 where aab002=:a002ab and aab003=:a003ab and aab004 like :a004ab
+
+#个人基本信息#
+bas02_000=select * from ac01 where aac002=:aac002 and aae100='1'
+bas02_001=select * from ac01 where aae100='1' and aac002=:aac002 and aac001<>:aac001
+bas02_002=select * from cc0b where aac001 =:aac001
+bas02_003=select * from AC01 where aac003 like:aac003 and aac022 like :aac022 and aac002=:aac002 and aae100='1' and acc025=:acc025
+bas02_004=select * from CC0C where aac001 =:aac001
+bas02_005=select * from cc0d where aac001 =:aac001
+bas02_006=select * from cc59 where aac001 =:aac001
+bas02_007=select * from cc02 where aac001 =:aac001
+bas02_008=select * from jc10 where aac001 =:aac001
+bas02_009=select * from jc22 where aac001 =:aac001 order by ajc150
+bas02_010=select * from jc40 where aac001 =:aac001
+bas02_011=select aae062,f_getcmpname(aab001) aab001,aac047,aae041,aac013,ajc301,acc7g1,ajc306,aae042,bjc104,bjc102 from ac02 where ac02.aac001 = :aac001
+bas02_012=select f_getcmpname(aab001) aab001,aac013,aae002,aae003,aab033,aae068,ajc020,ajc031,ajc030,aae114,aae115 from jc01 where jc01.aac001 = :aac001 
+bas02_014=select f_getcmpname(aab001) aab001,acc03f,acc03g,acc031,aae030,aae011,aae036 from cc03 where cc03.aac001 = :aac001
+
+bas02_026 = select * from ac01 where aac003 like :aac003 and aac002=:aac002 and aae100='1' and acc025=:acc025
+bas02_027 = select aac002,aac003 from ac01 where aac001=:aac001
+bas02_028 = select aac001 as tac001,aac002,aac003,aac004,aac006,aac005,aac011 from AC01 where aac003 like:a003ac and aac002=:a002ac and aae100='1' and acc025=:acc025
+bas02_013=select f_getcmpyw(:aab001) dwldyw from dual
+
+
+bas02_020=select cc22.aab001,cc20.acc200,cb21.acb200,cc22.acc223,cb21.acb210,ac01.aac001,ac01.aac002,ac01.aac003,ac01.aac004,ac01.aac006,cc22.acc220,cb21.acb216,ab01.aab004,cc20.aae004,cc20.aae005,CC20.ace014 from ac01, cc20, cc22, ab01, cb21 where ac01.aac001 = cc20.aac001 and cc20.acc200 = cc22.acc200 and ab01.aab001 = cc22.aab001 and cc22.acb210 = cb21.acb210 and cc22.acb201 = '1' and cc22.aac001 = :aac001
+bas02_089=select * from cc9a where aac001 =:aac001
+bas02_099=select * from cc9d where aac001 =:aac001

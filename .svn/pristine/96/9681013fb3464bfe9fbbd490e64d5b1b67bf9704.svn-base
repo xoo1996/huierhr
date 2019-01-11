@@ -1,0 +1,65 @@
+#####################################################################################################################
+#																													#
+#---------------------------------------sql\u8bed\u53e5\u5b9a\u4e49\u89c4\u5219---------------------------------------------------------------#
+# * \u53d6\u83dc\u5355\u7f16\u53f7\u524d\u4e09\u4f4d+5\u4f4d\u987a\u5e8f\u53f7																		#
+# * \u4f8b\u5982\uff1a\u57fa\u672c\u4fe1\u606f \u5355\u4f4d\u7ba1\u7406 bas01_000 bas--\u57fa\u7840\u4fe1\u606f\u6a21\u5757 01--\u5355\u4f4d\u7ba1\u7406  000--\u5f53\u524d\u5f00\u53d1\u4f7f\u7528sql\u987a\u5e8f\u53f7				#
+# *      \u57fa\u672c\u4fe1\u606f \u4eba\u5458\u7ba1\u7406 bas02_000 bas--\u57fa\u7840\u4fe1\u606f\u6a21\u5757 02--\u4eba\u5458\u7ba1\u7406  000--\u5f53\u524d\u5f00\u53d1\u4f7f\u7528sql\u987a\u5e8f\u53f7				#
+# *      \u57fa\u672c\u4fe1\u606f \u4eba\u5458\u7ba1\u7406 bas02_000 bas--\u57fa\u7840\u4fe1\u606f\u6a21\u5757 02--\u4eba\u5458\u7ba1\u7406  000--\u5f53\u524d\u5f00\u53d1\u4f7f\u7528sql\u987a\u5e8f\u53f7				#
+# * \u5177\u4f53\u7f16\u5199\u683c\u5f0f\u4e3e\u4f8b\uff1a																			#
+# * #\u5355\u4f4d\u7ba1\u7406#																					#
+# * bas01_000=select * from ab01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_002=select * from ab01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+# * #\u4eba\u5458\u7ba1\u7406#																					#
+# * bas02_000=select * from ac01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_001=select * from ac01 where aab002=:aab002 and aab003=:aab003						#
+# * 	pdtcls='ITE' or pdtcls='ITC' or pdtcls='CIC' or pdtcls='BTE' or pdtcls='BOX' or pdtcls='HS'																						#
+######################################################################################################################
+#\u5b9a\u5236\u673a\u7ba1\u7406#
+
+pdt01_000=select t.* ,NVL2(c.pcllarge,c.pcllarge||'-'||c.pclmid||'-'||c.pclsmall,'') as pdtclnm from tblproduct t left join tblproclass c on t.pdtclid=c.pclid where t.pdtid like :pdtid! and t.pdtnm like :pdtnm! and (pdtcls<>'OTH') and t.pdtisd=:pdtisd! and t.pdttype=:pdttype!
+pdt01_001=select t.*,NVL2(c.pcllarge,c.pcllarge||'-'||c.pclmid||'-'||c.pclsmall,'') as pdtclnm from tblproduct t left join tblproclass c on t.pdtclid=c.pclid where t.pdtid like :pdtid! and t.pdtnm like :pdtnm! and  t.pdtcls='OTH' and t.pdtisd=:pdtisd!
+#pdt02_000=select * from tblproduct 
+pdt02_000=select p.pdtid,p.pdtprc,(p.pdtnm||' '||p.pdtmod) as pdtnm from tblproduct p 
+pdt02_001=select * from tblproduct where pdtid like :pdtid! and pdtnm like :pdtnm! and pdtisd=:pdtisd! and pdttype=:pdttype!
+pdt02_002=select * from tblproduct p where p.pdtcls not in('CIC','ITC','HS','ITE')
+pdt02_003=select * from tblproduct p where p.pdtcls in('CIC','ITC','HS','ITE')
+
+
+pdt03_000=select p.pdtnm,p.pdtcls,p.pdttype,p.pdtprc ,g.gctnm as disgctnm,d.*  from tbldiscount d left outer join tblgrpclient g on g.gctid=d.disgctid left outer join tblproduct p on p.pdtid=d.dispdtid where d.dispdtid=:pdtid!
+pdt03_001=update tbldiscount set disprice=:disprice!,discount=:discount! ,disnote=:disnote! where dispdtid=:dispdtid! and disgctid=:disgctid!
+pdt03_002=select p.pdtnm,p.pdtcls,p.pdttype,p.pdtprc ,g.gctnm as disgctnm,d.*  from tbldiscount d left outer join tblgrpclient g on g.gctid=d.disgctid left outer join tblproduct p on p.pdtid=d.dispdtid where d.dispdtid=:pdtid! and d.disgctid=:disgctid! and g.gcttype=:gcttype!
+
+pdt04_000=update tbldiscount set disprice=:disprice!,discount=:discount! ,disnote=:disnote! where dispdtid=:pdtid!
+
+#\u9762\u677f\u914d\u7f6e
+pdt05_000=select p.*,NVL2(c.pcllarge,c.pcllarge||'-'||c.pclmid||'-'||c.pclsmall,'') as pdtclnm from tblproduct p left join tblproclass c on p.pdtclid=c.pclid where p.pdtid like :pdtid!  and p.pdtnm like :pdtnm! and p.pdtmod like :pdtmod! and p.pdtispnl='\u662f'
+pdt05_001=select f.cfgacyid,f.cfgpnlnm,f.cfgnt,y.*  from tblpnlcfg f left join tblproduct y on f.cfgacyid=y.pdtid where f.cfgpnlnm=:cfgpnlnm!
+pdt05_002=select pdtid,pdtnm,pdtmod from tblproduct where pdtispnl='\u662f' 
+#pdt05_003=select distinct n.pnlid,n.pnlnt,f.cfgpnlnm as pnlnm from tblpnl n left outer join tblpnlcfg f on f.cfgpnlnm=n.pnlnm where n.pnlid like:pnlid! and n.pnlnm like:pnlnm!
+pdt05_003=select distinct f.cfgpnlnm as pnlnm ,f.cfgnt as pnlnt from  tblpnlcfg f where f.cfgpnlnm like:pnlnm!
+pdt05_004=select f.cfgacyid,f.cfgpnlnm as pnlnm,f.cfgtemperature as cfgtemperature,f.cfgnt,y.*  from tblpnlcfg f left join tblproduct y on f.cfgacyid=y.pdtid where f.cfgpnlnm=:pnlnm! order by f.cfgacyid asc
+pdt05_005=update tblpnlcfg set cfgacyid=:pdtid!,cfgpnlnm=:cfgpnlnm!,cfgnt=:cfgnt!,cfgtemperature=:cfgtemperature! where cfgpnlnm=:cfgpnlnm! and cfgacyid=:cfgacyid!
+pdt05_006=select distinct cfgpnlnm from tblpnlcfg
+
+#\u5546\u54c1\u7c7b\u522b
+pdt06_000=select * from tblproclass c where c.pclid=:pclid!
+pdt06_001=select * from tbltypdis t where t.tdsnm=:pdttype! 
+pdt06_002=select * from tblproduct p where p.pdttype=:pdttype!
+pdt06_003=update tblproduct p set p.pdtdiscoin=:pdtdiscoin!,p.pdtdiscoout=:pdtdiscoout! where p.pdtid=:pdtid!
+pdt06_004=update tbltypdis s set s.tdspvoin=:tdspvoin!,s.tdspvoout=:tdspvoout!,s.tdsnt=:tdsnt! where s.tdsnm=:tdsnm!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

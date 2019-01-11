@@ -1,0 +1,16 @@
+/**
+ * checkbox校验组件
+ * htc  组件：checkbox.htc
+ */
+<PUBLIC:COMPONENT>
+<PUBLIC:ATTACH EVENT="onkeydown" ONEVENT="enterToTab()" />
+
+<SCRIPT language="JScript">
+function enterToTab(){
+	if(event.keyCode == 13){
+       event.srcElement.checked=true;
+       event.keyCode = 9;
+	}
+}
+</SCRIPT>
+</PUBLIC:COMPONENT>

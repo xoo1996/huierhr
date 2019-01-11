@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+		<!-- 以下填写业务需要的formbean -->
+		<form-bean name="productForm" type="org.radf.apps.product.form.ProductForm" />
+		<form-bean name="configurationForm" type="org.radf.apps.product.form.ConfigurationForm" />
+		<form-bean name="normalChargeForm" type="org.radf.apps.product.form.NormalChargeForm" />
+		<form-bean name="logonForm" type="org.radf.login.form.LoginForm"/>
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement" path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action type="org.radf.plat.util.action.Actionback" scope="request"
+			parameter="method" path="/backAction" />
+		<!-- 以下填写业务需要的action（注：上面那个action每个文件都必须需要）-->
+		<action name="productForm" parameter="method" path="/ProductAction"
+			type="org.radf.apps.product.action.ProductAction" scope="request">
+			<forward name="query" path="/query.jsp" />
+			<forward name="alter" path="/alter.jsp" />
+			<forward name="alterac" path="/accessory/alter.jsp" />
+			<forward name="queryac" path="/accessory/query.jsp" />
+			
+			<forward name="addpart" path="/part/query.jsp" />
+			<forward name="alterpart" path="/part/alter.jsp" />
+			<forward name="queryPcl" path="/queryPcl.jsp"></forward>
+			<forward name="alterPcl" path="/alterPcl.jsp" />
+		</action>
+		
+		<action name="configurationForm" parameter="method" path="/ConfigurationAction"
+			type="org.radf.apps.product.action.ConfigurationAction" scope="request">
+			
+			<forward name="inputConfigurationDetail" path="/ConfigurationAction.do?method=inputDetail" />
+			<forward name="query" path="/configuration/query.jsp"/>
+			<forward name="detail" path="/configuration/inputDetail.jsp"/>
+		</action>
+		
+		<action name="logonForm" type="org.radf.login.action.LogonAction" scope="request" parameter="method" path="/logonAction">
+			<forward name="success" path="/Index.jsp" />
+			<forward name="failure" path="/LogonDialog.jsp" />
+			<forward name="logout" path="/LogonDialog.jsp" />
+			<forward name="logoff" path="/Main.htm" />
+		</action>
+		
+	</action-mappings>
+
+</struts-config>

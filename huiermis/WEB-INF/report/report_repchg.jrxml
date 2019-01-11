@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="hui_repair_list" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.scriptlethandling" value="0"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<parameter name="repid" class="java.math.BigDecimal"/>
+	<queryString>
+		<![CDATA[select r.repchgdt,r.repattention,r.repfdate,r.repdate,r.repcltnm,r.repamt,r.repconfirmed,r.repaprc,s.bsc012,g.gctnm,r.repid, p.pdtnm,r.repdeclare，g.gctaddr as gctaddr,g.gcttel as gcttel,r.repfree,r.repnote,decode(r.repaction1,null,r.repaction1,(select a.aaa004 from aa01 a where a.aaa001='REPACTION1' and a.aaa004=r.repaction1)) as tem1,decode(r.repaction2,null,r.repaction2,(select a.aaa004 from aa01 a where a.aaa001='REPACTION2' and a.aaa004=r.repaction2)) as tem2,decode(r.repaction3,null,r.repaction3,(select a.aaa004 from aa01 a where a.aaa001='REPACTION3' and a.aaa004=r.repaction3)) as tem3,decode(r.repaction4,null,r.repaction4,(select a.aaa004 from aa01 a where a.aaa001='REPACTION4' and a.aaa004=r.repaction4)) as tem4,decode(r.repaction5,null,r.repaction5,(select a.aaa004 from aa01 a where a.aaa001='REPACTION5' and a.aaa004=r.repaction5)) as tem5,decode(r.repaction6,null,r.repaction6,(select a.aaa004 from aa01 a where a.aaa001='REPACTION6' and a.aaa004=r.repaction6)) as tem6,decode(r.repaction1,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION1' and a.aaa004=r.repaction1)) as temp1,decode(r.repaction2,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION2' and a.aaa004=r.repaction2)) as temp2,decode(r.repaction3,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION3' and a.aaa004=r.repaction3)) as temp3,decode(r.repaction4,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION4' and a.aaa004=r.repaction4)) as temp4,decode(r.repaction5,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION5' and a.aaa004=r.repaction5)) as temp5,decode(r.repaction6,null,null,(select a.aaa006 from aa01 a where a.aaa001='REPACTION6' and a.aaa004=r.repaction6)) as temp6,decode(r.repregnames,null,s.bsc012,(select b.bsc012 from sc05 b where b.bsc011=r.repregnames)) as temp from tblrep r left outer join tblproduct p on p.pdtid= r.reppid left outer join sc05 s on (s.bsc011=r.repregnames or (r.repregnames is null and r.repoprcd=s.bsc011)) left outer join tblgrpclient g on r.repgctid=g.gctid  where r.repidentity=$P{repid}]]>
+	</queryString>
+	<field name="REPCHGDT" class="java.sql.Timestamp"/>
+	<field name="REPATTENTION" class="java.lang.String"/>
+	<field name="REPFDATE" class="java.sql.Timestamp"/>
+	<field name="REPDATE" class="java.sql.Timestamp"/>
+	<field name="REPCLTNM" class="java.lang.String"/>
+	<field name="REPAMT" class="java.math.BigDecimal"/>
+	<field name="REPCONFIRMED" class="java.lang.String"/>
+	<field name="REPAPRC" class="java.math.BigDecimal"/>
+	<field name="BSC012" class="java.lang.String"/>
+	<field name="GCTNM" class="java.lang.String"/>
+	<field name="REPID" class="java.lang.String"/>
+	<field name="PDTNM" class="java.lang.String"/>
+	<field name="REPDECLARE" class="java.lang.String"/>
+	<field name="GCTADDR" class="java.lang.String"/>
+	<field name="GCTTEL" class="java.lang.String"/>
+	<field name="REPFREE" class="java.lang.String"/>
+	<field name="REPNOTE" class="java.lang.String"/>
+	<field name="TEM1" class="java.lang.String"/>
+	<field name="TEM2" class="java.lang.String"/>
+	<field name="TEM3" class="java.lang.String"/>
+	<field name="TEM4" class="java.lang.String"/>
+	<field name="TEM5" class="java.lang.String"/>
+	<field name="TEM6" class="java.lang.String"/>
+	<field name="TEMP1" class="java.lang.String"/>
+	<field name="TEMP2" class="java.lang.String"/>
+	<field name="TEMP3" class="java.lang.String"/>
+	<field name="TEMP4" class="java.lang.String"/>
+	<field name="TEMP5" class="java.lang.String"/>
+	<field name="TEMP6" class="java.lang.String"/>
+	<field name="TEMP" class="java.lang.String"/>
+	<field name="gctaddr" class="java.lang.String"/>
+	<field name="gcttel" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="13" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="180" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-1" x="190" y="0" width="174" height="36"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[ 助听器维修收费单]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-2" x="33" y="50" width="67" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[用户姓名]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-1" x="100" y="50" width="122" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REPCLTNM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-3" x="222" y="50" width="94" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[送修单位]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-2" x="316" y="50" width="184" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{GCTNM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-4" x="33" y="100" width="67" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[助听器型号]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField-3" x="100" y="100" width="122" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PDTNM}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-9" x="33" y="70" width="189" height="30"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[维修记录及更换零件清单]]></text>
+			</staticText>
+			<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+				<reportElement key="textField-25" x="316" y="100" width="184" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REPAMT}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-27" x="222" y="100" width="94" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[实收费用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-57" x="0" y="180" width="535" height="0"/>
+				<box>
+					<pen lineWidth="0.25" lineStyle="Dashed"/>
+					<topPen lineWidth="0.25" lineStyle="Dashed"/>
+					<leftPen lineWidth="0.25" lineStyle="Dashed"/>
+					<bottomPen lineWidth="0.25" lineStyle="Dashed"/>
+					<rightPen lineWidth="0.25" lineStyle="Dashed"/>
+				</box>
+				<textElement/>
+				<text><![CDATA[Static Text]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-59" x="115" y="0" width="75" height="36"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="14" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[惠耳听力]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-29" x="33" y="120" width="67" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[收费日期]]></text>
+			</staticText>
+			<textField pattern="yyyy/MM/dd" isBlankWhenNull="true">
+				<reportElement key="textField-22" x="100" y="120" width="122" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.25"/>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REPCHGDT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="47" splitType="Stretch">
+			<staticText>
+				<reportElement key="staticText-56" x="33" y="2" width="189" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[温馨提示：请注意清洁和防潮保养]]></text>
+			</staticText>
+			<staticText>
+				<reportElement key="staticText-56" x="33" y="22" width="38" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[地址：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="71" y="22" width="245" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gctaddr}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-56" x="316" y="22" width="58" height="20"/>
+				<box leftPadding="1">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[联系电话：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement key="textField" x="374" y="22" width="126" height="20"/>
+				<textElement>
+					<font size="12" isUnderline="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gcttel}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

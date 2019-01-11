@@ -1,0 +1,104 @@
+/**
+ * Text校验组件
+ * htc  组件：Text.htc
+ * 应用 例子: Text.html
+ */
+<PUBLIC:COMPONENT>
+<PUBLIC:ATTACH EVENT="onpropertychange" ONEVENT="EAFChange()" />
+<PUBLIC:METHOD NAME="validate" />
+<PUBLIC:PROPERTY NAME="isEAF"  value="true" />
+<PUBLIC:PROPERTY NAME="required" />
+<PUBLIC:PROPERTY NAME="disable" put="setDisable" get="getDisable" />
+<PUBLIC:ATTACH EVENT="onkeydown" ONEVENT="enterToTab()" />
+<PUBLIC:ATTACH EVENT="onblur" ONEVENT="EpBlur()" />
+<SCRIPT language="JScript">
+var bDisable = false;
+
+function bitLength(str){
+	if(str==null || str == "") return 0;
+	var len = 0;
+	for(var i=0; i < str.length; i++){
+
+		if(str.substring(i,i+1).charCodeAt(0) < 0x4e00){
+			len ++;
+		 	continue;
+		}
+
+		len += 2;
+	}
+	return len;
+}
+function validate(){
+	if(required=="true"){
+		return checkEmpty();
+	}
+	else{
+		return true;
+	}
+}
+function checkEmpty(){      
+	if (element.value == null || element.value == "") {
+		if(element.label==undefined)
+			alert("不能为空!");
+		else
+			alert(element.label+"不能为空!");
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+function setDisable(flag)
+{
+	bDisable = flag;
+	if(flag.toString().toLowerCase() == "yes" || flag.toString().toLowerCase() == "true")
+	{
+		style.background = "#eeeeee";
+		style.color = "#808080";
+		readOnly = true;
+	}else {
+		style.background = "#FFFFFF";
+		style.color = "#000000";
+		readOnly = false;
+	}
+}
+function getDisable()
+{
+	return bDisable;
+}
+function enterToTab(){
+	if(event.keyCode == 13){
+    	event.keyCode = 9;
+	}
+}
+</SCRIPT>
+<SCRIPT LANGUAGE="VBSCRIPT">
+'##################################################################
+'## 过程名称：EAFChange
+'## 参数： 无
+'##################################################################
+dim valueTemp
+Sub EAFChange()
+
+    '## if window.event.propertyName="value" and element.maxlength<bitLength(element.value) then
+    '##
+    '## element.value=valueTemp
+    '## else
+    '##
+    '##valueTemp=element.value
+    '##end if
+End Sub
+'##################################################################
+'## 过程名称：EpBlur
+'## 参数： 无
+'##################################################################
+Sub EpBlur()
+  
+  if element.maxlength<bitLength(element.value) then       
+	msgbox "输入字符过多,请简化输入！"
+    element.focus
+  end if
+End Sub
+</SCRIPT>
+</PUBLIC:COMPONENT>

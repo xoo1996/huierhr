@@ -1,0 +1,14 @@
+目录结构：
+----huiermis(存放页面和页面相关文件）
+    ----images(存放图片)
+    ----js(存放JavaScript程序)
+    ----sysmanager(存放系统管理模块JSP文件)
+    ----basicinfo(存放基本信息管理模块JSP文件)
+    ----recommendation(存放示范模块：职业介绍JSP文件)
+    ----cfgmgmt(存放示范模块：配置管理JSP文件)
+----Java Resources
+    ----websrc(存放各个业务模块的Java程序)
+    ----src(存放公用Java程序)
+----doc
+    ----使用RADF导读.doc(快速入门指南)
+    ----快速应用开发框架二次开发手册.doc(完整手册)

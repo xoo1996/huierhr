@@ -1,0 +1,12 @@
+PATH_CONFIG_URL = 
+NAME_CONFIG_URL = TZSW_Config.xml
+PATH_CONFIG_INDEX = huiermis
+NAME_CONFIG_COUNT=20
+REGION=3309
+
+#过滤校验的目录
+FILTER_PAGES = /emur,/login
+
+
+SYS.FILE.UPDOWLOAD=upload/touchscreen/
+UPLOADDIR=/bigscreen/upload/

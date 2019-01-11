@@ -1,0 +1,35 @@
+<PUBLIC:COMPONENT tagName="input">  
+<PUBLIC:COMPONENT tagName="TEXTAREA">
+<PUBLIC:PROPERTY NAME="disable" put="setDisable" get="getDisable" />
+
+<PUBLIC:ATTACH   EVENT="oncontentready"  HANDLER="init" />
+
+<script language="javascript">
+var bDisable = false;
+
+function init()
+{
+
+}
+function setDisable(flag)
+{
+	bDisable = flag;
+	if(flag.toString().toLowerCase() == "yes" || flag.toString().toLowerCase() == "true")
+	{
+		style.background = "#eeeeee";
+		style.color = "#808080";
+		readOnly = true;
+	}else {
+		style.background = "#FFFFFF";
+		style.color = "#000000";
+		readOnly = false;
+	}
+}
+function getDisable()
+{
+	return bDisable;
+}
+
+</script>
+
+</PUBLIC:COMPONENT>

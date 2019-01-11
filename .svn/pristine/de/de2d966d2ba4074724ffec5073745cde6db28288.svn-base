@@ -1,0 +1,104 @@
+#####################################################################################################################
+#																													#
+#---------------------------------------sql语句定义规则---------------------------------------------------------------#
+# * 取菜单编号前三位+5位顺序号																		#
+# * 例如：基本信息 单位管理 bas01_000 bas--基础信息模块 01--单位管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# * 具体编写格式举例：																			#
+# * #单位管理#																					#
+# * bas01_000=select * from ab01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_002=select * from ab01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+# * #人员管理#																					#
+# * bas02_000=select * from ac01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_001=select * from ac01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+######################################################################################################################
+#定制机管理#
+
+cus01_000=select m.*,s1.bsc012 as tmkshmknm,s2.bsc012 as tmkshinstnm,c.ictnm as tmkcltnm,p.pdtnm as tmkpnm,o.folsta as folsta,g.gctnm as tmkgctnm from tblmaking m left outer join sc05 s1 on s1.bsc011=m.tmkshmk left outer join sc05 s2 on s2.bsc011=m.tmkshinst left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid left outer join tblproduct p on p.pdtid=m.tmkpid left outer join tblfolio o on o.folno=m.tmkfno where m.tmkfno like :tmkfno! and g.gctnm like:tmkgctnm! and m.tmksid like :tmksid! and m.tmkpst=:tmkpst! and c.ictnm like :tmkcltnm! and tmkfmdt>=:start! and m.tmkfmdt<=:end! and m.tmkpdt=:tmkpdt! and m.tmkpid like :tmkpid!  and p.pdtnm like :tmkpnm! and tmkurg=:tmkurg! and g.gctnm like :tmkgctnm! and s1.bsc012 like :tmkshmknm! and s2.bsc012 like :tmkshinstnm! 
+cus01_001=select m.*,c.ictnm as tmkcltnm,p.pdtnm as tmkpnm from tblmaking m left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblproduct p on p.pdtid=m.tmkpid where m.tmksid=:tmksid! and (m.tmkpst=0 or m.tmkpst=2)
+cus01_002=update tblmaking set tmkurg=:tmkurg!, tmkpnl=:tmkpnl!, tmkmixer=:tmkmixer!, tmkmixdt=:tmkmixdt!, tmkpdt=:tmkpdt!,tmkpst=:tmkpst! where tmkfno=:tmkfno! and tmkcltid=:tmkcltid! and tmkpid=:tmkpid!
+cus01_003=select m.*,p.pdtnm,c.ictnm as tmkcltnm,g.gctnm as tmkgctnm from tblmaking m left outer join tblproduct p on m.tmkpid=p.pdtid left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid where m.tmkpst=1
+cus01_004=select m.*,p.pdtnm,c.ictnm as tmkcltnm,g.gctnm as tmkgctnm from tblmaking m left outer join tblproduct p on m.tmkpid=p.pdtid left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid where m.tmkpst=3
+cus01_005=select m.*,p.pdtnm,c.ictnm as tmkcltnm,g.gctnm as tmkgctnm from tblmaking m left outer join tblproduct p on m.tmkpid=p.pdtid left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid where m.tmkpst=4
+cus01_006=update tblmaking set tmkpst=3 where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_007=update tblmaking set tmkpst=2 where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_008=update tblmaking set tmkpst=:tmkpst!,tmkshmkdt=:tmkshmkdt!,tmkshmk=:tmkshmk! where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_009=update tblmaking set tmkpst=:tmkpst!,tmkshinstdt=:tmkshinstdt!,tmkshinst=:tmkshinst!,tmkshct=:tmkshct! where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_010=select m.*,c.ictnm as tmkcltnm,p.pdtnm as tmkpnm,g.gctnm as tmkgctnm from tblmaking m left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid left outer join tblproduct p on m.tmkpid=p.pdtid where m.tmkpst=5
+cus01_011=update tblmaking set tmktest10=:tmktest10!,tmkpst=:tmkpst!,tmktest1=:tmktest1!,tmktest2=:tmktest2!,tmktest3=:tmktest3!,tmktest4=:tmktest4!,tmktest5=:tmktest5!,tmktest6=:tmktest6!,tmktest7=:tmktest7!,tmktest8=:tmktest8!,tmktest9=:tmktest9!,tmkchkoprcd=:tmkchkoprcd!,tmkfmdt=:tmkfmdt!,tmkchkdt=:tmkchkdt!,tmkchk=:tmkchk! where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_012=update tblmaking set tmkpst=:tmkpst!,tmkfmdt=:tmkfmdt! where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_013=select m.*,s1.bsc012 as tmkshmknm,s2.bsc012 as tmkshinstnm,s3.bsc012 as tmkqanm,fuc_getStatus(m.tmkfno) as tmksta,c.ictnm as tmkcltnm,p.pdtnm as tmkpnm,g.gctnm as tmkgctnm from tblmaking m left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid left outer join tblproduct p on p.pdtid=m.tmkpid left outer join SC05 s1 on s1.bsc011=m.tmkshmk left outer join SC05 s2 on s2.bsc011=m.tmkshinst left outer join tblqa q on q.qafno=m.tmkfno left outer join SC05 s3 on s3.bsc011=q.qachkopr where tmkcltid=:tmkcltid!
+cus01_014=select m.*,c.ictid,c.ictnm as tmkcltnm,p.pdtnm as tmkpnm,g.gctid as tmkgctid,g.gctnm as tmkgctnm from tblmaking m left outer join tblindclient c on c.ictid=m.tmkcltid left outer join tblgrpclient g on g.gctid=c.ictgctid left outer join tblproduct p on p.pdtid=m.tmkpid where m.tmksid like :repid! and c.ictnm like :repcltnm!
+cus01_015=update tblmaking set tmkrependdt=:tmkrependdt! where tmksid=:tmksid! and tmkfno=:tmkfno!
+cus01_016=select c.ictnm as tmkcltnm,p.gctnm as tmkgctnm,p.pdtnm as tmkpnm,d.ncdjsid as tmkebjsid, d.ncdrepdate as tmkrependdt, n.chgdt as tmkordate from tblnorchg n left join tblnorchgdetail d on n.chgid=d.ncdid left join tblproduct p on p.pdtid=d.ncdpid left join tblindclient c on c.ictid=n.chgcltid left join tblgrpclient p on p.gctid =n.chggcltid where 1=1 and p.pdtcls='BTE' and c.ictnm=:tmkcltnm! and p.gctnm=:tmkgctnm! and d.ncdjsid=:tmkebjsid! and n.chgdt>=:start! and n.chgdt<=:end! 
+
+#面板制作#
+	#下任务单
+tsk01_000=select pnlid,pnlnm from tblpnl
+tsk01_001=select k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,k.tsknt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr where tskid like :tskid! and tskpnlnm like :tskpnlnm! and tskbilopr like :tskbilopr! and tsksta =:tsksta! and tskbgndt >= :start! and tskbgndt <= :end!
+#tsk01_002=select k.*,y.acyid,y.acypdtnm,y.acytyp,g.tcfnt as cfgnt,g.tcfbth as acybthnum,g.tcfnum as acypdtid from tbltsk k left outer join tblpnlcfg f on f.cfgpnlnm=k.tskpnlnm left outer join tblacy y on y.acyid=f.cfgacyid left outer join tbltskcfg g on g.tcfid=k.tskid where k.tskid=:tskid!
+tsk01_002=select k.*,y.pdtid,y.pdtnm,y.pdtmod,g.tcfnt as cfgnt,g.tcfbth as acybthnum,g.tcfnum as acypdtid from tbltsk k left outer join tbltskcfg g on g.tcfid=k.tskid left outer join tblproduct y on y.pdtid=g.tcfacy where k.tskid=:tskid!
+#tsk01_003=update tbltsk set tskpnlnm=:tskpnlnm!,tskpnlqnt=:tskpnlqnt!,tskdmd=:tskdmd! where tskid=:tskid!
+tsk01_003=select d.tsdtskid,d.tsdsid,d.tsdpnlid,d.tsdsta as tsksta,s1.bsc012 as pnlqaopra,s2.bsc012 as tskbilopr,q.pnlqadt,q.pnlqant,q.pnlqarsta as qachka,k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdfdt,k.tskbgndt,k.tskdmd from tbltskdetail d  left outer join tbltsk k on k.tskid=d.tsdtskid left outer join tblpnlqa q on q.pnlqapnl=d.tsdpnlid  left outer join sc05 s1 on s1.bsc010=q.pnlqaopra left outer join sc05 s2 on s2.bsc010=k.tskbilopr where k.tskid=:tskid!  order by d.tsdsid
+tsk01_004=insert into tbltskcfg (tcfid,tcfacy) values (:tcfid!,:tcfacy!)
+
+#tsk01_005=update tbltsk set tsksta=:tsksta! where tskid=:tskid!
+
+	#配件确认
+tsk02_001=select k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr where tskid like :tskid! and tskpnlnm like :tskpnlnm! and tskbilopr like :tskbilopr! and tsksta ='0' and tskbgndt >= :start! and tskbgndt <= :end!
+tsk02_002=insert into tblsto (stoid, stogrcliid, stoproid, stoproname, stoamount, stoactype, storemark, stooprcd, stodate, stoprotype, stocllar, stoclmid, stoclsam, stodisc) values (:stoid!, :stogrcliid!, :stoproid!, :stoproname!, :stoamount!, :stoactype!, :storemark!,:stooprcd!, :stodate!, :stoprotype!, :stocllar!, :stoclmid!, :stoclsam!, :stodisc!)
+#tsk02_003=update tbltsk set tsksta=:tsksta!,tskadtopr=:tskadtopr! where tskid=:tskid!
+tsk02_004=insert into tbltskdetail(tsdtskid, tsdsid, tsdpnlid, tsdsta, tsdnt) values (:tsdtskid!, :tsdsid!, :tsdpnlid!, :tsdsta!, :tsdnt!)
+tsk02_005=insert into tbltskcfg(tcfid, tcfacy, tcfbth, tcfnum, tcfnt) values (:tcfid!, :tcfacy!, :tcfbth!, :tcfnum!, :tcfnt!)
+tsk02_006=update tbltskcfg set tcfbth=:tcfbth!,tcfnum=:tcfnum!,tcfnt=:tcfnt! where tcfid=:tcfid! and tcfacy=:tcfacy!
+
+	#面板生产
+tsk06_001=select k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr where tskid like :tskid! and tskpnlnm like :tskpnlnm! and tskbilopr like :tskbilopr! and tsksta ='1' and tskbgndt >= :start! and tskbgndt <= :end!
+#tsk06_002=update tbltsk set tsksta=:tsksta!,tskmkopr=:tskmkopr!, tskmkdt=:tskmkdt! where tskid=:tskid!
+tsk06_003=update tbltskdetail set tsdsta=:tsdsta!,tsdpnlid=:tsdpnlid!,tsdfinish=:tsdfinish! where tsdtskid=:tsdtskid! and tsdsid=:tsdsid!
+
+
+	#面板完成确认
+tsk03_001=select distinct(k.tskid),k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr left outer join tbltskdetail d on d.tsdtskid=k.tskid where k.tskid like :tskid! and k.tskpnlnm like :tskpnlnm! and k.tskbilopr like :tskbilopr! and k.tsksta ='7' and d.tsdsta='2' and k.tskbgndt >= :start! and k.tskbgndt <= :end!
+#tsk03_002=update tbltsk set tsksta=:tsksta! where tskid=:tskid!
+tsk03_002=select d.tsdtskid,d.tsdsid,d.tsdpnlid,d.tsdsta as tsksta,s.bsc012 as tskbilopr,k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdfdt,k.tskbgndt,k.tskdmd,k.tskmkdt from tbltskdetail d left outer join tbltsk k on k.tskid=d.tsdtskid left outer join sc05 s on s.bsc010=k.tskbilopr where k.tskid=:tskid! and d.tsdsta='2' order by d.tsdsid
+
+	#面板开始质检和退机质检
+tsk04_001=select distinct(k.tskid),k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr left outer join tbltskdetail d on d.tsdtskid=k.tskid where k.tskid like :tskid! and k.tskpnlnm like :tskpnlnm! and k.tskbilopr like :tskbilopr! and k.tsksta ='7' and d.tsdsta='3' and k.tskbgndt >= :start! and k.tskbgndt <= :end!
+#tsk04_002=select * from tbltsk k where k.tskid=:tskid!
+tsk04_002=select d.tsdtskid,d.tsdsid,d.tsdpnlid,d.tsdsta as tsksta,s1.bsc012 as pnlqaopra,s2.bsc012 as tskbilopr,q.pnlqadt,q.pnlqant,q.pnlqarsta as qachka,k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdfdt,k.tskbgndt,k.tskdmd from tbltskdetail d  left outer join tbltsk k on k.tskid=d.tsdtskid left outer join tblpnlqa q on q.pnlqapnl=d.tsdpnlid  left outer join sc05 s1 on s1.bsc010=q.pnlqaopra left outer join sc05 s2 on s2.bsc010=k.tskbilopr where k.tskid=:tskid! and d.tsdsta='3' order by d.tsdsid
+tsk04_003=insert into tblpnlqa (pnlqaid,pnlqatskid,pnlqapnla,pnlqapnl,pnlqarsta,pnlqaopra,pnlqadt,pnlqant) values (SEQ_PQAID.NEXTVAL,:pnlqatskid!,:pnlqapnla!,:pnlqapnl!,:pnlqarsta!,:pnlqaopra!,:pnlqadt!,:pnlqant!)
+tsk04_004=update tbltsk set tsksta=:tsksta! where tskid=:tskid!
+tsk04_005=insert into tbltsk (tskid, tskpnlnm, tskpnlqnt, tskbilopr,tskadtopr, tsksta, tsknt) values (:tskid!, :tskpnlnm!, :tskpnlqnt!, :tskbilopr!,:tskadtopr!, :tsksta!, :tsknt!)
+tsk04_006=insert into tblpnlqa (pnlqaid,pnlqatskid,pnlqapnl,pnlqarsta,pnlqaopra,pnlqadt,pnlqant) values (:pnlqaid!,:pnlqatskid!,:pnlqapnl!,:pnlqarsta!,:pnlqaopra!,:pnlqadt!,:pnlqant!)
+tsk04_007=insert into tblpnl (pnlid, pnlnm, pnlnt) values (:pnlid!, :pnlnm!, :pnlnt!)
+tsk04_008=select d.tsdsid,k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tskmkdt,k.tskbgndt,k.tsksta,q.pnlqapnl,q.pnlqant,s1.bsc012 as tskbilopr from tbltskdetail d  left outer join tbltsk k on k.tskid=d.tsdtskid left outer join tblpnlqa q on (q.pnlqatskid=k.tskid and q.pnlqapnl=d.tsdpnlid) left outer join sc05 s1 on s1.bsc010=k.tskbilopr where k.tskid=:tskid! and d.tsdsid=:tsdsid!
+#tsk04_009=update tblpnlqa set pnlqarsta=:pnlqarsta!,pnlqant=:pnlqant! where pnlqatskid=:pnlqatskid! and  pnlqapnl=:pnlqapnl!
+tsk04_009=update tblpnlqa set pnlqarsta=:pnlqarsta!,pnlqant=:pnlqant!,pnlqapnl=:pnlqapnl!,pnlqadt=:pnlqadt! where pnlqaid=:pnlqaid!
+
+#面板质检修改
+tsk04_010=select distinct(k.tskid), k.tskpnlnm, k.tskpnlqnt, k.tskdmd, k.tsksta, k.tskdfdt, k.tskbgndt, k.tskmkdt, s1.bsc012 as tskbilopr, s2.bsc012 as tskadtopr, s3.bsc012 as tskmkopr, s4.bsc012 as tskpdopr from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr left outer join tbltskdetail d on d.tsdtskid=k.tskid where k.tskid like:tskid! and k.tskpnlnm like:tskpnlnm! and k.tskbilopr like:tskbilopr! and k.tsksta in('7','8') and d.tsdsta in('6','5') and k.tskbgndt>=:start! and k.tskbgndt<=:end! 
+tsk04_011=select d.tsdtskid,d.tsdsid,d.tsdpnlid,d.tsdsta as tsksta, s1.bsc012 as pnlqaopra, s2.bsc012 as tskbilopr, q.pnlqadt, q.pnlqant, q.pnlqarsta as qachka, k.tskid, k.tskpnlnm, k.tskpnlqnt, k.tskdfdt, k.tskbgndt, k.tskdmd from tbltskdetail d left outer join tbltsk k on k.tskid=d.tsdtskid left outer join tblpnlqa q on q.pnlqapnl=d.tsdpnlid left outer join sc05 s1 on s1.bsc010=q.pnlqaopra left outer join sc05 s2 on s2.bsc010=k.tskbilopr where k.tskid=:tskid! and d.tsdsta in ('5','6') order by d.tsdsid
+#面板完成质检
+tsk07_001=select k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr   from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr where tskid like :tskid! and tskpnlnm like :tskpnlnm! and tskbilopr like :tskbilopr! and tsksta ='4' and tskbgndt >= :start! and tskbgndt <= :end!
+tsk07_002=select k.*,q.* from tbltsk k left outer join tblpnlqa q on q.pnlqatskid=k.tskid where k.tskid=:tskid!
+tsk07_003=update tblpnlqa set pnlqaoprb=:pnlqaoprb!, pnlqapnlb=:pnlqapnlb!, pnlqarstb=:pnlqarstb!, pnlqaoprc=:pnlqaoprc!,pnlqapnlc=:pnlqapnlc!, pnlqarstc=:pnlqarstc!, pnlqant=:pnlqant!, pnlqadt=:pnlqadt!	where pnlqatskid=:pnlqatskid!
+#tsk07_004=update tbltsk set tsksta=:tsksta! where tskid=:tskid!
+
+	
+	#面板入库
+tsk05_001=select distinct(k.tskid),k.tskpnlnm,k.tskpnlqnt,k.tskdmd,k.tsksta,k.tskdfdt,k.tskbgndt,k.tskmkdt,s1.bsc012 as tskbilopr,s2.bsc012 as tskadtopr,s3.bsc012 as tskmkopr,s4.bsc012 as tskpdopr  from tbltsk k left outer join sc05 s1 on s1.bsc010=k.tskbilopr left outer join sc05 s2 on s2.bsc010=k.tskadtopr left outer join sc05 s3 on s3.bsc010=k.tskmkopr left outer join sc05 s4 on s4.bsc010=k.tskpdopr left outer join tbltskdetail d on d.tsdtskid=k.tskid where k.tskid like :tskid! and k.tskpnlnm like :tskpnlnm! and k.tskbilopr like :tskbilopr! and k.tsksta ='7' and d.tsdsta='5' and k.tskbgndt >= :start! and k.tskbgndt <= :end!
+#tsk05_002=select k.*,q.pnlqapnl,q.pnlqant from tbltsk k left outer join tblpnlqa q on q.pnlqatskid=k.tskid where k.tskid=:tskid! 
+tsk05_002=select d.tsdtskid,d.tsdsid,d.tsdpnlid,d.tsdsta as tsksta,s1.bsc012 as pnlqaopra,s2.bsc012 as tskbilopr,q.pnlqadt,q.pnlqant,q.pnlqarsta as qachka,k.tskid,k.tskpnlnm,k.tskpnlqnt,k.tskdfdt,k.tskbgndt,k.tskdmd,k.tskpnlproid from tbltskdetail d  left outer join tbltsk k on k.tskid=d.tsdtskid left outer join tblpnlqa q on q.pnlqapnl=d.tsdpnlid  left outer join sc05 s1 on s1.bsc010=q.pnlqaopra left outer join sc05 s2 on s2.bsc010=k.tskbilopr where k.tskid=:tskid! and d.tsdsta='5' order by d.tsdsid
+#tsk05_003=update tbltsk set tsksta=:tsksta! where tskid=:tskid!
+tsk05_004=insert into tblsto (stoid, stogrcliid, stoproid, stoprotype, stoproname, stoamountun, stoamount, stoactype, storemark, stooprcd, stodate) values (SEQ_STOID.NEXTVAL, :stogrcliid!, :stoproid!, :stoprotype!, :stoproname!, :stoamountun!, :stoamount!,  :stoactype!, :storemark!, :stooprcd!, :stodate!)
+#tsk05_005=insert into tblpnl (pnlid, pnlnm, pnlnt) values (:pnlid!, :tskpnlnm!, :pnlnt!)
+tsk05_005=select q.pnlqapnl,q.pnlqant from tblpnlqa q where q.pnlqapnl=:pnlid! 
+
+
+tsk05_006=insert into tblpnlqa (pnlqaid,pnlqapnl,pnlqant,pnlqapdtid) values (:pnlqaid!,:pnlqapnl!,:pnlqant!,:pnlproid!)
+
+

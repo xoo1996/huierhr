@@ -1,0 +1,51 @@
+.td {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #000000;
+	border-top: 1px solid #DEE4F1;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #DEE4F1;
+	height:25;
+}
+
+.title {
+	font-family: "黑体";
+	font-size: 24px;	
+}
+.table {
+	border-top: 1px solid #000000;
+	border-right: 1px solid #ACACAC;
+	border-bottom: 1px solid #ACACAC;
+	border-left: 1px solid #000000;
+}
+.td2 {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #000000;
+	border-top: 1px solid #ACACAC;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #ACACAC;
+	height:40;
+}
+.td1 {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #000000;
+	border-top: 1px solid #ACACAC;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #ACACAC;
+	height:100;
+}
+.tt {
+	font-family: "宋体";
+	font-size: 14px;
+	color: #000000;
+	border-top: 1px solid #DEE4F1;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #DEE4F1;
+	height:25;
+}

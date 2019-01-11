@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repair_bonus_earmodel" language="groovy" pageWidth="120" pageHeight="20" columnWidth="120" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="5.559917313492256"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sdata" class="java.util.Date"/>
+	<parameter name="edata" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[select count(*) as num ,nvl(sum(max),0) as worknum from (
+SELECT greatest(temp1,temp2,temp3,temp4,temp5,temp6) as max
+FROM
+  (SELECT to_number(DECODE(r.repaction1,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION1'
+    AND a.aaa004  =r.repaction1
+    ))) AS temp1,
+    to_number(DECODE(r.repaction2,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION2'
+    AND a.aaa004  =r.repaction2
+    ))) AS temp2,
+    to_number(DECODE(r.repaction3,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION3'
+    AND a.aaa004  =r.repaction3
+    ))) AS temp3,
+    to_number(DECODE(r.repaction4,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION4'
+    AND a.aaa004  =r.repaction4
+    ))) AS temp4,
+    to_number(DECODE(r.repaction5,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION5'
+    AND a.aaa004  =r.repaction5
+    ))) AS temp5,
+    to_number(DECODE(r.repaction6,NULL,'0',
+    (SELECT a.aaa005
+    FROM aa01 a
+    WHERE a.aaa001='REPACTION6'
+    AND a.aaa004  =r.repaction6
+    ))) AS temp6
+  FROM tblrep r
+  LEFT OUTER JOIN sc05 s
+  ON s.bsc011=r.repoprcd
+  LEFT OUTER JOIN tblmaking m
+  ON m.tmksid    =r.repid
+  WHERE r.repcpy ='惠耳'
+  AND r.repsta   ='finish'
+  AND s.bsc010   = $P{id}
+  AND r.repfdate>=$P{sdata}
+  AND r.repfdate<=$P{edata}
+  )
+  )]]>
+	</queryString>
+	<field name="NUM" class="java.math.BigDecimal"/>
+	<field name="WORKNUM" class="java.math.BigDecimal"/>
+	<variable name="sum_repair_point" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{WORKNUM}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="###0.00">
+				<reportElement x="0" y="0" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NUM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="60" y="0" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{WORKNUM}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

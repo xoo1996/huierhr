@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="gb2312"?>
+<xml>
+<sieaf-config name="huiermis">
+	<!-- 系统核心参数 -->
+	<!-- 应用框架模型0-双模式，1-SOAP，2-WEB -->
+	<config name="SERVICE_FRAME" value="2"/>
+	<!-- 版本数据更新服务是否启动:1-启动，2-不启动 -->
+	<config name="SERVICE_VERSION" value="2"/>
+	<!-- 应用服务器类型，1-WebLogic，2-Tomcat，3-Oc4j，4-JBOSS -->
+	<config name="SERVER_TYPE" value="2"/>
+	<!-- 是否获取Action和Function之间的对应关系：0不启用，1-启用 -->
+	<config name="SERVICE_ACTION_MAPING" value = "0"/>
+	<config name="FILE_SQL_URL" value="/TZ_SQL.properties"/>
+	<config name="FILE_FACADE_URL" value="TZSW_Facade.xml"/>
+	<config name="FILE_MAPPINGS_URL" value="TZSW_mappings.xml"/>
+	<config name="FILE_NAMEMAP_URL" value="TZSW_namemappings.xml"/>
+	<config name="SERVICE_ENCODING" value = "GBK"/>
+	
+	<!-- 数据库配置参数 -->
+	<!-- 数据库连接类型：１-DATA_SOURCE,   2-JDBC直接连接 -->
+<!--  	<config name="DATABASE_CONNECT_TYPE" value="2"/>
+	<config name="DATABASE_DRIVERNAME" value="oracle.jdbc.driver.OracleDriver"/>
+	<config name="DATABASE_URL" value="jdbc:oracle:thin:@10.1.18.155:1521:orcl1"/>
+	<config name="DATABASE_USER" value="huier20141218mid"/>
+	<config name="DATABASE_PASSWORD" value="oracle"/>   -->
+	<config name="DATABASE_CONNECT_TYPE" value="2"/>
+	<config name="DATABASE_DRIVERNAME" value="oracle.jdbc.driver.OracleDriver"/>
+	<config name="DATABASE_URL" value="jdbc:oracle:thin:@119.37.197.108:1521:orcl"/>
+	<config name="DATABASE_USER" value="huierhr"/>
+	<config name="DATABASE_PASSWORD" value="oracle"/>
+
+
+
+
+	<!-- 数据库连接池参数 -->
+	<!-- weblogic:weblogic.jndi.WLInitialContextFactory;
+		 tomcat:org.exolab.jms.jndi.InitialContextFactory
+		 oc4j:com.evermind.server.rmi.RMIInitialContextFactory -->
+	<config name="NAME_INITIAL_FACTORY" value="org.exolab.jms.jndi.InitialContextFactory"/>
+	<!--Weblogic:  t3://127.0.0.1:7001
+		tomcat:    不用设置
+		oc4j:      ormi://localhost:23791 -->
+	<config name="NAME_URL_PROVIDER" value="ormi://localhost:23791"/>
+	<config name="DATA_SOURCE" value="jdbc/emurCoreDS"/>
+	<config name="DATA_SOURCE_LOG" value="jdbc/emurCoreDS"/>
+	<config name="DATA_SOURCE_TX" value="jdbc/emurCoreDS"/>
+	<config name="USER_TRANSACTION" value="javax.transaction.UserTransaction"/>
+	
+	<!-- JMS参数 -->
+	<!--Weblogic: weblogic.jms.ConnectionFactory
+		Tomcat:
+		OC4J:     与配置在jms.xml文件中的相同-->
+	<config name="JMS_CONTECTION_FACTROY" value="jms/LogConnectionFactory"/>
+	<config name="JMS_USER_NAME" value="admin"/>
+	<config name="JMS_PASSWORD" value="welcome"/>
+	<config name="JMS_QUEUE_NAME" value="LogMessageQueue"/>
+	
+	<!-- 系统日志参数 -->
+	<config name="DEBUG_LOG" value="99999"/>
+	<config name="DEBUG_OUTPUT_FLAG" value="true"/>
+	<config name="DEBUG_PERFERMANCE_FLAG" value="true"/>
+	<config name="LOG_INFO_TABLE_NAME" value="loginfo"/>
+	<config name="LOG_WARN_TABLE_NAME" value="logwarn"/>
+	<config name="LOG_ERROR_TABLE_NAME" value="logerror"/>
+	<config name="LOG_TRANS_SEQNAME" value="SEQ_LOGTRANSACTION"/>
+	<config name="LOG_MESSAGE_SEQNAME" value="SEQ_LOGMESSAGE"/>
+	
+	<!-- 交易定义参数 -->
+	<config name="ACTION_MAPPINGS" value="ACTION_MAPPINGS"/>
+	<config name="TRANSACTION_DEF_CACHE" value="TRANSACTION_DEF_CACHE"/>
+	<config name="FUNCTION_CACHE" value="FUNCTION_CACHE"/>
+	<config name="MAPPING_DAO"
+		value="org.radf.plat.actionmapping.dao.ActionmappingDAOImpl"/>
+	
+	<!-- 安全认证参数 -->
+	<config name="ENCRYPT_FLAG" value="false"/>
+	<config name="NORMAL_FUNCTION" value="00"/>
+	<config name="CLIENT_CERT_FUNCTION" value="10"/>
+	<config name="SERVER_CERT_FUNCTION" value="01"/>
+	<config name="BOTH_CERT_FUNCTION" value="11"/>
+	
+	<!-- 系统运行中使用选择参数 -->
+	<config name="PARAM_FLAG" value="false"/>
+	
+	<!-- 系统运行中使用的配置参数 -->
+	<config name="WEB_APP" value = "/huiermis"/>
+	<config name="INDEX_PAGE" value = "/Index.jsp"/>
+	<config name="LOGON_ACTION" value = "/logonAction.do"/>
+	<config name="LOGON_PAGE" value = "/LogonDialog.jsp"/>
+	<config name="MAIN_PAGE" value = "/Index.jsp"/>		
+	<config name="PAGE_SIZE" value = "10"/>
+	<config name="SQL_SYSDATE" value = "select to_char(sysdate,'yyyy-mm-dd') now from dual"/>
+</sieaf-config>
+
+
+</xml>

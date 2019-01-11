@@ -1,0 +1,64 @@
+
+BODY {
+	FONT-FAMILY: 宋体; FONT-SIZE: 9pt;
+BACKGROUND-POSITION: center top;
+SCROLLBAR-FACE-COLOR: buttonface;
+SCROLLBAR-HIGHLIGHT-COLOR: buttonface;
+SCROLLBAR-SHADOW-COLOR: #B9B9B9;
+SCROLLBAR-ARROW-COLOR: #000000;
+SCROLLBAR-3DLIGHT-COLOR: buttonhighlight;
+SCROLLBAR-TRACK-COLOR: #eeeeee;
+SCROLLBAR-DARKSHADOW-COLOR: buttonshadow;
+}
+button {
+		font-family: "宋体";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #E1E1F4;
+	border: 1px solid #000000;
+	color: #000000;
+	line-height: 15px;
+	vertical-align: middle;
+}
+INPUT{
+	border : 1px solid #3399CC;
+	font : bold 12px 宋体, 新宋体, 楷体_gb2312;
+	color : #333366;
+	}
+TEXTAREA {
+	FONT: normal 12px "宋体", "新宋体", "楷体_gb2312";
+	COLOR: #000000;
+	border: 1px solid #3399CC;
+
+}
+
+TD {
+	FONT-SIZE: 12px;
+	FONT-FAMILY: "宋体", "新宋体", "楷体_gb2312";
+	line-height: 20px;
+
+}
+
+.button {
+	font-family: "宋体";
+	font-size: 12px;
+	font-style: normal;
+	font-weight: normal;
+	background-color: #E1E1F4;
+	border: 1px solid #000000;
+	color: #000000;
+	line-height: 15px;
+	vertical-align: middle;
+
+}
+.td {
+	font-family: "宋体";
+	font-size: 12px;
+	color: #000000;
+	border-top: 1px solid #DEE4F1;
+	border-right: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	border-left: 1px solid #DEE4F1;
+}
+

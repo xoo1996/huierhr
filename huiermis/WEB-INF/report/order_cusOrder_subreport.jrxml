@@ -1,0 +1,938 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="order_cusOrder_subreport" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 8_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 9_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 10_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 11_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="dingzhi">
+		<parameter name="folno" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT e.dgnldct,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN p.pdtnm
+  END) AS lpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN p.pdtnm
+  END) AS rpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN h.foldps
+  END) AS lfoldps,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN h.foldps
+  END) AS rfoldps,
+  e.dgnldprc,
+  e.dgnrdprc,
+  e.dgnrdct,
+  e.dgnpulwire,
+  e.dgnairvent,
+  e.dgnvoswitch,
+  e.dgnsdmd,
+  e.dgnlid,
+  e.dgnrid,
+  e.dgnid,
+  e.dgndoc,
+  e.dgnlfdtfno,
+  e.dgnrfdtfno,
+  h.foldps,
+   h.isleft,
+  h.isright,
+  h.feeleft,
+  h.feeright,
+  h.delayleft,
+  h.delayright,
+  d.fdtmklr
+FROM tbldiagnose e
+LEFT JOIN tblproduct p
+ON e.dgnlid=p.pdtid
+LEFT JOIN tblfoldetail d
+ON d.fdtfno=$P{folno}
+LEFT JOIN tblfolio h
+ON h.folno        =$P{folno}
+WHERE e.dgnlfdtfno=$P{folno}
+OR e.dgnrfdtfno   =$P{folno}]]>
+		</queryString>
+		<field name="DGNLDCT" class="java.math.BigDecimal"/>
+		<field name="LPDTNM" class="java.lang.String"/>
+		<field name="RPDTNM" class="java.lang.String"/>
+		<field name="LFOLDPS" class="java.math.BigDecimal"/>
+		<field name="RFOLDPS" class="java.math.BigDecimal"/>
+		<field name="DGNLDPRC" class="java.math.BigDecimal"/>
+		<field name="DGNRDPRC" class="java.math.BigDecimal"/>
+		<field name="DGNRDCT" class="java.math.BigDecimal"/>
+		<field name="DGNPULWIRE" class="java.lang.String"/>
+		<field name="DGNAIRVENT" class="java.lang.String"/>
+		<field name="DGNVOSWITCH" class="java.lang.String"/>
+		<field name="DGNSDMD" class="java.lang.String"/>
+		<field name="DGNLID" class="java.lang.String"/>
+		<field name="DGNRID" class="java.lang.String"/>
+		<field name="DGNID" class="java.lang.String"/>
+		<field name="DGNDOC" class="java.lang.String"/>
+		<field name="DGNLFDTFNO" class="java.lang.String"/>
+		<field name="DGNRFDTFNO" class="java.lang.String"/>
+		<field name="FOLDPS" class="java.math.BigDecimal"/>
+		<field name="ISLEFT" class="java.lang.String"/>
+		<field name="ISRIGHT" class="java.lang.String"/>
+		<field name="FEELEFT" class="java.math.BigDecimal"/>
+		<field name="FEERIGHT" class="java.math.BigDecimal"/>
+		<field name="DELAYLEFT" class="java.lang.String"/>
+		<field name="DELAYRIGHT" class="java.lang.String"/>
+		<field name="FDTMKLR" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="dingzhi1">
+		<parameter name="folno" class="java.lang.String"/>
+		<queryString>
+			<![CDATA[SELECT e.dgnldct,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN p.pdtnm
+  END) AS lpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN p.pdtnm
+  END) AS rpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN h.foldps
+  END) AS lfoldps,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN h.foldps
+  END) AS rfoldps,
+  e.dgnldprc,
+  e.dgnrdprc,
+  e.dgnrdct,
+  e.dgnpulwire,
+  e.dgnairvent,
+  e.dgnvoswitch,
+  e.dgnsdmd,
+  e.dgnlid,
+  e.dgnrid,
+  e.dgnid,
+  e.dgndoc,
+  e.dgnlfdtfno,
+  e.dgnrfdtfno,
+  h.foldps,
+  h.isleft,
+  h.isright,
+  h.feeleft,
+  h.feeright,
+  h.delayleft,
+  h.delayright,
+  d.fdtmklr
+FROM tbldiagnose e
+LEFT JOIN tblproduct p
+ON e.dgnlid=p.pdtid
+LEFT JOIN tblfoldetail d
+ON d.fdtfno=$P{folno}
+LEFT JOIN tblfolio h
+ON h.folno        =$P{folno}
+WHERE e.dgnlfdtfno=$P{folno}
+OR e.dgnrfdtfno   =$P{folno}]]>
+		</queryString>
+		<field name="DGNLDCT" class="java.math.BigDecimal"/>
+		<field name="LPDTNM" class="java.lang.String"/>
+		<field name="RPDTNM" class="java.lang.String"/>
+		<field name="LFOLDPS" class="java.math.BigDecimal"/>
+		<field name="RFOLDPS" class="java.math.BigDecimal"/>
+		<field name="DGNLDPRC" class="java.math.BigDecimal"/>
+		<field name="DGNRDPRC" class="java.math.BigDecimal"/>
+		<field name="DGNRDCT" class="java.math.BigDecimal"/>
+		<field name="DGNPULWIRE" class="java.lang.String"/>
+		<field name="DGNAIRVENT" class="java.lang.String"/>
+		<field name="DGNVOSWITCH" class="java.lang.String"/>
+		<field name="DGNSDMD" class="java.lang.String"/>
+		<field name="DGNLID" class="java.lang.String"/>
+		<field name="DGNRID" class="java.lang.String"/>
+		<field name="DGNID" class="java.lang.String"/>
+		<field name="DGNDOC" class="java.lang.String"/>
+		<field name="DGNLFDTFNO" class="java.lang.String"/>
+		<field name="DGNRFDTFNO" class="java.lang.String"/>
+		<field name="FOLDPS" class="java.math.BigDecimal"/>
+		<field name="ISLEFT" class="java.lang.String"/>
+		<field name="ISRIGHT" class="java.lang.String"/>
+		<field name="FEELEFT" class="java.math.BigDecimal"/>
+		<field name="FEERIGHT" class="java.math.BigDecimal"/>
+		<field name="DELAYLEFT" class="java.lang.String"/>
+		<field name="DELAYRIGHT" class="java.lang.String"/>
+		<field name="FDTMKLR" class="java.lang.String"/>
+	</subDataset>
+	<parameter name="folno" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT e.dgnldct,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN p.pdtnm
+  END) AS lpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN p.pdtnm
+  END) AS rpdtnm,
+  (
+  CASE
+    WHEN d.fdtmklr='0'
+    THEN h.foldps
+  END) AS lfoldps,
+  (
+  CASE
+    WHEN d.fdtmklr='1'
+    THEN h.foldps
+  END) AS rfoldps,
+  e.dgnldprc,
+  e.dgnrdprc,
+  e.dgnrdct,
+  e.dgnpulwire,
+  e.dgnairvent,
+  e.dgnvoswitch,
+  e.dgnsdmd,
+  e.dgnlid,
+  e.dgnrid,
+  e.dgnid,
+  e.dgndoc,
+  e.dgnlfdtfno,
+  e.dgnrfdtfno,
+  h.foldps,
+  h.isleft as isleft,
+  h.isright as isright,
+  h.feeleft as feeleft,
+  h.feeright as feeright,
+  h.delayleft as delayleft,
+  h.delayright as delayright,
+  d.fdtmklr
+FROM tbldiagnose e
+LEFT JOIN tblproduct p
+ON e.dgnlid=p.pdtid
+LEFT JOIN tblfoldetail d
+ON d.fdtfno=$P{folno}
+LEFT JOIN tblfolio h
+ON h.folno        =$P{folno}
+WHERE e.dgnlfdtfno=$P{folno}
+OR e.dgnrfdtfno   =$P{folno}]]>
+	</queryString>
+	<field name="DGNLDCT" class="java.math.BigDecimal"/>
+	<field name="LPDTNM" class="java.lang.String"/>
+	<field name="RPDTNM" class="java.lang.String"/>
+	<field name="LFOLDPS" class="java.math.BigDecimal"/>
+	<field name="RFOLDPS" class="java.math.BigDecimal"/>
+	<field name="DGNLDPRC" class="java.math.BigDecimal"/>
+	<field name="DGNRDPRC" class="java.math.BigDecimal"/>
+	<field name="DGNRDCT" class="java.math.BigDecimal"/>
+	<field name="DGNPULWIRE" class="java.lang.String"/>
+	<field name="DGNAIRVENT" class="java.lang.String"/>
+	<field name="DGNVOSWITCH" class="java.lang.String"/>
+	<field name="DGNSDMD" class="java.lang.String"/>
+	<field name="DGNLID" class="java.lang.String"/>
+	<field name="DGNRID" class="java.lang.String"/>
+	<field name="DGNID" class="java.lang.String"/>
+	<field name="DGNDOC" class="java.lang.String"/>
+	<field name="DGNLFDTFNO" class="java.lang.String"/>
+	<field name="DGNRFDTFNO" class="java.lang.String"/>
+	<field name="FOLDPS" class="java.math.BigDecimal"/>
+	<field name="ISLEFT" class="java.lang.String"/>
+	<field name="ISRIGHT" class="java.lang.String"/>
+	<field name="FEELEFT" class="java.math.BigDecimal"/>
+	<field name="FEERIGHT" class="java.math.BigDecimal"/>
+	<field name="DELAYLEFT" class="java.lang.String"/>
+	<field name="DELAYRIGHT" class="java.lang.String"/>
+	<field name="FDTMKLR" class="java.lang.String"/>
+	<variable name="variable1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{FDTMKLR}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="80" splitType="Stretch">
+			<printWhenExpression><![CDATA[new Boolean($V{variable1}.equals("0")==true)]]></printWhenExpression>
+			<textField isBlankWhenNull="true">
+				<reportElement x="1" y="30" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font pdfFontName="Courier" pdfEncoding="Cp1253"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 5" style="table 5" x="-1" y="30" width="555" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dingzhi">
+						<datasetParameter name="folno">
+							<datasetParameterExpression><![CDATA[$P{folno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="109">
+						<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="109" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[定制机型号]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="109" height="30"/>
+								<textElement textAlignment="Center">
+									<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{LPDTNM}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="57">
+						<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="57" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[左耳定金]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="57" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{LFOLDPS}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77">
+						<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="77" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[原价]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="77" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNLDPRC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="44">
+						<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="44" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[扣率]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="44" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNLDCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="68">
+						<jr:columnHeader style="table 5_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="68" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[现价]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="68" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNLDPRC}*$F{DGNLDCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="79">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="79" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[延长保修期限（月）]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="79" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DELAYLEFT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="64">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="64" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[延保费]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="64" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FEELEFT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="57">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="57" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[是否赠送]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="57" height="30"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{ISLEFT}=="1")?"赠送":"否"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 7" style="table 7" x="-1" y="0" width="555" height="30"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dingzhi">
+						<datasetParameter name="folno">
+							<datasetParameterExpression><![CDATA[$P{folno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="555">
+						<jr:tableHeader style="table 7_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="555" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="16" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[定制信息-左耳]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 7_TD" height="0" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+		<band height="80">
+			<printWhenExpression><![CDATA[new Boolean($V{variable1}.equals("1")==true)]]></printWhenExpression>
+			<textField isBlankWhenNull="false">
+				<reportElement x="1" y="30" width="100" height="20"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{variable1}]]></textFieldExpression>
+			</textField>
+			<componentElement>
+				<reportElement key="table 8" style="table 8" x="0" y="0" width="555" height="30"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dingzhi">
+						<datasetParameter name="folno">
+							<datasetParameterExpression><![CDATA[$P{folno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="555">
+						<jr:tableHeader style="table 8_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="555" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="16" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[定制信息-右耳]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:detailCell style="table 8_TD" height="0" rowSpan="1"/>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 9" style="table 9" x="0" y="30" width="555" height="50"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+					<datasetRun subDataset="dingzhi">
+						<datasetParameter name="folno">
+							<datasetParameterExpression><![CDATA[$P{folno}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="95">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="1" y="0" width="94" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[定制机型号]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="95" height="20"/>
+								<textElement textAlignment="Center">
+									<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{RPDTNM}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="64">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="62" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[右耳定金]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="62" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{RFOLDPS}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="71">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="71" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[原价]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="71" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNRDPRC}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="48">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="1" y="0" width="47" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[扣率]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="48" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNRDCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="74">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="74" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[现价]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 9_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="74" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DGNRDPRC}*$F{DGNRDCT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="88">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="88" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[延长保修期限（月）]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="88" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DELAYRIGHT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="63">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="63" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[延保费用]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="63" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{FEERIGHT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="49">
+						<jr:columnHeader style="table 9_CH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="49" height="30"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<text><![CDATA[是否赠送]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 5_TD" height="30" rowSpan="1">
+							<textField pattern="###0.00;-###0.00">
+								<reportElement x="0" y="0" width="49" height="20"/>
+								<textElement textAlignment="Center">
+									<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{ISRIGHT}=="1")?"赠送":"否"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

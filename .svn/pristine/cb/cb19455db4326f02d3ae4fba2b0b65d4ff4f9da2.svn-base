@@ -1,0 +1,42 @@
+/**
+ * select校验组件
+ * htc  组件：select.htc
+ * 应用 例子: select.html
+ */
+<PUBLIC:COMPONENT>
+<PUBLIC:METHOD NAME="validate" />
+<PUBLIC:PROPERTY NAME="isEAF"  value="true" />
+<PUBLIC:PROPERTY NAME="required" />
+<PUBLIC:ATTACH EVENT="onkeydown" ONEVENT="enterToTab()" />
+
+<SCRIPT language="JScript">
+
+function validate(){
+	if(required=="true"){
+		return checkEmpty();
+	}
+	else{
+		return true;
+	}
+}
+function checkEmpty(){
+
+	if (element.value == null || element.value == "" || element.value.replace(" ","") == "") {
+		if(element.label==undefined)
+			alert("不能为空!");
+		else
+			alert(element.label+"不能为空!");
+		return false;
+	}
+	else{
+		return true;
+	}
+}
+
+function enterToTab(){
+	if(event.keyCode == 13){
+       event.keyCode = 9;
+	}
+}
+</SCRIPT>
+</PUBLIC:COMPONENT>

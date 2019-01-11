@@ -1,0 +1,31 @@
+/**
+ * Date校验组件
+ * htc组件：Date.htc
+ * 应用例子：Date.html
+ * 属性：isNullable：是否为空。 当为false时不可以为空，需要非空校验；当为true时可以为空，不需要非空校验。
+         dateFormat：日期格式。
+         age: 指定输入年龄元素id。
+         preDate:指定当前日期联动的日期。与之比较的前一个日期。
+         
+ * 说明：
+ *     1、在这里，约定Date输入域所在的form名“EAPForm”,应用到的javascript脚本DatePicker.js必须写到
+ *        html文件中，如：<script Language="JavaScript" src="./js/DatePicker.js"></script>。
+ *     2、约定日期格式为“YYYY-MM-DD HH-MI-SS”“YYYY-MM-DD HH-MI”“YYYY-MM-DD”“YYYY-MM”“YYYY” 
+ *     3、将Enter 键转换为 Tab 键。
+ * @author	lixiangyu,2003.04
+ */
+
+<PUBLIC:COMPONENT>
+
+<PUBLIC:ATTACH EVENT="onkeypress" ONEVENT="OnlyNumber()" />
+<PUBLIC:PROPERTY NAME=JSObjName  value="Date" />
+
+
+<SCRIPT LANGUAGE="JScript">
+
+    function OnlyNumber()
+    {      
+      eapObjsMgr.getEAPObj(element).OnlyNumber();
+    }
+</SCRIPT>
+</PUBLIC:COMPONENT>

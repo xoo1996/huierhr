@@ -1,0 +1,106 @@
+#####################################################################################################################
+#																													#
+#---------------------------------------sql语句定义规则---------------------------------------------------------------#
+# * 取菜单编号前三位+5位顺序号																		#
+# * 例如：基本信息 单位管理 bas01_000 bas--基础信息模块 01--单位管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# *      基本信息 人员管理 bas02_000 bas--基础信息模块 02--人员管理  000--当前开发使用sql顺序号				#
+# * 具体编写格式举例：																			#
+# * #单位管理#																					#
+# * bas01_000=select * from ab01 where aab001=:aab001 and aab004=:aab004						#
+# * bas01_001=select * from ab01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+# * #人员管理#																					#
+# * bas02_000=select * from ac01 where aab001=:aab001 and aab004=:aab004						#
+# * bas02_001=select * from ac01 where aab002=:aab002 and aab003=:aab003						#
+# * 																							#
+######################################################################################################################
+#登陆管理#
+login_select_sc05=select t.* from sc05 t where t.bsc011=:bsc011 and  t.bsc013=:bsc013
+login_select_sc06andsc07=select sc06.* from sc06,sc07 where sc06.bsc014=sc07.bsc014 and sc07.bsc010=:bsc010 order by sc06.bsc014
+login_select_sc08andsc09=select sc08.* from sc08,sc09 where sc08.bsc016=sc09.bsc016 and sc09.bsc014=:bsc014 order by sc08.bsc020,sc08.bsc016
+login_select_Sc0801=select sc08.bsc016,sc08.bsc017,sc08.bsc018,sc08.bsc019,sc08.bsc020,sc08.bsc021,sc08.bsc022,sc08.bsc024 from sc08  where 1=1  order by  sc08.bsc020,sc08.bsc016
+login_select_sc06=select t.*,(select tt.bsc001 from sc01 tt where aab003=substr(t.aab003,0,length(t.aab003)-2)) bsc998 from sc01 t where t.bsc001=:bsc001
+
+#部门管理#
+sys01_000=select * from VIEW_SC01_SC04
+sys01_001=select * from VIEW_SC01_SC04_SC05
+##dept_select_sc04=select sc04.* from sc04,sc01 where sc01.aae100='1' and sc01.bsc001=sc04.bsc001 and sc01.aab003=:aab003
+sys01_002=update sc01 set  aae100='0' where bsc001=:bsc001
+sys01_003=delete from sc04 where bsc008=:bsc008
+sys01_004=delete from sc04 where bsc001=:bsc001
+sys01_005=select * from sc01 where aab003=:aab003 and aae100='1' 
+sys01_006=select * from sc01 where aae100='1' and aab003=:aab003 and aab300=:aab300 and aae005=:aae005 and aab304=:aab304 and bsc002=:bsc002 and aae100=:aae100
+sys01_007=select * from sc02 where bsc004=:bsc004 and bsc005=:bsc005 and bsc001=:bsc001  and f_getdata_area(:aae017,aae017,'1')='1'
+sys01_008=select sc03.bsc006 bs006c,sc03.bsc007 bsc006,sc03.bsc007,sc03.aae036,sc03.aae011,sc03.aae017 from sc03 where bsc007=:bsc007 and f_getdata_area(:aae017,aae017,'1')='1'
+sys01_009=select * from SC03 where bsc006=:bsc006
+
+##SC01_update_deptGroupSetNULL=update SC01 set bsc003=null where bsc001=:bsc001
+sys01_010=update SC01 set bsc003=substr(bsc003,1,:bsc003-1)||'1'||substr(bsc003,:bsc003+1,length(bsc003)) where bsc001=:bsc001
+sys01_011=select *  from SC01 where  substr(aab003,1,length(:aab003)-2)=substr(:aab003,1,length(:aab003)-2) and substr(bsc003,:bsc003,1)='0'
+sys01_012=select *  from SC01 where substr(bsc003,:bsc003,1)='1'
+sys01_013=select *  from SC01 where aab003=:aab003
+sys01_014=update SC01 set bsc003=substr(bsc003,1,:bsc003-1)||'0'||substr(bsc003,:bsc003+1,length(bsc003)) where substr(bsc003,:bsc003,1)='1'
+sys01_015=select *  from sc01 where substr(aab003,1,length(:aab003)-2)=substr(:aab003,1,length(:aab003)-2)
+sys01_016=select * from SC03 where  f_getdata_area(:aae017,aae017,'1')='1'
+sys01_017=delete from SC03 where bsc007=:bsc007
+#角色管理与权限管理#
+sys03_000=select sc08.bsc016,sc08.bsc017,sc08.bsc018,sc08.bsc019,sc08.bsc020,sc08.bsc021,sc08.bsc022,sc08.bsc024 from sc08,sc09 where sc08.bsc016=sc09.bsc016 and sc09.bsc014=:bsc014 order by sc08.bsc020,sc08.bsc016
+sys03_001=select * from sc06 where bsc014=:bsc014  and bsc015=:bsc015  
+sys03_002=select sc06.* from sc06,sc07 where sc06.bsc014=sc07.bsc014 and sc07.bsc010=:bsc010  
+##role_select_sc0604=select * from sc05 where bsc001=:bsc001 and bsc010 not in(select sc05.bsc010 from sc05,sc07 where  sc07.bsc010=sc05.bsc010)
+sys03_003=select sc05.* from sc05,sc07 where  sc07.bsc010=sc05.bsc010 and sc07.bsc014=:bsc014
+sys03_004=select * from sc05 where bsc001=:bsc001
+sys03_005=delete from SC07 where bsc014=:bsc014
+
+#参数管理#
+sys06_000=select t.* from aa01 t where t.aae140=:aae140 and t.aaa001 like:aaa001 and t.aaa002 like :aaa002 and t.aaa003 like:aaa003 and t.aaa004 like :aaa004 and t.aaa005=:aaa005 and t.aae030 >=:aae030 and t.aae031<=:aae031 and aae100=:aae100
+##ParameterIMP_select01=select t.* from aa01 t where t.aae140=:aae140 and t.aaa001=:aaa001 and t.aaa003=:aaa003 and t.aae030=:aae030
+sys06_001=select aaa100,aaa101,aaa102,aaa103,aaa104,aaa105,aaa106,aaa107,aaa107 aae140,baa108,baa109,aae013,baa100 from aa10 where aa10.aaa100=:aaa100 and aa10.aaa101=:aaa101 and aa10.aaa102=:aaa102 and aa10.aaa103=:aaa103 and aaa107=:aaa107 and aaa104=:aaa104
+##codeListIMP_select01=select aa10.* from aa10 where aa10.aaa100=:aaa100 and aa10.aaa102=:aaa102
+sys06_002=select t.aae140,t.aaa001 aa001a,t.aaa003,t.aae030,t.aaa002,t.aaa004,t.aaa005,t.aae031,t.aae013,t.aae002,t.aae100 from aa01 t where t.aae140=:aae140 and t.aaa001 like:aaa001 and t.aaa002 like :aaa002 and t.aaa003 like:aaa003 and t.aaa004 like :aaa004 and t.aaa005=:aaa005 and t.aae030 >=:aae030 and t.aae031<=:aae031 and aae100=:aae100
+sys06_003=select t.aae140,t.aaa001 a001aa,t.aaa003,t.aae030,t.aaa002,t.aaa004,t.aaa005 aa005a,t.aae031,t.aae013,t.aae002,t.aae100 from aa01 t where t.aae140=:aae140 and t.aaa001 like:aaa001 and t.aaa002 like :aaa002 and t.aaa003 like:aaa003 and t.aaa004 like :aaa004 and t.aaa005=:aaa005 and t.aae030 >=:aae030 and t.aae031<=:aae031 and aae100=:aae100
+sys06_004=select t.aaa100,t.aaa101 from aa10 t where aaa107=:aaa107 group by aaa100,aaa101
+
+#日志管理#
+sys07_000=select * from sc10 where bsc012=:bsc012 and bsc026=:bsc026
+sys07_000_his=select * from sc10@mylinke where bsc012=:bsc012 and bsc026=:bsc026
+sys07_001=select * from sc11 where bsc012=:bsc012 and bsc026=:bsc026 and bsc047=:bsc047 and bsc033=:bsc033
+sys07_001_his=select * from sc11@mylinke where bsc012=:bsc012 and bsc026=:bsc026 and bsc047=:bsc047 and bsc033=:bsc033
+sys07_002=select * from sc12 where bsc034=:bsc034 and bsc035 like :bsc035
+sys07_003=select * from sc13 where bsc012=:bsc012 and bsc037=:bsc037 and bsc038 like :bsc038 and bsc039=:bsc039 and bsc040 like :bsc040 and bsc041=:bsc041 and bsc042 like :bsc042 and bsc043=:bsc043 and bsc044 like :bsc044 and aae011=:aae011
+sys07_004=select * from sc11 where bsc012=:bsc012 and bsc026=:bsc026 and to_date(to_char(bsc027,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc027 and bsc047=:bsc047 and bsc033=:bsc033
+sys07_004_his=select * from sc11@mylinke where bsc012=:bsc012 and bsc026=:bsc026 and to_date(to_char(bsc027,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc027 and bsc047=:bsc047 and bsc033=:bsc033
+sys07_005=select * from sc12 where to_date(to_char(bsc027,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc027  and bsc034=:bsc034 and bsc035 like :bsc035
+sys07_006=select * from sc13 where to_date(to_char(bsc045,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc045 and bsc012=:bsc012 and bsc037=:bsc037 and bsc038 like :bsc038 and bsc039=:bsc039 and bsc040 like :bsc040 and bsc041=:bsc041 and bsc042 like :bsc042 and bsc043=:bsc043 and bsc044 like :bsc044 and aae011=:aae011
+sys07_007=select * from sc10 where bsc012=:bsc012 and bsc026=:bsc026 and to_date(to_char(bsc027,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc027
+sys07_007_his=select * from sc10@mylinke where bsc012=:bsc012 and bsc026=:bsc026 and to_date(to_char(bsc027,'yyyy-mm-dd'),'yyyy-mm-dd')=:bsc027
+
+#菜单管理#
+sys04_000 =select *  from SC08 where bsc016 like :bsc016 and bsc018 like:bsc018 and bsc019 like :bsc019 and bsc021=:bsc021 and bsc024=:bsc024 and bsc023 like:bsc023
+sys04_001=select * from SC08 where bsc016=:bsc016
+sys04_002=select * from SC08 where bsc016 like :bsc016  order by bsc020
+sys04_003=select * from SC09 where bsc016=:bsc016
+sys04_004=update sc08 set bsc020=:bsc020 where bsc016=:bsc016
+#人员管理#
+#sys02_000 =select sc05.*,sc04.bsc009,sc01.aab300  from sc05,sc01,sc04 where sc05.bsc001=sc01.bsc001 and sc05.bsc008=sc04.bsc008 and substr(sc01.aab003,1,length(:aab003)-2)=substr(:aab003,1,length(:aab003)-2) and sc05.bsc010=:bsc010 and sc05.bsc011 like :bsc011 and sc05.bsc012 like:bsc012 and sc05.bsc013=:bsc013 and sc05.aae005=:aae005 and sc05.bsc001=:bsc001 and sc04.bsc008=:bsc008 and sc01.aab300 like :aab300 and sc04.bsc009 like :bsc009 and sc05.aae100=:aae100 and sc05.aae036=:aae036 and sc05.aae011=:aae011
+sys02_000 =select sc05.*,sc04.bsc009,sc01.aab300  from sc05,sc01,sc04 where sc05.bsc001=sc01.bsc001 and sc05.bsc008=sc04.bsc008 and sc05.bsc010=:bsc010 and sc05.bsc011 like :bsc011 and sc05.bsc012 like:bsc012 and sc05.bsc013=:bsc013 and sc05.aae005=:aae005 and sc05.bsc001=:bsc001 and sc04.bsc008=:bsc008 and sc01.aab300 like :aab300 and sc04.bsc009 like :bsc009 and sc05.aae100=:aae100 and sc05.aae036=:aae036 and sc05.aae011=:aae011
+##SC05_select_userViewInfo=select * from SC05 where bsc010=:bsc010
+sys02_001=select b.bsc014,b.bsc015 from sc05 a,sc06 b,sc07 c where a.bsc010=c.bsc010 and b.bsc014=c.bsc014 and a.bsc010=:bsc010 order by b.bsc014 asc
+sys02_002=select a.bsc014,a.bsc015 from sc06 a where a.bsc014 not in (select b.bsc014 from sc05 a,sc06 b,sc07 c where a.bsc010=c.bsc010 and b.bsc014=c.bsc014 and a.bsc010=:bsc010)
+sys02_003=delete from SC07 where bsc010=:bsc010
+sys02_004=select a.bsc008,a.bsc001,a.bsc009, c.aab300 from sc04 a, sc05 b, sc01 c where b.bsc008<>a.bsc008 and b.bsc001=c.bsc001 and substr(c.aab003,1,length(:aab003)-1)=substr(:aab003,1,length(:aab003)-1) and b.bsc010=:bsc010
+sys02_005=select a.bsc008,a.bsc001,a.bsc009, c.aab300 from sc04 a, sc05 b, sc01 c where b.bsc008=a.bsc008 and b.bsc001=c.bsc001 and b.bsc010=:bsc010
+sys02_006=update SC05 set bsc013=:bsc013 where bsc010=:bsc010 and bsc013=:oldpwd
+sys02_007=update SC05 set bsc013=:bsc013 where bsc010=:bsc010
+sys02_008=select bsc010 from SC05 where bsc010=:bsc010 and bsc013=:oldpwd
+sys02_009=select a.*, b.bsc009, c.aab300,d.gctarea from sc05 a,sc04 b,sc01 c,tblgrpclient d where a.bsc008=b.bsc008 and a.bsc001=c.bsc001 and a.bsc011=d.gctid and a.bsc010=:bsc010
+sys02_010=select *  from SC05 where bsc011=:bsc011
+#sys02_011=select a.bsc008,a.bsc001,a.bsc009, c.aab300 from sc04 a, sc01 c where a.bsc001=c.bsc001 and substr(c.aab003,1,length(:aab003)-2)=substr(:aab003,1,length(:aab003)-2)
+sys02_011=select a.bsc008,a.bsc001,a.bsc009, c.aab300 from sc04 a, sc01 c where a.bsc001=c.bsc001
+
+ukey_op=update SC05 set aae101=:aae101! 
+#where 1=1 and bsc011=:bsc011!
+ukey01_00=select s.bsc012,u.ugctid,u.ukeysn,u.iswork,u.uopdate from tblukey u left outer join sc05 s on u.ugctid=s.bsc011 where 1=1 and u.ugctid=:ugctid! and s.bsc012=:bsc012! and u.ukeysn=:ukeysn! and u.iswork=:iswork!
+ukey01_01=update tblukey set iswork=:iswork!,uopdate=:uopdate! where ukeysn=:ukeysn!
+ukey_findsn=select * from tblukey where ugctid=:bsc011! and ukeysn=:ukeysn! and iswork='1'

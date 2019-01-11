@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="ChartParamForm" type="org.radf.apps.commons.form.ChartParamForm" />
+		<!-- 以下填写业务需要的formbean -->
+		<form-bean name="businessForm" type="org.radf.apps.business.form.BusinessForm" />
+		<form-bean name="FeeForm" type="org.radf.apps.business.form.FeeForm" />
+		<form-bean name="SaleForm" type="org.radf.apps.business.form.SaleForm" />
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement"
+			path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action type="org.radf.plat.util.action.Actionback" scope="request"
+			parameter="method" path="/backAction" />
+		<action type="org.radf.apps.commons.action.ChartAction" name="ChartParamForm"
+			scope="session" parameter="method" path="/ChartAction">
+			<forward contextRelative="true" path="/common/showchart.jsp"
+				name="showchart" />
+		</action>
+		<!-- 以下填写业务需要的action（注：上面那个action每个文件都必须需要）-->
+		<action name="businessForm" parameter="method" path="/BusinessAction"
+			type="org.radf.apps.business.action.BusinessAction" scope="session">
+			<forward name="yuejie" path="/yuejie.jsp" />
+			<forward name="ydjs" path="/ydjs.jsp" />
+			
+			<forward name="zsd_ydjs" path="/zsd_ydjs.jsp" />
+			<forward name="xiaozhang" path="/xiaozhang.jsp" />
+			<forward name="queryqyxs" path="/queryqyxs.jsp" />
+			<forward name="queryppxs" path="/queryppxs.jsp" />
+			<forward name="alter" path="/alter.jsp"></forward>
+			<forward name="modify" path="/alter.jsp"></forward>
+			<forward name="queryAccount" path="/queryAccount.jsp"></forward>
+			<forward name="profit" path="/jasper/profit.jsp"></forward>
+			<forward name="report" path="/report.jsp"></forward>
+			<forward name="editdis" path="/editdis.jsp"></forward>
+			<forward name="jcquery" path="/jcquery.jsp"></forward>
+			<forward name="stoexp" path="/querystoexp.jsp"></forward>
+			<forward name="JMxiaozhang" path="/JMxiaozhang.jsp"/>
+			<forward name="ZSxiaozhang" path="/ZSxiaozhang.jsp"/>
+			
+			<forward name="assetquery" path="/asset/assetquery.jsp"/>
+			<forward name="showAsset" path="/asset/modify.jsp"/>
+			
+			
+			<forward name="amortizequery" path="/amortize/amortizequery.jsp"/>
+			<forward name="showAmortize" path="/amortize/modify.jsp"/>
+			
+			<forward name="expireday" path="/queryExd.jsp"/>
+			<forward name="ydjs" path="/ydjs.jsp"></forward>
+			
+		</action>
+		<action name="FeeForm" parameter="method" path="/FeeAction"
+			type="org.radf.apps.business.action.FeeAction" scope="request">
+			<forward name="insertfee" path="/jasper/insertfee.jsp" />
+			<forward name="insertAmortize" path="/jasper/insertAmortize.jsp"/>
+			<forward name="savefee" path="/jasper/savefee.jsp"></forward>
+			<forward name="query" path="/jasper/query.jsp"></forward>
+			<forward name="feequery" path="/jasper/feequery.jsp"></forward>	
+			<forward name="fee" path="/jasper/insertfee.jsp"></forward>
+			<forward name="modifyfee" path="/jasper/modifyfee.jsp"></forward>
+		</action>
+		
+		<action name="SaleForm" parameter="method" path="/SaleAction"
+			type="org.radf.apps.business.action.SaleAction" scope="request">
+			<forward name="save" path="/savesale.jsp"></forward>
+			<forward name="edit" path="/editsale.jsp"></forward>
+			<forward name="report1" path="/report.jsp"></forward>
+			<forward name="xiaozhang" path="/xiaozhang.jsp" />
+			<forward name="savent" path="/saveactnt.jsp"></forward>
+		</action>
+	</action-mappings>
+
+</struts-config>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="companyfee_5_amortize" language="groovy" pageWidth="537" pageHeight="20" columnWidth="537" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="feeyear" class="java.math.BigDecimal"/>
+	<parameter name="feemonth" class="java.math.BigDecimal"/>
+	<parameter name="feegctid" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT NVL(ROUND(SUM( DECODE(amotype,'trans',meiyue,NULL)),2),0)  AS trans,
+  NVL(ROUND(SUM( DECODE(amotype,'assetscom',meiyue,NULL)),2),0)   AS assetscom,
+  NVL( ROUND( SUM( DECODE(amotype,'assetscon',meiyue,NULL)),2),0) AS assetscon,
+  NVL(ROUND(SUM(DECODE(amotype,'assetsmach',meiyue,NULL)),2),0)   AS assetsmach,
+  NVL(ROUND(SUM( DECODE(amotype,'built',meiyue,NULL)),2),0)       AS built,
+  NVL(ROUND(SUM( DECODE(amotype,'open',meiyue,NULL)),2),0)        AS OPEN,
+  NVL(ROUND(SUM( DECODE(amotype,'other',meiyue,NULL)),2),0)       AS other,
+  NVL(ROUND(SUM( DECODE(amotype,'rent',meiyue,NULL)),2),0)        AS rent
+FROM
+  (SELECT t.amotype                                      AS amotype,
+    t.feegctid                                           AS id,
+    SUM(t.money/(months_between(t.feeend,t.feestart)+1)) AS meiyue
+  FROM tblfeeamortize t
+  WHERE t.feegctid = $P{feegctid}
+  AND feestart<= to_date(to_char($P{feeyear},'9999')||to_char($P{feemonth},'99'),'yyyy-mm')
+  AND feeend >= to_date(to_char($P{feeyear},'9999')||to_char($P{feemonth},'99'),'yyyy-mm')
+  GROUP BY amotype,
+    t.feegctid
+  )]]>
+	</queryString>
+	<field name="TRANS" class="java.math.BigDecimal"/>
+	<field name="ASSETSCOM" class="java.math.BigDecimal"/>
+	<field name="ASSETSCON" class="java.math.BigDecimal"/>
+	<field name="ASSETSMACH" class="java.math.BigDecimal"/>
+	<field name="BUILT" class="java.math.BigDecimal"/>
+	<field name="OPEN" class="java.math.BigDecimal"/>
+	<field name="OTHER" class="java.math.BigDecimal"/>
+	<field name="RENT" class="java.math.BigDecimal"/>
+	<variable name="sum_rent" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{RENT}]]></variableExpression>
+	</variable>
+	<variable name="sum_built" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{BUILT}]]></variableExpression>
+	</variable>
+	<variable name="sum_open" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{OPEN}]]></variableExpression>
+	</variable>
+	<variable name="sum_trans" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{TRANS}]]></variableExpression>
+	</variable>
+	<variable name="sum_assetscom" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{ASSETSCOM}]]></variableExpression>
+	</variable>
+	<variable name="sum_assetscon" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{ASSETSCON}]]></variableExpression>
+	</variable>
+	<variable name="sum_assetsmach" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{ASSETSMACH}]]></variableExpression>
+	</variable>
+	<variable name="sum_other" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{OTHER}]]></variableExpression>
+	</variable>
+	<variable name="built" class="java.math.BigDecimal" resetType="Column" incrementType="Column" calculation="Count">
+		<variableExpression><![CDATA[$F{ASSETSCON}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="###0.00">
+				<reportElement x="0" y="0" width="50" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{RENT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="50" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{BUILT}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="120" y="0" width="60" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{OPEN}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="180" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{TRANS}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="250" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ASSETSCOM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="320" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ASSETSCON}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="390" y="0" width="70" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ASSETSMACH}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00">
+				<reportElement x="460" y="0" width="77" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{OTHER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

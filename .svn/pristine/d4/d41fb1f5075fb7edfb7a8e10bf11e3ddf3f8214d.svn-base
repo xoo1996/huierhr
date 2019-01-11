@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="repair_bonus_earmodel" language="groovy" pageWidth="165" pageHeight="20" columnWidth="165" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<property name="ireport.zoom" value="3.4522712143931136"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="sdata" class="java.util.Date"/>
+	<parameter name="edata" class="java.util.Date"/>
+	<queryString>
+		<![CDATA[SELECT
+  nvl(sum(case when m.tmkurg='1' then 2 else 1 end),0) as worknum,
+ count(*) as num,
+nvl(SUM(CASE WHEN p.pdtnm like '%ITE%' or p.pdtnm like '%**%' or p.pdtnm like '%大功率%' then 1  else 0 end),0) as ite
+FROM tblmaking m
+LEFT OUTER JOIN sc05 s
+ON m.tmkshinst= s.bsc011
+LEFT OUTER JOIN tblproduct p
+ON p.pdtid=m.tmkpid
+WHERE s.bsc010 = $P{id}
+and m.tmkshinstdt <=$P{edata}
+AND m.tmkshinstdt  >=$P{sdata}]]>
+	</queryString>
+	<field name="WORKNUM" class="java.math.BigDecimal"/>
+	<field name="NUM" class="java.math.BigDecimal"/>
+	<field name="ITE" class="java.math.BigDecimal"/>
+	<variable name="sum_custom" class="java.math.BigDecimal" incrementType="Report">
+		<variableExpression><![CDATA[$F{NUM}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{NUM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="55" y="0" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{WORKNUM}-$F{NUM}]]></textFieldExpression>
+			</textField>
+			<textField pattern="###0.00" isBlankWhenNull="true">
+				<reportElement x="110" y="0" width="55" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{ITE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

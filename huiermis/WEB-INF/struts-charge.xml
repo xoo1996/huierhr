@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+		<!-- 以下填写业务需要的formbean -->
+		<form-bean name="chargeForm" type="org.radf.apps.charge.form.ChargeForm" />
+		
+		<form-bean name="orderHeaderForm" type="org.radf.apps.order.form.OrderHeaderForm" />
+		<form-bean name="orderDetailForm" type="org.radf.apps.order.form.OrderDetailForm" />
+	</form-beans>
+	
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement" path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action type="org.radf.plat.util.action.Actionback" scope="request"
+			parameter="method" path="/backAction" />
+		<!-- 以下填写业务需要的action（注：上面那个action每个文件都必须需要）-->
+		
+	
+		
+		<action name="chargeForm" parameter="method" path="/ChargeAction"
+			type="org.radf.apps.charge.action.ChargeAction" scope="request">
+			
+			<forward name="normalQuery" path="/norchgquery.jsp" />
+			<forward name="clientQuery" path="/clientquery.jsp" />
+			<forward name="norChargeDetail" path="/ChargeAction.do?method=normalChargeDetail" />
+			<forward name="erbeijiChargeDetail" path="/ChargeAction.do?method=erbeiChargeDetail" />
+			<forward name="norChargeDetailView" path="/ChargeAction.do?method=normalChargeDetailView" />
+			<forward name="norPrint" path="/norchgview.jsp" />
+			
+			<forward name="query" path="/charge/cuschgquery.jsp" />
+			<forward name="cusChargeDetail" path="/cuschgdetail.jsp" />
+			<forward name="jmdcusChargeDetail" path="/jmdcuschgdetail.jsp" />
+			<forward name="view" path="/cuschgview.jsp" />
+			
+			
+			<forward name="repairQuery" path="/charge/repchgquery.jsp" />
+			<forward name="repChargeDetail" path="/repchgdetail.jsp" />
+			<forward name="cusRecDetail" path="/cusrecdetail.jsp" />
+			<forward name="repPrint" path="/repchgview.jsp" />
+			
+			<forward name="recChargeDetail" path="/recoilchgdetail.jsp" />
+			<forward name="recoilquery" path="/recoilquery.jsp" />
+			<forward name="queryNomRec" path="/ChargeAction.do?method=query" />
+	        <forward name="norChgRecDetail" path="/norchgrecdetail.jsp" />
+            
+		</action>
+
+
+
+		<action name="orderHeaderForm" parameter="method" path="/OrderAction"
+			type="org.radf.apps.order.action.OrderAction" scope="request">
+			<forward name="inputOrderDetail" path="/OrderAction.do?method=inputDetail" />
+			<forward name="modify" path="/edit.jsp" />
+			<forward name="delivery" path="/query1.jsp" />
+			<forward name="print" path="/print.jsp" />
+			<forward name="check" path="/check.jsp" />
+			
+			<forward name="repairDetail" path="/repairDetail.jsp" />
+		</action>
+
+		<action name="orderDetailForm" parameter="method" path="/OrderDetailAction"
+			type="org.radf.apps.order.action.OrderDetailAction" scope="request">
+			<forward name="query" path="/query.jsp" />
+			<forward name="deliveried" path="/query1.jsp" />
+		</action>
+		<action name="orderStateForm" parameter="method" path="/OrderStateAction"
+			type="org.radf.apps.order.action.OrderStateAction" scope="request">
+			<forward name="stateQuery" path="/statequery.jsp" />
+		</action>
+		
+	</action-mappings>
+
+</struts-config>

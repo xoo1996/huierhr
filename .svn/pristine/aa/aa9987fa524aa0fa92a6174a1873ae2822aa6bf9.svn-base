@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="ApaForm" type="org.radf.apps.process.form.ApaForm" />
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<!--20070918bylwd-->
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />		
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+	</global-forwards>
+	<action-mappings>
+	    <action type="org.radf.plat.util.action.Actionback"  scope="request" parameter="method" path="/backAction"/>
+		
+		<!-- 配置项基本信息管理   CI   -->
+		<action path="/ApaOperAction" parameter="method" type="org.radf.apps.process.action.ApaOperAction" name="ApaForm" scope="request">
+		    <forward name="detail1" path="/detail1.jsp" />
+		    <forward name="alter1" path="/alter1.jsp" />
+		    <forward name="verify1" path="/verify1.jsp" />
+		    <forward name="detail2" path="/detail2.jsp" />
+		    <forward name="alter2" path="/alter2.jsp" />
+		    <forward name="verify2" path="/verify2.jsp" />
+		    <forward name="detail3" path="/detail3.jsp" />
+		    <forward name="alter3" path="/alter3.jsp" />
+		    <forward name="verify3" path="/verify3.jsp" />
+		    <forward name="detail4" path="/detail4.jsp" />
+		    <forward name="alter4" path="/alter4.jsp" />
+		    <forward name="verify4" path="/verify4.jsp" />
+		    <forward name="detail5" path="/detail5.jsp" />
+		    <forward name="alter5" path="/alter5.jsp" />
+		    <forward name="verify5" path="/verify5.jsp" />
+		    <forward name="leave" path="/leave.jsp" />
+		    <forward name="leave2" path="/leave2.jsp" />
+		    <forward name="leave3" path="/leave3.jsp" />
+		    <forward name="leave4" path="/leave4.jsp" />
+		    <forward name="leave5" path="/leave5.jsp" />
+		    <forward name="leave6" path="/leave6.jsp" />
+		    <forward name="leave7" path="/leave7.jsp" />
+		    <forward name="leave8" path="/leave8.jsp" />
+		    <forward name="look" path="/look.jsp" />
+		    <forward name="look2" path="/look2.jsp" />
+		    <forward name="new2" path="/new2.jsp" />
+		    <forward name="new3" path="/new3.jsp" />
+		    <forward name="new4" path="/new4.jsp" />
+		    <forward name="new5" path="/new5.jsp" />
+		    <forward name="pap" path="/pap.jsp" />
+		    <forward name="wap" path="/wap.jsp" />
+		    <forward name="xq" path="/xq.jsp" />
+		    <forward name="new6" path="/new6.jsp" />
+		    <forward name="alter6" path="/alter6.jsp" />
+		    <forward name="detail6" path="/detail6.jsp" />
+		    <forward name="verify6" path="/verify6.jsp" />
+		    <forward name="verify7" path="/verify7.jsp" />
+		    <forward name="verify8" path="/verify8.jsp" />
+		</action>
+	</action-mappings>
+</struts-config>

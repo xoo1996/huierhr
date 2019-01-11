@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN" "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+		<form-bean name="ChartParamForm" type="org.radf.apps.commons.form.ChartParamForm" />
+		<!-- 以下填写业务需要的formbean -->
+		<form-bean name="singleClientForm"
+			type="org.radf.apps.client.single.form.SingleClientForm" />
+		<form-bean name="groupClientForm"
+			type="org.radf.apps.client.group.form.GroupClientForm" />
+		<form-bean name="diagnoseForm"
+			type="org.radf.apps.client.single.form.DiagnoseForm" />
+		<form-bean name="orderHeaderForm" type="org.radf.apps.order.form.OrderHeaderForm" />
+		<form-bean name="orderDetailForm" type="org.radf.apps.order.form.OrderDetailForm" />
+		<form-bean name="businessForm" type="org.radf.apps.business.form.BusinessForm" />
+		<form-bean name="ReservationForm" type="org.radf.apps.client.single.form.ReservationForm" />
+		<form-bean name="TjForm" type="org.radf.apps.client.single.form.TjForm" />
+	</form-beans>
+	<global-forwards>
+		<forward contextRelative="true" name="globals" path="/js/Globals.js" />
+		<forward contextRelative="true" name="tableshm" path="/js/tableSHM.js" />
+		<forward contextRelative="true" name="css" path="/css/style.css" />
+		<forward contextRelative="true" name="menu" path="/css/styleMenu.css" />
+		<forward contextRelative="true" name="treecss" path="/css/tree.css" />
+		<forward contextRelative="true" name="md5" path="/js/md5.js" />
+		<forward contextRelative="true" name="xtree" path="/js/xtree.js" />
+		<forward contextRelative="true" name="xmlextras" path="/js/xmlextras.js" />
+		<forward contextRelative="true" name="xloadtree" path="/js/xloadtree.js" />
+		<forward contextRelative="true" name="lemistree" path="/js/lemisTree.js" />
+		<forward contextRelative="true" name="top" path="/js/top.js" />
+		<forward contextRelative="true" name="xtreecss" path="/css/xtree.css" />
+		<forward contextRelative="true" name="reportServlet" path="/ReportServlet" />
+		<forward contextRelative="true" name="redirect" path="/common/redirect.jsp" />
+		<forward contextRelative="true" name="backspace" path="/common/backspace.jsp" />
+		<forward contextRelative="true" name="groupTree" path="/js/GroupTree.js" />
+		<forward contextRelative="true" name="lemis_Array" path="/js/lemis_Array.js" />
+		<forward contextRelative="true" name="lemis_Checkbox" path="/js/lemis_Checkbox.js" />
+		<forward contextRelative="true" name="lemis_Misc" path="/js/lemis_Misc.js" />
+		<forward contextRelative="true" name="lemis_Tree" path="/js/lemis_Tree.js" />
+		<forward contextRelative="true" name="lemis_TreeElement" path="/js/lemis_TreeElement.js" />
+		<forward contextRelative="true" name="go2Page" path="/common/go2Page.jsp" />
+		<!-- <forward contextRelative="true" name="inputCustomOrder" path="/order/inputCustomOrder.jsp" /> -->
+	</global-forwards>
+	<action-mappings>
+		<action type="org.radf.plat.util.action.Actionback" scope="request"
+			parameter="method" path="/backAction" />
+		<action type="org.radf.apps.commons.action.ChartAction" name="ChartParamForm"
+			scope="session" parameter="method" path="/ChartAction">
+			<forward contextRelative="true" path="/common/diagnose.jsp"
+				name="showchart" />
+		</action>
+		<!-- 以下填写业务需要的action（注：上面那个action每个文件都必须需要）-->
+		<action name="singleClientForm" parameter="method" path="/SingleClientAction"
+			type="org.radf.apps.client.single.action.SingleClientAction" scope="request">
+			<forward name="add" path="/single/new.jsp" />
+			<forward name="query" path="/single/query.jsp" />
+			<forward name="alter" path="/single/alter.jsp" />
+			<forward name="showdetail" path="/single/showdetail.jsp" />
+			<forward name="modify" path="/single/modify.jsp" />
+			<forward name="view" path="/single/view.jsp" />
+			<forward name="addSC" path="/single/newSC.jsp" />
+		    <forward name="addSCTL" path="/single/newSCTL.jsp" />
+		    <forward name="addSCYYPG" path="/single/newSCYYPG.jsp" />
+		     <forward name="addSCSC" path="/single/newSCSC.jsp" />
+		    <forward name="showdetailSCTL" path="/single/showdetailSCTL.jsp" />
+		    <forward name="showUpdateDetailSCTL" path="/single/showUpdateDetailSCTL.jsp" />
+		    <forward name="showdetailSCSC" path="/single/showdetailSCSC.jsp" />
+			<forward name="addClient" path="/single/addClient.jsp" />
+			<forward name="queryClient" path="/single/queryClient.jsp"></forward>
+			<forward name="addBV" path="/single/newBV.jsp" />
+			<forward name="showBV" path="/single/showdetailBV.jsp" />
+			 <forward name="showUpdateBV" path="/single/showUpdateBV.jsp" />
+		</action>
+		<action name="groupClientForm" parameter="method" path="/GroupClientAction"
+			type="org.radf.apps.client.group.action.GroupClientAction" scope="request">
+			<forward name="add" path="/group/new.jsp" />
+			<forward name="query" path="/group/query.jsp" />
+			<forward name="alter" path="/group/alter.jsp" />
+			<forward name="modify" path="/group/modify.jsp" />
+		</action>
+		<action name="diagnoseForm" parameter="method" path="/DiagnoseAction"
+			type="org.radf.apps.client.single.action.DiagnoseAction" scope="request">
+			<forward name="showchart" path="/single/diagnose.jsp" />
+			<forward name="query" path="/single/query.jsp" />
+		</action>
+		
+		<action name="orderHeaderForm" parameter="method" path="/CustomOrderAction"
+			type="org.radf.apps.order.action.CustomOrderAction" scope="request">
+			<forward name="inputCustomOrder" path="/inputCustomOrder.jsp" />
+			<forward name="inputEarOrder" path="/inputEarOrder.jsp" />
+			
+			 <forward name="showchart" path="/diagnose.jsp" />
+			<forward name="modifyCustom" path="/modifyCustom.jsp" />
+			<forward name="inputCusRepOrder" path="/inputCusRepOrder.jsp" />
+			<forward name="addClientRep" path="/addClientRep.jsp" /> 
+			<forward name="customSelect" path="/customSelect.jsp"></forward>
+			
+		</action>
+		<action name="ReservationForm" parameter="method" path="/ReservationAction"
+			type="org.radf.apps.client.single.action.ReservationAction" scope="session">
+			<forward name="addreservate" path="/addreservate.jsp"	></forward>
+			<forward name="reservate" path="/reservate.jsp"	></forward>
+			<forward name="addClient" path="/addClient.jsp" />
+			<forward name="modify" path="/single/modify.jsp" />
+		</action>
+		<action name="businessForm" parameter="method" path="/BusinessAction"
+			type="org.radf.apps.business.action.BusinessAction" scope="session">
+		</action>
+		<action name="TjForm" parameter="method" path="/TjAction"
+			type="org.radf.apps.client.single.action.TjAction" scope="session">
+		</action>
+	</action-mappings>
+
+</struts-config>

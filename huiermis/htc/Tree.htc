@@ -1,0 +1,694 @@
+/**
+ * 树组件
+ * 节点(TreeNode)，是该组件的核心概念，表示和描述树上的节点的信息
+ * @author	zhouxh,2003.03
+ * MODIFY INFO
+ * huangzg@2003-08-02 设置SelectTree 的默认选中状态
+ * copyright@neusoft	未经授权，请不要修改
+ */
+<public:component>
+
+<public:method name="getRootNode" />					                //
+<public:method name="getCurrentNode" />					                //
+<public:method name="newNodeInitInfo" />				                //ID, label, title, type, data
+<public:method name="createNode" />						                //nodeInitInfo
+<public:method name="insertNode" />						                //parentNode, newNode, refNode
+<public:method name="removeNode" />						                //oldChild
+<public:method name="findNodeByID" />					                //ID
+<public:method name="toggleNode" />						                //node, bShown
+<public:method name="selectNode" />						                //node, bForceIntoView
+<public:method name="checkedNode" />					                //node, bChecked
+<public:method name="makeNodeEditable" />				                //node
+
+//触发下列事件的节点对象可以通过“event.treenode”得到
+<public:event name="onTreeReady" 		    id="treeReady"/>		    //树对象准备好的事件，一般在此进行初始化
+<public:event name="onNodeToggling" 	    id="nodeToggling"/>		    //节点展开/缩进前
+<public:event name="onNodeToggled" 		    id="nodeToggled"/>		    //节点展开/缩进后
+<public:event name="onNodeSelecting" 	    id="nodeSelecting"/>	    //节点选中前
+<public:event name="onNodeSelected" 	    id="nodeSelected"/>		    //节点选中后
+<public:event name="onNodeUnSelected" 	    id="nodeUnSelected"/>	    //当前节点不再被选中
+<public:event name="onNodeToggleClick" 	    id="nodeToggleClick"/>	    //鼠标点击节点的展开/缩进按钮
+<public:event name="onNodeChecking" 	    id="nodeChecking"/>		    //复选框选中/取消选中前
+<public:event name="onNodeChecked" 		    id="nodeChecked"/>		    //复选框选中/取消选中后
+<public:event name="onNodeLabelClick" 	    id="nodeLabelClick"/>	    //鼠标点击节点的Label
+<public:event name="onNodeCheckboxClick" 	id="nodeCheckboxClick"/>	//鼠标点击节点的Label
+<public:event name="onNodeToggleDblClick" 	id="nodeToggleDblClick"/>	//鼠标双击节点的展开/缩进按钮
+<public:event name="onNodeLabelDblClick" 	id="nodeLabelDblClick"/>	//鼠标双击节点的Label
+<public:event name="onNodeToggleMouseDown" 	id="nodeToggleMouseDown"/>	//鼠标键按下
+<public:event name="onNodeLabelMouseDown" 	id="nodeLabelMouseDown"/>	//鼠标键按下
+<public:event name="onNodeLabelEditing"     id="nodeLabelEditing"/>		//节点label内容被编辑并将要失去焦点
+<public:event name="onNodeLabelEdited" 	    id="nodeLabelEdited"/>		//节点label内容被编辑并失去焦点
+
+<public:attach event="onclick" 		onevent="onClick()" />
+<public:attach event="ondblclick" 	onevent="onDblClick()" />
+<public:attach event="onmousedown " onevent="onMouseDown()" />
+<public:attach event="onmouseover" 	onevent="onMouseOver()" />
+<public:attach event="onmouseout" 	onevent="onMouseOut()" />
+<public:attach event="oncontentready" onevent="onContentReady()" />
+<public:attach event="onselectstart" onevent="onSelectStart()" />
+
+<script language="JScript">
+
+//在创建树节点时用来传递节点初始信息的结构。创建方法：newNodeInitInfo
+function NodeInitInfo(ID, label, title, type, data) {
+	//既可以通过形参传递，也可以通过成员变量赋值的方式传递的节点基本初始信息
+	this.ID 	= ID;
+	this.label 	= label;
+	this.title 	= title;
+	this.type 	= type;
+	this.data 	= data;
+
+	//只能通过成员变量赋值的方式传递的节点扩展初始信息
+	this.isLeaf = false;
+	this.hasCheckbox = false;
+	/*保留
+	this.imgLeaf	= null;
+	this.imgOpen	= null;
+	this.imgClose	= null;*/
+	this.imgSelect	= null;
+	this.imgUnselect= null;
+}
+
+//保存节点信息的核心结构。创建方法：createNode
+function TreeNode(nodeInitInfo, htmlContainer, htmlChildContainer) {
+	this.parentNode = null;
+	this.childNodes = new Array();
+	this.index = -1;
+
+	this.ID 	= nodeInitInfo.ID;							//必需
+	this.label 	= nodeInitInfo.label;						//必需
+	this.title 	= nodeInitInfo.title;
+	this.type	= nodeInitInfo.type;
+	this.data 	= nodeInitInfo.data;
+
+	/*this.imgLeaf	= nodeInitInfo.imgLeaf;
+	this.imgOpen	= nodeInitInfo.imgOpen;
+	this.imgClose	= nodeInitInfo.imgClose;*/
+	this.imgSelect	= nodeInitInfo.imgSelect;
+	this.imgUnselect= nodeInitInfo.imgUnselect;
+	this.isLeaf 	= nodeInitInfo.isLeaf;					//是否是叶子节点
+
+	//只读
+	this.expanded 	= false;								//是否处于展开状态
+	this.expandedOnce = false;								//是否曾经被展开过
+	this.hasCheckbox = nodeInitInfo.hasCheckbox;			//是否有复选框
+    //modify by huangzg@2003-08-02
+	this.checked	= nodeInitInfo.checked;									//如果有复选框，则表示是否选中
+
+	this.htmlContainer = htmlContainer;
+	this.htmlChildContainer = htmlChildContainer;
+}
+
+
+/* -------------------------------------------------------------------------------------*/
+/* --------------------------------- 核心 start-----------------------------------------*/
+
+var m_currentNode = null;										//当前节点
+var m_nodeList = new ActiveXObject("Scripting.Dictionary");		//挂在树上的所有节点
+var m_rootNode;													//根结点
+m_rootNode = new TreeNode(newNodeInitInfo("", "", "", null, null), null, element);
+m_rootNode.expanded = true;
+
+
+//获得树的根结点
+function getRootNode() { return m_rootNode;	}
+
+
+//获得当前节点
+function getCurrentNode() { return m_currentNode; }
+
+
+//创建一个节点初始化信息对象
+function newNodeInitInfo(ID, label, title, type, data) {
+	return new NodeInitInfo(ID, label, title, type, data);
+}
+
+
+/**
+ * 创建一个节点，并返回该节点的信息
+ ----------------------------------------------------------------
+ | toggle SPAN | img SPAN(IMG) | checkbox  | label SPAN(A)		|		-
+ |---------------------------------------------------------------	<---|	parent DIV
+ |																|		|
+ |				childs container DIV							|		-
+ ----------------------------------------------------------------
+ */
+function createNode(nodeInitInfo) {
+	if (m_nodeList.Exists(nodeInitInfo.ID))
+		return m_nodeList.Item(nodeInitInfo.ID);
+
+	var htmlContainer	= document.createElement("<div class=clsNode type=parent >");
+
+	//展开/缩进按钮
+	var htmlNodeToggle 	= document.createElement("<span type=toggle ></span>");
+	htmlContainer.appendChild(htmlNodeToggle);
+
+	//图片
+	var htmlNodeImg		= document.createElement("<img class=clsImg type=img style='display:none;'>");
+	if (nodeInitInfo.imgUnselect != null) {
+		htmlNodeImg.src = nodeInitInfo.imgUnselect;
+		htmlNodeImg.style.display = "";
+	}
+	htmlContainer.appendChild(htmlNodeImg);
+
+	//复选框
+	if (nodeInitInfo.hasCheckbox == true) {
+		var htmlCheckbox;
+        //modify by huangzg@2003-08-02
+        if(nodeInitInfo.checked==true){
+    		htmlCheckbox = document.createElement("<input class='clsCheckbox' name='SelectTreeCheckItem' value='"+nodeInitInfo.ID+"' type=checkbox checked />");
+        }else{
+            htmlCheckbox = document.createElement("<input class='clsCheckbox' name='SelectTreeCheckItem' value='"+nodeInitInfo.ID+"' type=checkbox />");
+        }
+        //end
+		htmlContainer.appendChild(htmlCheckbox);
+	}
+
+	//节点Label
+	var htmlNodeLabel 	= document.createElement("<SPAN class=clsLabel type=label classType=clsLabel>");
+	if (nodeInitInfo.title != null)
+		htmlNodeLabel.title = nodeInitInfo.title;
+
+        var htmlNodeA 		= document.createElement("<A tabIndex=-1>");
+
+	htmlNodeA.innerHTML = nodeInitInfo.label;
+	htmlNodeLabel.appendChild(htmlNodeA);
+	htmlContainer.appendChild(htmlNodeLabel);
+
+	//子节点容器
+	var htmlChildContainer = document.createElement("<DIV class=hide type=container>");
+	htmlContainer.appendChild(htmlChildContainer);
+
+	var oTreeNode = new TreeNode(nodeInitInfo, htmlContainer, htmlChildContainer);
+	htmlContainer.treenodeID = oTreeNode.ID;
+	setNodeToggle(oTreeNode, oTreeNode.expanded);
+
+	return oTreeNode;
+}
+
+
+//把一个节点挂到另一个节点下面
+function appendNode(parentNode, newNode, index) {
+	var oNodes = parentNode.childNodes;
+
+	if ( (index==null) || (index>=oNodes.length) ) {
+		newNode.index = oNodes.length;
+		oNodes[oNodes.length] = newNode;
+		parentNode.htmlChildContainer.appendChild(newNode.htmlContainer);
+	} else {
+		for (var i=oNodes.length-1; i>=index; i--) {
+			oNodes[i+1] = oNodes[i];
+			oNodes[i+1].index = i+1;
+		}
+		newNode.index = index;
+		oNodes[index] = newNode;
+		parentNode.htmlChildContainer.insertBefore(newNode.htmlContainer, oNodes[index+1].htmlContainer);
+	}
+	//如果父节点isLeaf，则改为not
+	if (parentNode.isLeaf == true) {
+		parentNode.isLeaf = false;
+		parentNode.expanded = false;
+	}
+	newNode.parentNode = parentNode;
+	registerNodeInNodeList(newNode);
+
+	refreshTreeHtml();
+
+	return newNode;
+}
+
+
+//摘掉一个节点
+function pickoffNode(oldNode) {
+	var oNodes = oldNode.parentNode.childNodes;
+	for (var i=oldNode.index; i<oNodes.length-1; i++) {
+		oNodes[i] = oNodes[i+1];
+		oNodes[i].index = i;
+	}
+	oldNode.index = -1;
+	oNodes.pop();
+	oldNode.parentNode.htmlChildContainer.removeChild(oldNode.htmlContainer);
+	oldNode.parentNode = null;
+	registerNodeInNodeList(oldNode, true);
+
+	refreshTreeHtml();
+
+	return oldNode;
+}
+
+/* --------------------------------- 核心 end-----------------------------------------*/
+
+
+/* --------------------------------- 扩展 start-----------------------------------------*/
+
+/**
+ * 在某一节点之前插入一新节点
+ * parentNode	父节点
+ * newNode		新节点
+ * refNode		参考节点，如果为null，则插入到最后
+ * @return		插入的新节点
+ */
+function insertNode(parentNode, newNode, refNode) {
+	if (refNode != null)
+		return appendNode(parentNode, newNode, refNode.index);
+	else
+		return appendNode(parentNode, newNode);
+}
+
+
+/**
+ * 从树上删除一个节点
+ * oldChild		节点
+ * @return		被删除的节点
+ */
+function removeNode(oldChild) {
+	pickoffNode(oldChild);
+}
+
+
+/**
+ * 根据ID查找节点
+ * ID
+ * @return		节点
+ */
+function findNodeByID(ID) {
+	if (m_nodeList.Exists(ID))
+		return m_nodeList.Item(ID);
+}
+
+
+/**
+ * 展开或缩进节点的子节点
+ * node			节点
+ * bShown		展开(true)或缩进(false)，如果等于null，则根据节点的当前状态做相反操作
+ * @return		节点的当前状态
+ */
+function toggleNode(node, bShown) {
+	var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeToggling.fire(oEvent);
+	if (oEvent.returnValue == false)
+		return null;
+
+	if (bShown == null)
+		bShown = !node.expanded;
+
+	if (bShown == true) {
+		if (node == m_rootNode)
+			node.htmlChildContainer.style.display = "block";
+		else
+			node.htmlChildContainer.className = "shown";
+	} else {
+		if (node == m_rootNode)
+			node.htmlChildContainer.style.display = "none";
+		else
+			node.htmlChildContainer.className = "hide";
+	}
+
+	node.expandedOnce = true;
+	node.expanded = bShown;
+	setNodeToggle(node,bShown);
+
+	refreshTreeHtml();
+
+	var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeToggled.fire(oEvent);
+
+	return node.expanded;
+}
+
+
+/**
+ * 选中一个节点
+ * node		节点
+ * bForceIntoView	是否需要将焦点滚动到中间位置
+ * @return 	node
+ */
+function selectNode(node, bForceIntoView) {
+	if (node == null)
+		return node;
+    //add by huangzg
+    if(node!=null){
+        SelectMenuID=node.ID;
+    }
+	if (m_currentNode != null) {
+		var oEvent = createEventObject();
+		oEvent.treenode = m_currentNode;
+		nodeUnSelected.fire(oEvent);
+		if (oEvent.returnValue == false)
+			return null;
+	}
+
+	var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeSelecting.fire(oEvent);
+	if (oEvent.returnValue == false)
+		return null;
+
+	if ( (m_currentNode != null) && (m_currentNode.imgUnselect != null) ) {
+		var htmlImg = getHtmlElement(m_currentNode.htmlContainer,"IMG");
+		htmlImg.src = m_currentNode.imgUnselect;
+		htmlImg.style.display = "";
+	}
+
+	//加亮节点
+    highlightNode(node);
+    //展开节点
+    var oNodeTemp = node;
+    while(oNodeTemp = oNodeTemp.parentNode) {
+        if( oNodeTemp.expanded == false ) toggleNode(oNodeTemp);
+    }
+    //当前焦点滚动到中间位置。
+    if( bForceIntoView == true) {
+    	var iY = node.htmlContainer.offsetTop - window.document.body.clientHeight/2;
+    	var iX = node.htmlContainer - 15;
+        window.scrollTo( iX , iY );
+	}
+
+    m_currentNode = node;
+    if (m_currentNode.imgSelect != null) {
+		var htmlImg = getHtmlElement(m_currentNode.htmlContainer,"IMG");
+		htmlImg.src = m_currentNode.imgSelect;
+		htmlImg.style.display = "";
+	}
+
+    var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeSelected.fire(oEvent);
+
+	return node;
+}
+
+
+
+//复选框选中或取消选中
+//bChecked等于null，表示取反
+function checkedNode(node,bChecked) {
+	if (node.hasCheckbox != true)
+		return;
+
+	if (bChecked == null)
+		bChecked = !node.checked;
+
+	var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeChecking.fire(oEvent);
+	if (oEvent.returnValue == false)
+		return;
+
+	node.checked = bChecked;
+	var oInputs = node.htmlContainer.all.tags("input");
+	for (var i=0; i<oInputs.length; i++) {
+		if (oInputs[i].type == "checkbox") {
+			oInputs[i].checked = bChecked;
+			break;
+		}
+	}
+
+	var oEvent = createEventObject();
+	oEvent.treenode = node;
+	nodeChecked.fire(oEvent);
+}
+
+
+//使节点可以编辑(Label)
+function makeNodeEditable(node) {
+	var oNodeLabel = getHtmlElement(node.htmlContainer,"SPAN","label");
+	var oNodeA = getHtmlElement(oNodeLabel,"A");
+	oNodeA.onblur = function() {
+		var oThis = event.srcElement;
+		var oNode = findNodeByID(oThis.parentElement.parentElement.treenodeID);
+
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+		nodeLabelEditing.fire(oEvent);
+
+		if (oEvent.returnValue != false) {
+			oThis.contentEditable = false;
+			oTreeNode = oNode;
+			if (oThis.innerText == "") {
+				oThis.innerText = oTreeNode.label;
+			} else {
+				oTreeNode.label = oThis.innerText;
+			}
+			oThis.onblur = null;
+
+			var oEvent = createEventObject();
+			oEvent.treenode = oNode;
+			nodeLabelEdited.fire(oEvent);
+		} else {
+			event.returnValue = false;
+		}
+	}
+	oNodeA.onkeydown = function() {
+		if (event.keyCode == 13) {
+			event.returnValue = false;
+		}
+	}
+	oNodeA.contentEditable = true;
+	oNodeA.focus();
+}
+
+
+
+/* --------------------------------- 扩展 end-----------------------------------------*/
+
+
+/* --------------------------------- 事件处理 start-----------------------------------------*/
+
+
+//当htc准备好之后，触发"onTreeReady"事件
+function onContentReady() {
+	treeReady.fire();
+}
+
+
+//
+function onSelectStart() {
+	window.event.cancelBubble = true;
+	window.event.returnValue = false;
+	return false;
+}
+
+
+// 鼠标点击事件的处理
+function onClick() {
+	var obj = event.srcElement;
+	var oNode = findNodeByID(obj.parentElement.treenodeID);
+	if ( (obj.type == 'toggle') && (oNode.expanded != null) ) {
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+
+
+		nodeToggleClick.fire(oEvent);
+		if (oEvent.returnValue != false)
+			toggleNode(oNode);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if (obj.parentElement.type == 'label') {
+		oNode = findNodeByID(obj.parentElement.parentElement.treenodeID);
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+		nodeLabelClick.fire(oEvent);
+		if (oEvent.returnValue != false)
+			selectNode(oNode);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if (obj.type == 'img') {
+		oNode = findNodeByID(obj.parentElement.treenodeID);
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+		nodeLabelClick.fire(oEvent);
+		if (oEvent.returnValue != false)
+			selectNode(oNode);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if (obj.type == 'checkbox') {
+		oNode = findNodeByID(obj.parentElement.treenodeID);
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+		nodeCheckboxClick.fire(oEvent);
+		if (oEvent.returnValue != false)
+			checkedNode(oNode, !oNode.checked);
+		event.cancelBubble = oEvent.cancelBubble;
+	}
+
+}
+
+
+// 鼠标双击事件的处理
+function onDblClick() {
+	var obj = event.srcElement;
+	var oNode = findNodeByID(obj.parentElement.treenodeID);
+	if ( (obj.type == 'toggle') && (oNode.expanded != null) ) {
+		var oEvent = createEventObject();
+		oEvent.treenode = oNode;
+		nodeToggleDblClick.fire(oEvent);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if (obj.parentElement.type == 'label') {
+		var oEvent = createEventObject();
+		oNode = findNodeByID(obj.parentElement.parentElement.treenodeID);
+		oEvent.treenode = oNode;
+		nodeLabelDblClick.fire(oEvent);
+		if ( (oEvent.returnValue != false) && (oNode.expanded != null) )
+			toggleNode(oNode);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if (obj.type == 'img') {
+		var oEvent = createEventObject();
+		oNode = findNodeByID(obj.parentElement.treenodeID);
+		oEvent.treenode = oNode;
+		nodeLabelDblClick.fire(oEvent);
+		if (oEvent.returnValue != false)
+			toggleNode(oNode);
+		event.cancelBubble = oEvent.cancelBubble;
+	}
+}
+
+
+// 鼠标键按下事件的处理
+function onMouseDown() {
+	var obj = event.srcElement;
+	var oNode;
+	if ( (obj.type == 'toggle') && (obj.className != 'clsLeaf') ) {
+		var oEvent = createEventObject();
+		oNode = findNodeByID(obj.parentElement.treenodeID);
+		oEvent.treenode = oNode;
+		nodeToggleMouseDown.fire(oEvent);
+		event.cancelBubble = oEvent.cancelBubble;
+	} else if ( (obj.parentElement.type == 'label') || (obj.parentElement.type == 'img') ) {
+		var oEvent = createEventObject();
+		oNode = findNodeByID(obj.parentElement.parentElement.treenodeID);
+		oEvent.treenode = oNode;
+		nodeLabelMouseDown.fire(oEvent);
+		event.cancelBubble = oEvent.cancelBubble;
+	}
+}
+
+
+//mouseover事件的处理
+function onMouseOver() {
+	var obj = event.srcElement;
+	var oNode;
+	if ( (obj.type == 'toggle') && (obj.className != 'clsLeaf') ) {
+		;
+	} else if ( (obj.parentElement.type == 'label') || (obj.parentElement.type == 'img') ) {
+		var objParent = obj.parentElement;
+		objParent.classType = objParent.className;
+		objParent.className = 'clsMouseOver';
+	}
+}
+
+
+//mouseout事件的处理
+function onMouseOut() {
+	var obj = event.srcElement;
+	var oNode;
+	if ( (obj.type == 'toggle') && (obj.className != 'clsLeaf') ) {
+		;
+	} else if ( (obj.parentElement.type == 'label') || (obj.parentElement.type == 'img') ) {
+		var objParent = obj.parentElement;
+		objParent.className = objParent.classType;
+	}
+}
+
+
+/* --------------------------------- 事件处理 end-----------------------------------------*/
+
+
+/* --------------------------------- 基础函数 start-----------------------------------------*/
+
+// GetHtmlElement(objParent,strChildTagName)
+function getHtmlElement(objParent,strChildTagName,strType) {
+  	var i = 0;
+  	var objRetVal = null;
+  	var oChildren = null;
+  	if (objParent != null ) {
+  	  	oChildren = objParent.children;
+  	}
+  	for (i = 0; oChildren != null && i < oChildren.length; i++) {
+  	  	if (oChildren[i].tagName.toUpperCase() == strChildTagName.toUpperCase() && ( oChildren[i].type == strType || strType == null ) ) {
+  	    	objRetVal = oChildren[i];
+  	    	break;
+  	    }
+  	}
+  	return objRetVal;
+ }
+
+
+//加亮当前选择的节点
+function highlightNode(node) {
+    var objLabel;
+	var objLabelOld;
+	objLabel = getHtmlElement(node.htmlContainer,"SPAN","label");
+	if (objLabel != null) {
+		objLabel.className = "clsCurrentHasFocus";
+		objLabel.classType = "clsCurrentHasFocus";
+		if ( (m_currentNode != null) && (m_currentNode != node) ) {
+			objLabelOld = getHtmlElement(m_currentNode.htmlContainer,"SPAN","label");
+		    if (objLabelOld != null) {
+				objLabelOld.className = "";
+				objLabelOld.classType = "";
+			}
+		}
+	}
+}
+
+//expand: true 展开; false 关闭;
+//return expand
+function setNodeToggle(node, expand) {
+	if (node.isLeaf == true) {
+		expand = null;
+		node.expanded = null;
+	}
+
+	var htmlToggle 	= getHtmlElement(node.htmlContainer,"SPAN","toggle");
+	var htmlImg		= getHtmlElement(node.htmlContainer,"IMG");
+	var sText;
+
+	if (expand == null) {
+		htmlToggle.className = "clsLeaf";
+		sText = "";
+	} else if (expand == true) {
+		htmlToggle.className = "clsExpand";
+		sText = "-";
+	} else if (expand == false) {
+		htmlToggle.className = "clsCollapse";
+		sText = "+";
+	}
+	var oTextNode = document.createTextNode(sText);
+	if (htmlToggle.hasChildNodes() == true) {
+   		htmlToggle.firstChild.replaceNode(oTextNode);
+   	} else {
+   		htmlToggle.appendChild(oTextNode);
+   	}
+
+	return expand;
+}
+
+
+//注册节点信息（包括子节点）到m_nodeList
+//如果unregister==true，则反注册
+function registerNodeInNodeList(node, unregister) {
+	if (unregister == true) {
+		m_nodeList.Remove(node.ID);
+	} else {
+		m_nodeList.Add(node.ID, node);
+	}
+	var oChildNodes = node.childNodes;
+	for (var i=0; i<oChildNodes.length; i++) {
+		registerNodeInNodeList(oChildNodes[i], unregister);
+	}
+}
+
+
+//解决树显示的混乱问题
+function refreshTreeHtml() {
+	element.style.cssText = element.style.cssText;
+}
+
+
+/* --------------------------------- 基础函数 end-----------------------------------------*/
+
+
+
+</script>
+
+</public:component>
